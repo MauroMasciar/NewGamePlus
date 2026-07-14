@@ -1,23 +1,9 @@
-- Subir imagen del juego a tabla games (en binario) y mostrar en pantalla al tenerlo seleccionado
-- Colecciones
-- TileView para la vista biblioteca
-- JTable con checkbox
-- En las estadisticas, poner un ComboList para seleccionar tiempo (dia-mes-año)
-- steam://run/234140/
-- Temporizador
-- Al crear una nueva plataforma no carga la lista, exception lista vacia
-- AutoSize en las tablas
-- Numero de sesiones por año, mes, dia
-- Agregar tiempo de juego en VER CATEGORIAS
-- Agregar tiempo de juego en VER RATING
-- Guardar posicion y tamaños de los frames internals
-- Al seleccionar un juego en la LISTA PLATAFORMAS, abre el editor de juegos con el id en 1
-- Opcion: Mostrar solo favoritos
-- Clic derecho->Pegar
-- Cuando elimine sesion del historial tambien borrarlo de la web
-- Al agregar un juego si esta completo mandar accountupdate(3)
-- Si al editar un juego, al enviarlo no existe en la bd de la web, que lo cree
-- enviar perfil, cantidad logros en juego
+Model → representa los datos (Game, Session, Player).
+DAO → lee y escribe esos datos en la base.
+Repository → mantiene los objetos cargados en memoria.
+Service → contiene la lógica del programa (iniciar sesión, finalizar sesión, calcular estadísticas, desbloquear logros, etc.).
+UI → solo muestra información y responde a las acciones del usuario.
+
 
 
 
