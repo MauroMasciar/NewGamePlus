@@ -1,16 +1,14 @@
 package app;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
+import repository.GameRepository;
+import ui.Window;
 
 public class Main {
-    public static void main(String[] args) {
-        String url = "jdbc:sqlite:database.db";
+    public static GameRepository repository;
 
-        try (Connection conn = DriverManager.getConnection(url)) {
-            System.out.println("Conectado correctamente");
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+    @SuppressWarnings("unused")
+    public static void main(String[] args) {
+        repository = new GameRepository();
+        Window mw = new Window();
     }
 }

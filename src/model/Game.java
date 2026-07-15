@@ -35,8 +35,9 @@ public class Game {
     private String notes;
     private Icon icon;
 
-    public Game() {
-        
+    public Game(int id, String name) {
+        this.id = id;
+		this.name = name;
     }    
     
     public int getId() {
