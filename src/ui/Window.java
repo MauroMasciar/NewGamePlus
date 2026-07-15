@@ -1,6 +1,7 @@
 package ui;
 
 import app.Main;
+import controller.PlayingController;
 
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
@@ -8,6 +9,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import javax.swing.ImageIcon;
 import javax.swing.JCheckBoxMenuItem;
+import javax.swing.JDesktopPane;
 import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
@@ -62,11 +64,15 @@ public class Window extends JFrame implements ActionListener {
         setLocationRelativeTo(null);
 		setLayout(new FlowLayout());
 
-		createMenuBar();
+        
+        
+		initComponents();
 
-		add(new GamesList());
-		
+        JDesktopPane desktopPane = new JDesktopPane();
+        setContentPane(desktopPane);
 
+        PlayingController pc = new PlayingController(Main.repository.games_list.get(1), desktopPane);
+        
 		setVisible(true);
 	}
 
@@ -75,7 +81,8 @@ public class Window extends JFrame implements ActionListener {
 		
 	}
 
-	public void createMenuBar() {
+	public void initComponents() {
+        
 		menubar.add(mnuGames);
         menubar.add(mnuPlayer);
         menubar.add(mnuData);
