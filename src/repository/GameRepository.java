@@ -1,8 +1,3 @@
-/*
-    Obtener todos los juegos, ordenar, filtrar
-    Pedir a DAO: Buscar, Agregar, Eliminar, Actualizar
- */
-
 package repository;
 
 import model.Game;

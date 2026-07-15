@@ -4,5 +4,7 @@
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="src" path="lib"/>
 	<classpathentry kind="lib" path="c:/Users/Mauro/Documents/Java/DYWTPN/lib/sqlite-jdbc-3.53.2.0.jar"/>
+	<classpathentry kind="lib" path="c:/Users/Mauro/Documents/Java/DYWTPN/lib/flatlaf-3.2.5.jar"/>
+	<classpathentry kind="lib" path="c:/Users/Mauro/Documents/Java/DYWTPN/lib/flatlaf-extras-3.2.5.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

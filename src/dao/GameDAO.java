@@ -36,4 +36,16 @@ public class GameDAO {
 
 	    return games;
 	}
+
+	public void addGame() {
+		
+	}
+
+	public void updateGame() {
+
+	}
+
+	public void deleteGame() {
+
+	}
 }
