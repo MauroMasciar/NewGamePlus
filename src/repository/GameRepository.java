@@ -10,11 +10,11 @@ public class GameRepository {
     public List<Game> games_list = new ArrayList<>();
 
     public GameRepository() {
-        GameDAO games = new GameDAO();
-        games_list = games.getAllGames();
+        GameDAO gameDao = new GameDAO();
+        games_list = gameDao.getAll();
     }
 	
-	public List<Game> getGames() {
+	public List<Game> getList() {
 		return games_list;
 	}
 }

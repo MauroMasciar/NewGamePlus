@@ -1,6 +1,9 @@
 package app;
 
+import repository.CategoryRepository;
 import repository.GameRepository;
+import repository.LibrariesRepository;
+import repository.PlatformsRepository;
 import ui.Window;
 
 import javax.swing.UIManager;
@@ -9,7 +12,10 @@ import com.formdev.flatlaf.themes.FlatMacDarkLaf;
 
 public class Main {
     public static final String VERSION_APP = "2.0.0.6";
-    public static GameRepository repository;
+    public static GameRepository gameRepository;
+    public static CategoryRepository categoryRepository;
+    public static LibrariesRepository librariesRepository;
+    public static PlatformsRepository platformsRepository;
     
     @SuppressWarnings("unused")
     public static void main(String[] args) {
@@ -19,7 +25,10 @@ public class Main {
             e.printStackTrace();
         }
         // Se inician los repositorios
-        repository = new GameRepository();
+        gameRepository = new GameRepository();
+        categoryRepository = new CategoryRepository();
+        librariesRepository = new LibrariesRepository();
+        platformsRepository = new PlatformsRepository();
 
         // Se inicia la ventana principal
         Window mw = new Window();

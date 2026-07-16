@@ -12,7 +12,8 @@ import model.Game;
 
 public class GameDAO {
 	private final String url = "jdbc:sqlite:database.db";
-	public List<Game> getAllGames() {
+
+	public List<Game> getAll() {
 	    List<Game> games = new ArrayList<>();
 
 		String query = "SELECT * FROM games ORDER BY id";
@@ -37,11 +38,11 @@ public class GameDAO {
 	    return games;
 	}
 
-	public void addGame() {
+	public void add() {
 		
 	}
 
-	public void updateGame(Game game) {
+	public void update(Game game) {
 		String query = "UPDATE games SET name = ?, category = ?, library = ?, score = ?, time_played = ?, play_count = ?, completed = ?, completed_date = ?, hidden = ?, path = ?, release_date = ?, developer = ?, series = ?, play_mode = ?, status = ?, source = ?, last_played = ?, rating = ?, platform = ?, publisher = ?, region = ?, version = ?, added = ?, modified = ?, favorite = ?, statistic = ?, portable = ?, image = ?, notes = ? WHERE id = ?;";
 		try (Connection con = DriverManager.getConnection(url);
 			 PreparedStatement ps = con.prepareStatement(query)) {
@@ -84,7 +85,7 @@ public class GameDAO {
 		}
 	}
 
-	public void deleteGame() {
+	public void delete() {
 
 	}
 }

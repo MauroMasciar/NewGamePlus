@@ -55,8 +55,8 @@ public class PlayingController implements ChronometerListener {
     }
 
     private void saveGame() {
-        GameDAO dao = new GameDAO();
-        dao.updateGame(game);
+        GameDAO gameDao = new GameDAO();
+        gameDao.update(game);
     }
 
     public void pauseSession() {
