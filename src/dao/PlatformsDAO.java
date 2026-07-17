@@ -17,9 +17,9 @@ public class PlatformsDAO {
         List<Platforms> Platforms = new ArrayList<>();
         String query = "SELECT * FROM platforms ORDER BY id";
 
-        try(Connection con = DriverManager.getConnection(url)) {
-            PreparedStatement ps = con.prepareStatement(query);
-            ResultSet rs = ps.executeQuery(query);
+        try(Connection con = DriverManager.getConnection(url);
+	        PreparedStatement ps = con.prepareStatement(query);
+	        ResultSet rs = ps.executeQuery()) {
 
             while(rs.next()) {
                 Platforms platforms = new Platforms(rs.getInt("id"), rs.getString("name"), rs.getInt("time_played"), rs.getInt("total_sessions"));

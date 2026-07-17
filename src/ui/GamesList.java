@@ -2,7 +2,7 @@ package ui;
 
 import app.Main;
 import controller.PlayingController;
-import model.Game;
+import model.Games;
 
 import javax.swing.JInternalFrame;
 import javax.swing.JLabel;
@@ -26,8 +26,8 @@ public class GamesList extends JInternalFrame implements ActionListener {
 	private JLabel lblMyGames = new JLabel("Mis juegos");
 	private JButton btnFilter = new JButton("F"); //TO DO: poner icono de filtro
 	private JButton btnLaunch = new JButton("Lanzar");
-	private JList<Game> jlistGames = new JList<>();
-	private DefaultListModel<Game> model = new DefaultListModel<>();
+	private JList<Games> jlistGames = new JList<>();
+	private DefaultListModel<Games> model = new DefaultListModel<>();
 	
 	
 	public GamesList(JDesktopPane desktopPane) {
@@ -38,7 +38,7 @@ public class GamesList extends JInternalFrame implements ActionListener {
 		jlistGames.setModel(model);
 		jlistGames.setCellRenderer(new GameRenderer());
 		
-		for(Game game : Main.repository.games_list) {
+		for(Games game : Main.gameRepository.games_list) {
 			model.addElement(game);
 		}
 
@@ -63,7 +63,6 @@ public class GamesList extends JInternalFrame implements ActionListener {
 			} catch (NullPointerException ex) {
 				ex.printStackTrace();
 			}
-			
 		}
 	}
 }

@@ -1,20 +1,20 @@
 package repository;
 
-import model.Game;
-import dao.GameDAO;
+import model.Games;
+import dao.GamesDAO;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class GameRepository {
-    public List<Game> games_list = new ArrayList<>();
+    public List<Games> games_list = new ArrayList<>();
 
     public GameRepository() {
-        GameDAO gameDao = new GameDAO();
+        GamesDAO gameDao = new GamesDAO();
         games_list = gameDao.getAll();
     }
 	
-	public List<Game> getList() {
+	public List<Games> getList() {
 		return games_list;
 	}
 }

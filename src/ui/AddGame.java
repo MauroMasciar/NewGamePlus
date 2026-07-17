@@ -6,7 +6,6 @@ import util.Validations;
 
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
-import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Date;
 import javax.swing.BorderFactory;
@@ -22,11 +21,10 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.SpinnerNumberModel;
 import javax.swing.WindowConstants;
-import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 import com.raven.datechooser.DateChooser;
 
-public class AddGame extends JDialog implements ActionListener, ChangeListener {
+public class AddGame extends JDialog {
     private final JPanel pnlDetails = new JPanel();
     private final JLabel lblTitle = new JLabel("Titulo:");
     private final JLabel lblReleaseDate = new JLabel("Fecha de lanzamiento:");
@@ -51,59 +49,100 @@ public class AddGame extends JDialog implements ActionListener, ChangeListener {
     private final JLabel lblPath = new JLabel("Ejecutable:");
     private final JLabel lblScore = new JLabel(" Puntaje:");
     private final JLabel lblCategory = new JLabel("Categoria:");
-    private final JTextField txtGameName = new JTextField(20);
-    private final JTextField txtReleaseDate = new JTextField(20);
-    private final JTextField txtGenre = new JTextField(10);
-    private final JComboBox<String> cbPlatform = new JComboBox<>();
-    private final JTextField txtDeveloper = new JTextField(10);
-    private final JTextField txtPublisher = new JTextField(10);
-    private final JTextField txtSeries = new JTextField(10);
-    private final JTextField txtRegion = new JTextField(10);
-    private final JTextField txtPlayMode = new JTextField(10);
-    private final JTextField txtVersion = new JTextField(10);
-    private final JTextField txtStatus = new JTextField(10);
-    private final JTextField txtLastPlayed = new JTextField(10);
-    private final JTextField txtAdded = new JTextField(10);
-    private final JTextField txtModified = new JTextField(10);
-    private final JTextField txtPath = new JTextField(10);
-    private final JTextField txtCompletedDate = new JTextField(10);
-    private final JTextField txtPlayCount = new JTextField();
-    private final JCheckBox chFavorite = new JCheckBox("Favorito");
-    private final JCheckBox chCompleted = new JCheckBox("Completado");
-    private final JCheckBox chStatistic = new JCheckBox("Estadísticas");
-    private final JCheckBox chGhost = new JCheckBox("Fantasma");
-    private final JCheckBox chPortable = new JCheckBox("Portable");
-    private final JCheckBox chHide = new JCheckBox("Oculto");
-    private final JComboBox<String> cbRating = new JComboBox<>();
-    private final JComboBox<String> cbCategory = new JComboBox<>();
-    private final JComboBox<String> cbLibrary = new JComboBox<>();
-    private final SpinnerNumberModel spinnerNumberModelScore = new SpinnerNumberModel();
-    private final SpinnerNumberModel spinnerNumberModelGameTime = new SpinnerNumberModel();
-    private final JSpinner spinScore = new JSpinner();
-    private final JSpinner spinGameTime = new JSpinner();
-    private final JPanel pnlNotes = new JPanel();
-    private final JTextArea txtaNotes = new JTextArea();
-    private final JScrollPane scrNotes = new JScrollPane(txtaNotes);
-    private final DateChooser dcCompletedDate = new DateChooser();
-    private final DateChooser dcReleaseDate = new DateChooser();
-    private final JButton btnSave = new JButton("Guardar");
-    private final AddGameController controller;
+    public final JTextField txtGameName = new JTextField(20);
+    public final JTextField txtReleaseDate = new JTextField(20);
+    public final JTextField txtGenre = new JTextField(10);
+    public final JComboBox<String> cbPlatform = new JComboBox<>();
+    public final JTextField txtDeveloper = new JTextField(10);
+    public final JTextField txtPublisher = new JTextField(10);
+    public final JTextField txtSeries = new JTextField(10);
+    public final JTextField txtRegion = new JTextField(10);
+    public final JTextField txtPlayMode = new JTextField(10);
+    public final JTextField txtVersion = new JTextField(10);
+    public final JTextField txtStatus = new JTextField(10);
+    public final JTextField txtLastPlayed = new JTextField(10);
+    public final JTextField txtAdded = new JTextField(10);
+    public final JTextField txtModified = new JTextField(10);
+    public final JTextField txtPath = new JTextField(10);
+    public final JTextField txtCompletedDate = new JTextField(10);
+    public final JTextField txtPlayCount = new JTextField();
+    public final JCheckBox chFavorite = new JCheckBox("Favorito");
+    public final JCheckBox chCompleted = new JCheckBox("Completado");
+    public final JCheckBox chStatistic = new JCheckBox("Estadísticas");
+    public final JCheckBox chGhost = new JCheckBox("Fantasma");
+    public final JCheckBox chPortable = new JCheckBox("Portable");
+    public final JCheckBox chHide = new JCheckBox("Oculto");
+    public final JComboBox<String> cbRating = new JComboBox<>();
+    public final JComboBox<String> cbCategory = new JComboBox<>();
+    public final JComboBox<String> cbLibrary = new JComboBox<>();
+    public final SpinnerNumberModel spinnerNumberModelScore = new SpinnerNumberModel();
+    public final SpinnerNumberModel spinnerNumberModelGameTime = new SpinnerNumberModel();
+    public final JSpinner spinScore = new JSpinner();
+    public final JSpinner spinGameTime = new JSpinner();
+    public final JPanel pnlNotes = new JPanel();
+    public final JTextArea txtaNotes = new JTextArea();
+    public final JScrollPane scrNotes = new JScrollPane(txtaNotes);
+    public final DateChooser dcCompletedDate = new DateChooser();
+    public final DateChooser dcReleaseDate = new DateChooser();
+    public final JButton btnSave = new JButton("Guardar");
+    public final AddGameController controller;
 
     public AddGame(Window window, AddGameController ag, boolean modal) {
         super(window, true);
-        /*try {
-            java.awt.Image icon = Toolkit.getDefaultToolkit().getImage("resources/icons/new_game.png");
-            this.setIconImage(icon);
-        } catch (Exception ex) {
-            ex.printStackTrace();
-            JOptionPane.showMessageDialog(this, "No se ha podido cargar algunos recursos.", "Error en la carga de recursos", JOptionPane.ERROR_MESSAGE);
-        }*/
-        setTitle("Añadir nuevo juego");
-        
         setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
-        setLayout(new GridBagLayout());
-
+        setTitle("Añadir nuevo juego");
         this.controller = ag;
+
+        initComponents();
+    }
+
+    public void showPopupCompletedDateListener(ActionListener listener) {
+        txtCompletedDate.addActionListener(listener);
+    }
+
+    public void showPopupReleaseDateListener(ActionListener listener) {
+        txtReleaseDate.addActionListener(listener);
+    }
+
+    public void setBtnSaveListener(ActionListener listener) {
+        btnSave.addActionListener(listener);
+    }
+
+    public void setLblConvertedSeconds(String text) {
+        lblConvertedSeconds.setText(text);
+    }
+
+    public void setSpinGameTimeListener(ChangeListener listener) {
+        spinGameTime.addChangeListener(listener);
+    }
+
+    public void fillComboBoxCategory(String value) {
+        cbCategory.addItem(value);
+    }
+
+    public void fillComboBoxLibrary(String value) {
+        cbLibrary.addItem(value);
+    }
+
+    public void filLComboBoxPlatform(String value) {
+        cbPlatform.addItem(value);
+    }
+
+    public String getSpinGameTimeValue() {
+        return spinGameTime.getValue().toString();
+    }
+
+    public void showPopupCompletedDate() {
+        dcCompletedDate.showPopup();
+    }
+
+    public void showPopupReleaseDate() {
+        dcReleaseDate.showPopup();
+    }
+
+    public void initComponents() {
+        setLayout(new GridBagLayout());
+        
         pnlDetails.setLayout(new GridBagLayout());
         pnlDetails.setBorder(BorderFactory.createTitledBorder("Detalles"));
 
@@ -306,15 +345,6 @@ public class AddGame extends JDialog implements ActionListener, ChangeListener {
         gbc.fill = GridBagConstraints.NONE;
         add(btnSave, gbc);
 
-        txtCompletedDate.addActionListener(this);
-        txtReleaseDate.addActionListener(this);
-        btnSave.addActionListener(this);
-        spinGameTime.addChangeListener(this);
-        txtAdded.setEditable(false);
-        txtModified.setEditable(false);
-        txtaNotes.setLineWrap(true);
-        txtaNotes.setWrapStyleWord(true);
-
         chGhost.setToolTipText("Especifica si quieres iniciar el juego manualmente en vez de que lo inicie la aplicación");
         txtPath.setToolTipText("Especifica la ruta completa al ejecutable");
         chStatistic.setToolTipText("Especifica si quieres que este juego aparezca en las estadísticas");
@@ -349,23 +379,10 @@ public class AddGame extends JDialog implements ActionListener, ChangeListener {
 
         if(Validations.isEmpty(txtReleaseDate)) txtReleaseDate.setText("1900-01-01");
         if(Validations.isEmpty(txtLastPlayed)) txtLastPlayed.setText("1900-01-01 00:00:00");
-    }
 
-    @Override
-    public void actionPerformed(ActionEvent e) {
-        if(e.getSource() == btnSave) {
-            controller.saveData();
-        } else if(e.getSource() == txtCompletedDate) {
-            dcCompletedDate.showPopup();
-        } else if(e.getSource() == txtReleaseDate) {
-            dcReleaseDate.showPopup();
-        } 
-    }
-
-    @Override
-    public void stateChanged(ChangeEvent e) {
-        if(e.getSource() == spinGameTime) {
-            lblConvertedSeconds.setText(" (" + Utils.getTotalHoursFromSeconds((Integer)spinGameTime.getValue(), true) + ")");
-        }
+        txtAdded.setEditable(false);
+        txtModified.setEditable(false);
+        txtaNotes.setLineWrap(true);
+        txtaNotes.setWrapStyleWord(true);
     }
 }

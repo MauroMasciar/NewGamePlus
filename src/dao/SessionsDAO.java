@@ -1,5 +1,5 @@
 package dao;
 
-public class AchievementDAO {
+public class SessionsDAO {
     private final String url = "jdbc:sqlite:database.db";
 }

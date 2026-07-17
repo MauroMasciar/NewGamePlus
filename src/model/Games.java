@@ -1,6 +1,6 @@
 package model;
 
-public class Game {
+public class Games {
 	private int id;
 	private String name;
     private int category;
@@ -17,9 +17,8 @@ public class Game {
     private String series;
     private String play_mode;
     private String status;
-    private String source;
     private String last_played;
-    private int rating;
+    private String rating;
     private int platform;
     private String publisher;
     private String region;
@@ -32,10 +31,10 @@ public class Game {
     private String image;
     private String notes;
 
-	public Game(int id, String name, int category, int library, int score, int timePlayed, int play_count,
+	public Games(int id, String name, int category, int library, int score, int timePlayed, int play_count,
 				int completed, String completed_date, int hidden, String path, String release_date,
-				String developer, String series, String play_mode, String status, String source, String last_played,
-				int rating, int platform, String publisher, String region, String version, String added, String modified,
+				String developer, String series, String play_mode, String status, String last_played,
+				String rating, int platform, String publisher, String region, String version, String added, String modified,
 				int favorite, int statistic, int portable, String image, String notes) {
 		this.id = id;
 		this.name = name;
@@ -53,7 +52,6 @@ public class Game {
 		this.series = series;
 		this.play_mode = play_mode;
 		this.status = status;
-		this.source = source;
 		this.last_played = last_played;
 		this.rating = rating;
 		this.platform = platform;
@@ -197,14 +195,6 @@ public class Game {
 		this.status = status;
 	}
 
-	public String getSource() {
-		return source;
-	}
-
-	public void setSource(String source) {
-		this.source = source;
-	}
-
 	public String getLastPlayed() {
 		return last_played;
 	}
@@ -213,11 +203,11 @@ public class Game {
 		this.last_played = last_played;
 	}
 
-	public int getRating() {
+	public String getRating() {
 		return rating;
 	}
 
-	public void setRating(int rating) {
+	public void setRating(String rating) {
 		this.rating = rating;
 	}
 

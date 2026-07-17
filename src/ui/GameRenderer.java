@@ -1,6 +1,6 @@
 package ui;
 
-import model.Game;
+import model.Games;
 import util.Utils;
 
 import java.awt.BorderLayout;
@@ -13,7 +13,7 @@ import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.ListCellRenderer;
 
-public class GameRenderer extends JPanel implements ListCellRenderer<Game> {
+public class GameRenderer extends JPanel implements ListCellRenderer<Games> {
 	private static final long serialVersionUID = 7936054548862174386L;
 	private JLabel lblIcon = new JLabel();
 	private JLabel lblName = new JLabel();
@@ -36,7 +36,7 @@ public class GameRenderer extends JPanel implements ListCellRenderer<Game> {
 	}
 
 	@Override
-	public Component getListCellRendererComponent(JList<? extends Game> list, Game game, int index, boolean selected, boolean hasFocus) {
+	public Component getListCellRendererComponent(JList<? extends Games> list, Games game, int index, boolean selected, boolean hasFocus) {
 		lblName.setText(game.getName());
 		lblTime.setText(Utils.getTotalHoursFromSeconds((int)game.getTimePlayed(),false));
 

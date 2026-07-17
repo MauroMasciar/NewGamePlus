@@ -3,10 +3,10 @@ package controller;
 import service.ChronometerListener;
 import service.ChronometerService;
 import service.Toast;
-import model.Game;
+import model.Games;
 import ui.Chronometer;
 import util.Utils;
-import dao.GameDAO;
+import dao.GamesDAO;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -14,7 +14,7 @@ import javax.swing.JDesktopPane;
 import javax.swing.Timer;
 
 public class PlayingController implements ChronometerListener {
-    private final Game game;
+    private final Games game;
     private Chronometer view;
     private ChronometerService ch;
     private boolean game_init = false;
@@ -24,7 +24,7 @@ public class PlayingController implements ChronometerListener {
     private Timer timerStrobe;
     private JDesktopPane desktopPane;
 
-    public PlayingController(Game game, JDesktopPane desktopPane) {
+    public PlayingController(Games game, JDesktopPane desktopPane) {
         this.game = game;
         this.desktopPane = desktopPane;
         
@@ -55,7 +55,7 @@ public class PlayingController implements ChronometerListener {
     }
 
     private void saveGame() {
-        GameDAO gameDao = new GameDAO();
+        GamesDAO gameDao = new GamesDAO();
         gameDao.update(game);
     }
 
