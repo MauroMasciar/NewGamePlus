@@ -32,10 +32,6 @@ private final String url = "jdbc:sqlite:database.db";
         return player_list;
     }
 
-    public void add() {
-
-    }
-
     public void update() {
         String query = "UPDATE players SET played_time = ?, total_sessions = ? WHERE id = ?";
 		try (Connection con = DriverManager.getConnection(url);
@@ -49,13 +45,5 @@ private final String url = "jdbc:sqlite:database.db";
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-    }
-
-    public void update(int i) {
-        
-    }
-
-    public void delete() {
-
     }
 }

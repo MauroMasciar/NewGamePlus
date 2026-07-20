@@ -15,22 +15,42 @@ public class GeneralSummary extends JInternalFrame {
     private JLabel lblTitle = new JLabel("Resumen general");
     private JPanel panelTime = new JPanel();
     private JLabel lblTotalTime = new JLabel("Tiempo total");
-    private JLabel lblTotalTimeHoursValue = new JLabel("7387h 52m");
-    private JLabel lblTotalTimeDaysValue = new JLabel("327d 0h 52m");
+    private JLabel lblTotalTimeHoursValue = new JLabel("No se pudieron cargar los datos");
+    private JLabel lblTotalTimeDaysValue = new JLabel("No se pudieron cargar los datos");
     private JPanel panelGameStarted = new JPanel();
     private JLabel lblTotalGamesStarted = new JLabel("Juegos iniciados");
-    private JLabel lblTotalGamesStartedValue = new JLabel("152");
+    private JLabel lblTotalGamesStartedValue = new JLabel("No se pudieron cargar los datos");
     private JPanel panelCompleted = new JPanel();
     private JLabel lblCompleted = new JLabel("Completados");
-    private JLabel lblCompletedValue = new JLabel("48");
+    private JLabel lblCompletedValue = new JLabel("No se pudieron cargar los datos");
     private JPanel panelSessions = new JPanel();
     private JLabel lblSessions = new JLabel("Sesiones");
-    private JLabel lblSessionsValue = new JLabel("96");
+    private JLabel lblSessionsValue = new JLabel("No se pudieron cargar los datos");
     
     public GeneralSummary() {
         initComponents();
     }
 
+    public void setLblTotalTimeHoursValue(String text) {
+        lblTotalTimeHoursValue.setText(text);
+    }
+
+    public void setlblTotalTimeDaysValue(String text) {
+        lblTotalTimeDaysValue.setText(text);
+    }
+
+    public void lblTotalGamesStartedValue(String text) {
+        lblTotalGamesStartedValue.setText(text);
+    }
+
+    public void lblCompletedValue(String text) {
+        lblCompletedValue.setText(text);
+    }
+
+    public void lblSessionsValue(String text) {
+        lblSessionsValue.setText(text);
+    }
+    
     public void initComponents() {
         setLayout(new GridBagLayout());
         panelTitle.setLayout(new GridBagLayout());

@@ -3,6 +3,7 @@ package ui;
 import app.Main;
 import controller.AddGameController;
 import controller.AddSessionManuallyController;
+import controller.GeneralSummaryController;
 
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
@@ -71,9 +72,10 @@ public class Window extends JFrame implements ActionListener {
 		initComponents();
     
         add(new GamesList(desktopPane));
-        //add(new GeneralSummary());
         add(new SessionsHistory());
-        
+
+        @SuppressWarnings("unused")
+        GeneralSummaryController generalSummaryController = new GeneralSummaryController(this);        
 		setVisible(true);
 	}
 

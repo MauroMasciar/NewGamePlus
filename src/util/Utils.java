@@ -85,6 +85,20 @@ public class Utils {
         return sHour + "h " + sMinute + "m";
     }
 
+    public static String getTotalDaysFromSeconds(int totalSeconds) {
+        int days = totalSeconds / 86400;
+        int hours = (totalSeconds % 86400) / 3600;
+        int minutes = (totalSeconds % 3600) / 60;
+
+        StringBuilder time = new StringBuilder();
+
+        if (days > 0) time.append(days).append(" d ");
+        if (hours > 0 || hours > 0) time.append(hours).append(" h ");
+        time.append(minutes).append(" m ");
+
+        return time.toString().trim();
+    }
+
     /*public static void logExceptions(Exception ex) {
         ex.printStackTrace();
         StackTraceElement[] e = ex.getStackTrace();
