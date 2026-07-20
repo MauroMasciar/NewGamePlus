@@ -82,6 +82,7 @@ public class PlayingController implements ChronometerListener {
     }
 
     public void endSession() {
+        // TODO: Avisar que no se guardo la sesion si el tiempo de juego es menor a Utils.MINIMUN_SESSION_SECONDS
         chronometerService.stop();
         if(timerStrobe != null) timerStrobe.stop();
         if(playedSeconds > Utils.MINIMUN_SESSION_SECONDS) {

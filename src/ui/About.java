@@ -9,7 +9,6 @@ import javax.swing.JPanel;
 import javax.swing.JLabel;
 
 public class About extends JDialog {
-    private static final long serialVersionUID = 7342188362929540330L;
     private final JPanel pnlInfo = new JPanel();
     private final JLabel lblFirstLine = new JLabel();
     private final JLabel lblSecondLine = new JLabel();

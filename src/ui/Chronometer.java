@@ -19,7 +19,6 @@ import java.awt.Insets;
 import java.awt.event.ActionListener;
 
 public class Chronometer extends JInternalFrame {
-	private static final long serialVersionUID = 3054154723097695816L;
 	private JLabel lblSeparator = new JLabel("_____________________________________________");
 	private JLabel lblSeparator2 = new JLabel("_____________________________________________");
 	private JLabel lblSeparator3 = new JLabel("_____________________________________________");

@@ -16,7 +16,7 @@ import javax.swing.table.TableColumn;
 
 public class Utils {
 	public static final String COLOR_GREEN = "#48bd4e";
-    public static final int MINIMUN_SESSION_SECONDS = 1;
+    public static final int MINIMUN_SESSION_SECONDS = 300;
     public static final int SECONDS_PER_HOUR = 3600;
     
     public static String getFormattedDate() {

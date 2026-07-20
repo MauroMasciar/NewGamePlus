@@ -1,8 +1,6 @@
-/*
-TO DO: Crear controlador y service para esto
- */
-
+// TODO: Crear controlador y service para esto
 package ui;
+
 import model.History;
 import util.Utils;
 import app.Main;

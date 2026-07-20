@@ -59,7 +59,7 @@ public class Window extends JFrame implements ActionListener {
     private JDesktopPane desktopPane;
 	public Window() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		String title = "DYWTPN v" + Main.VERSION_APP;
+		String title = "NewGame+ v" + Main.VERSION_APP;
 		setTitle(title);
         setIconImage(new ImageIcon(getClass().getResource("/resources/icons/icon.png")).getImage());
         setBounds(30, 30, 1400, 900);

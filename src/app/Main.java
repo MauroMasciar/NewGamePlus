@@ -1,3 +1,20 @@
+/**
+ * NewGame+
+ *
+ * Gestor de videojuegos de código abierto con estadísticas, historial de sesiones,
+ * resúmenes y sincronización con el perfil en la web.
+ *
+ * Repositorio:
+ * https://github.com/MauroMasciar/NewGamePlus
+ *
+ * Historial de versiones:
+ * - v1.0 - Iniciada el 23 de octubre de 2023
+ * - v2.0 - Iniciada el 13 de julio de 2026
+ *
+ * @author Mauro Masciadro
+ * @version 2.0
+ */
+
 package app;
 
 import repository.AchievementRepository;
@@ -14,7 +31,7 @@ import javax.swing.UnsupportedLookAndFeelException;
 import com.formdev.flatlaf.themes.FlatMacDarkLaf;
 
 public class Main {
-    public static final String VERSION_APP = "2.0.0.15";
+    public static final String VERSION_APP = "2.0.0.16";
     public static PlayerRepository playerRepository;
     public static GameRepository gameRepository;
     public static CategoryRepository categoryRepository;

@@ -14,7 +14,6 @@ import javax.swing.JPanel;
 import javax.swing.ListCellRenderer;
 
 public class GameRenderer extends JPanel implements ListCellRenderer<Games> {
-	private static final long serialVersionUID = 7936054548862174386L;
 	private JLabel lblIcon = new JLabel();
 	private JLabel lblName = new JLabel();
 	private JLabel lblTime = new JLabel();
