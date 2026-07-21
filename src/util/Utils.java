@@ -123,27 +123,6 @@ public class Utils {
             }
         }).start();
     }*/
-
-    /*public static void cronometer() {
-        LocalDateTime initTime;
-        initTime = LocalDateTime.now();
-        boolean b = true;        
-        new Thread(new Runnable() {
-            public void run() {
-                while(b) {
-                    LocalDateTime currentTime = LocalDateTime.now();
-                    int secondsBeetwenTimes = (int) ChronoUnit.SECONDS.between(initTime, currentTime);
-                    System.out.println(secondsBeetwenTimes);
-                    try {
-                        Thread.sleep(1000);
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }                        
-                }
-
-            }
-        }).start();
-    }*/
     
     public static String getMd5(String input) {
         try {

@@ -78,12 +78,13 @@ public class GameService {
 				developer, series, playMode, status, lastPlayed, rating, platform, publisher, region, version, added, modified, favorite, statistic, 
                 portable, image, notes);
             GamesDAO gamesDao = new GamesDAO();
-            gamesDao.add(game);
-            Main.gameRepository.games_list.add(game);
-            achievementService.createGameObtainedAchievement(game);
-            view.dispose();
+            if(gamesDao.add(game)) {
+                Main.gameRepository.games_list.add(game);
+                achievementService.createGameObtainedAchievement(game);
+                view.dispose();
+                return true;
+            } else return false;
         }
-        return true;
     }
 
     public Games findById(int id) {

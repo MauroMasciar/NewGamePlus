@@ -50,7 +50,7 @@ public class GamesDAO {
 		return 0;
 	}
 
-	public void add(Games game) {
+	public boolean add(Games game) {
 		String query = "INSERT INTO games (name, category, library, score, time_played, play_count, completed, completed_date, hidden, path, release_date, developer, series, play_mode, status, last_played, rating, platform, publisher, region, version, added, modified, favorite, statistic, portable, image, notes) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 		try (Connection con = DriverManager.getConnection(url);
 			 PreparedStatement ps = con.prepareStatement(query)) {
@@ -85,10 +85,11 @@ public class GamesDAO {
 			ps.setString(28, game.getNotes());
 
 			int rowsAffected = ps.executeUpdate();
-			if(rowsAffected != 0) System.out.println("Juego añadido");
+			if(rowsAffected != 0) return true;
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+		return false;
 	}
 
 	public void update(Games game) {
@@ -131,9 +132,5 @@ public class GamesDAO {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-	}
-
-	public void delete() {
-
 	}
 }

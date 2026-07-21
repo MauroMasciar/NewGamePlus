@@ -30,7 +30,13 @@ public class AddGameController {
 
         view.showPopupCompletedDateListener(e -> showPopupCompletedDate());
         view.showPopupReleaseDateListener(e -> showPopupReleaseDate());
-        view.setBtnSaveListener(e -> GameService.saveData());
+        view.setBtnSaveListener(e -> {
+            boolean saved = GameService.saveData();
+            if(saved) view.showInfo("El juego ha sido añadido a tu biblioteca");
+            else view.showError("Ha habido un error al agregar el juego a la biblioteca");
+        }
+            
+        );
         view.setSpinGameTimeListener(e -> setSpinGameTimer());
 
         view.setVisible(true);

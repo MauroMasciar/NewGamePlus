@@ -24,6 +24,7 @@ public class PlayingController implements ChronometerListener {
     private LocalDateTime startTime = LocalDateTime.now();
     private DateTimeFormatter format_time = DateTimeFormatter.ofPattern("HH:mm");
     private int playedSeconds;
+    private int pausedSeconds;
     private Timer timerStrobe;
     private JDesktopPane desktopPane;
 
@@ -32,8 +33,9 @@ public class PlayingController implements ChronometerListener {
         this.desktopPane = desktopPane;
         
         // Iniciamos vista
-        view = new Chronometer(this);
+        view = new Chronometer();
         desktopPane.add(view);
+        view.toFront();
 
         // Iniciamos listener del cronometro
         chronometerService = new ChronometerService();
@@ -52,7 +54,7 @@ public class PlayingController implements ChronometerListener {
         view.setAgeSession("Iniciado a las " + startTime.format(format_time) + " hace " + Utils.getTotalHoursFromSeconds(0, false));
         try {
             view.setAvgTimePlayed(Utils.getTotalHoursFromSeconds(game.getTimePlayed() / game.getPlayCount(), false));
-        } catch (Exception ex) {
+        } catch (Exception e) {
             view.setAvgTimePlayed("00h 00m");
         }
         
@@ -82,12 +84,14 @@ public class PlayingController implements ChronometerListener {
     }
 
     public void endSession() {
-        // TODO: Avisar que no se guardo la sesion si el tiempo de juego es menor a Utils.MINIMUN_SESSION_SECONDS
         chronometerService.stop();
         if(timerStrobe != null) timerStrobe.stop();
+        view.dispose();
         if(playedSeconds > Utils.MINIMUN_SESSION_SECONDS) {
             AddSessionService addSessionService = new AddSessionService();
-            addSessionService.addSession(game, startTime, playedSeconds);
+            addSessionService.addSession(game, startTime, playedSeconds, pausedSeconds);
+        } else {
+            view.showError("El tiempo de juego ha sido muy corto y no se ha guardado");
         }
         view.dispose();
     }
@@ -95,6 +99,7 @@ public class PlayingController implements ChronometerListener {
     @Override
     public void timeUpdate(int playedSeconds, int pausedSeconds) {
         this.playedSeconds = playedSeconds;
+        this.pausedSeconds = pausedSeconds;
         view.setTime(Utils.getTotalHoursFromSeconds(playedSeconds, true));
         view.setTimePaused(Utils.getTotalHoursFromSeconds(pausedSeconds, true));
         view.setTimeTotal(Utils.getTotalHoursFromSeconds(pausedSeconds + playedSeconds, true));

@@ -33,7 +33,7 @@ import com.formdev.flatlaf.themes.FlatMacDarkLaf;
 
 
 public class Main {
-    public static final String VERSION_APP = "2.0.0.20";
+    public static final String VERSION_APP = "2.0.0.21";
     public static PlayerRepository playerRepository;
     public static GameRepository gameRepository;
     public static CategoryRepository categoryRepository;

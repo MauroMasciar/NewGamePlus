@@ -26,9 +26,9 @@ public class AddSessionService {
         saveAll(game, dateTimeStart.toString(), dateTimeEnd.toString(), seconds);
     }
 
-    public void addSession(Games game, LocalDateTime dateTimeStart, int seconds) {
+    public void addSession(Games game, LocalDateTime dateTimeStart, int seconds, int pausedSeconds) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-        LocalDateTime dateTimeEnd = dateTimeStart.plusSeconds(seconds);
+        LocalDateTime dateTimeEnd = dateTimeStart.plusSeconds(seconds + pausedSeconds);
         String dateTimeStartFormatted = dateTimeStart.format(formatter);
         String dateTimeEndFormatted = dateTimeEnd.format(formatter);
 

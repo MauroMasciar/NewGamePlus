@@ -1,13 +1,13 @@
 package ui;
 
 import util.Utils;
-import controller.PlayingController;
 
 import com.formdev.flatlaf.extras.FlatSVGIcon;
 import javax.swing.JInternalFrame;
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.border.Border;
 import java.awt.BorderLayout;
@@ -45,16 +45,19 @@ public class Chronometer extends JInternalFrame {
 	private JLabel lblInfoFuture = new JLabel("Con esta sesión llegarás a");
 	private JLabel lblInfoFutureTime = new JLabel("0h 0m");
 	private JLabel lblInfoFutureFooter = new JLabel("tiempo total jugado");
-    //private PlayingController controller;
 	
-    public Chronometer(PlayingController playingController) {
+    public Chronometer() {
         setDefaultCloseOperation(JInternalFrame.DISPOSE_ON_CLOSE);
-        //this.controller = playingController;
     	initComponents();
-
-        pack();
-
 		setVisible(true);
+    }
+
+    public void showError(String message) {
+        JOptionPane.showMessageDialog(this, message, "Error", JOptionPane.ERROR_MESSAGE);
+    }
+
+    public void showInfo(String message) {
+        JOptionPane.showMessageDialog(this, message, "Información", JOptionPane.INFORMATION_MESSAGE);
     }
     
     public void strobe(boolean pause) {
@@ -302,6 +305,6 @@ public class Chronometer extends JInternalFrame {
     	icon.setColorFilter(new FlatSVGIcon.ColorFilter(color -> Color.WHITE));
     	btnStop.setIcon(icon);
 
-        this.requestFocusInWindow();
+        pack();
 	}
 }
