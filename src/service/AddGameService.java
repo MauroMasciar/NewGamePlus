@@ -68,6 +68,7 @@ public class AddGameService {
         if(name.isEmpty()) {
             return false;
         } else {
+            // TODO: Agregar el logro al añadir un juego
             int id = Main.gameRepository.getList().size() + 1;
             Games game = new Games(id, name, category, library, score, gameTime, play_count, completed, completed_date, hide, path, releasedate,
 				developer, series, playMode, status, lastPlayed, rating, platform, publisher, region, version, added, modified, favorite, statistic, 

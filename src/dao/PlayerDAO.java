@@ -1,6 +1,5 @@
 package dao;
 
-import app.Main;
 import model.Player;
 
 import java.sql.Connection;

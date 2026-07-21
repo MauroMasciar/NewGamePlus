@@ -22,9 +22,8 @@ public class AddSessionService {
         int seconds = Integer.parseInt(time);
         LocalDateTime dateTimeStart = LocalDateTime.parse(date_start + " " + hour_start + ":00", formatter);
         LocalDateTime dateTimeEnd = dateTimeStart.plusSeconds(Integer.parseInt(time));
-        History history = new History(Main.achievementsRepository.getList().size() + 1, "NO",  game.getId(), gameName, game.getLibrary(), game.getPlatform(), dateTimeStart.toString(), dateTimeEnd.toString(), seconds);
-        saveHistory(history);
-        saveGameTime(game, seconds);
+        
+        saveAll(game, dateTimeStart.toString(), dateTimeEnd.toString(), seconds);
     }
 
     public void addSession(Games game, LocalDateTime dateTimeStart, int seconds) {
@@ -33,8 +32,13 @@ public class AddSessionService {
         String dateTimeStartFormatted = dateTimeStart.format(formatter);
         String dateTimeEndFormatted = dateTimeEnd.format(formatter);
 
-        History history = new History(Main.achievementsRepository.getList().size() + 1, "NO",  game.getId(), game.getName(), game.getLibrary(), game.getPlatform(), dateTimeStartFormatted, dateTimeEndFormatted, seconds);
+        saveAll(game, dateTimeStartFormatted, dateTimeEndFormatted, seconds);
+    }
+
+    private void saveAll(Games game, String dateTimeStart, String dateTimeEnd, int seconds) {
+        History history = new History(Main.achievementsRepository.getList().size() + 1, "NO",  game.getId(), game.getName(), game.getLibrary(), game.getPlatform(), dateTimeStart, dateTimeEnd, seconds);
         saveHistory(history);
+
         saveGameTime(game, seconds);
         plusLibrary(game, seconds);
         plusCategory(game, seconds);

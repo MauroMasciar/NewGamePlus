@@ -301,5 +301,7 @@ public class Chronometer extends JInternalFrame {
     	icon = new FlatSVGIcon("resources/icons/player-stop.svg", 32, 32);
     	icon.setColorFilter(new FlatSVGIcon.ColorFilter(color -> Color.WHITE));
     	btnStop.setIcon(icon);
+
+        this.requestFocusInWindow();
 	}
 }

@@ -24,14 +24,16 @@ import repository.HistoryRepository;
 import repository.LibraryRepository;
 import repository.PlatformsRepository;
 import repository.PlayerRepository;
+import service.TakeScreenshot;
 import ui.Window;
 
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 import com.formdev.flatlaf.themes.FlatMacDarkLaf;
 
+
 public class Main {
-    public static final String VERSION_APP = "2.0.0.17";
+    public static final String VERSION_APP = "2.0.0.19";
     public static PlayerRepository playerRepository;
     public static GameRepository gameRepository;
     public static CategoryRepository categoryRepository;
@@ -56,8 +58,11 @@ public class Main {
         achievementsRepository = new AchievementRepository();
         historyRepository = new HistoryRepository();
 
+        TakeScreenshot takeScreenshot = new TakeScreenshot();
+
         // Se inicia la ventana principal
         Window mw = new Window();
+        
 
         // test
         //test t = new test();

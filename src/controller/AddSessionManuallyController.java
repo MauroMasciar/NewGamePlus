@@ -32,6 +32,8 @@ public class AddSessionManuallyController {
             view.showError("El tiempo de juego debe ser mayor a 0");
         } else {
             addSessionService.AddSessionManually(gameName, time, date, hour);
+            view.showInfo("Sesión de juego añadida");
+            view.dispose();
         }
     }
 
