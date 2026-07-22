@@ -1,15 +1,19 @@
 /**
  * NewGame+
  *
- * Gestor de videojuegos de código abierto con estadísticas, historial de sesiones,
- * resúmenes y sincronización con el perfil en la web.
+ * NewGame+ es una aplicación diseñada para administrar una biblioteca personal de videojuegos,
+ * permitiendo organizar la colección, registrar sesiones de juego, consultar estadísticas
+ * y mantener un historial de actividad.
+ * 
  *
  * Repositorio:
  * https://github.com/MauroMasciar/NewGamePlus
+ * 
  *
  * Historial de versiones:
  * - v1.0 - Iniciada el 23 de octubre de 2023
  * - v2.0 - Iniciada el 13 de julio de 2026
+ * 
  *
  * @author Mauro Masciadro
  * @version 2.0
@@ -24,13 +28,12 @@ import com.masciar.repository.HistoryRepository;
 import com.masciar.repository.LibraryRepository;
 import com.masciar.repository.PlatformsRepository;
 import com.masciar.repository.PlayerRepository;
-import com.masciar.service.TakeScreenshot;
+import com.masciar.service.ScreenshotService;
 import com.masciar.ui.Window;
 
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 import com.formdev.flatlaf.themes.FlatMacDarkLaf;
-
 
 public class Main {
     public static final String VERSION_APP = "2.0.0.22";
@@ -41,7 +44,7 @@ public class Main {
     public static PlatformsRepository platformsRepository;
     public static AchievementRepository achievementsRepository;
     public static HistoryRepository historyRepository;
-    
+
     @SuppressWarnings("unused")
     public static void main(String[] args) {
         try {
@@ -49,7 +52,7 @@ public class Main {
         } catch (UnsupportedLookAndFeelException e) {
             e.printStackTrace();
         }
-        
+
         // Se inician los repositorios
         playerRepository = new PlayerRepository();
         gameRepository = new GameRepository();
@@ -59,7 +62,11 @@ public class Main {
         achievementsRepository = new AchievementRepository();
         historyRepository = new HistoryRepository();
 
-        //TakeScreenshot takeScreenshot = new TakeScreenshot();
+        ScreenshotService screenshotService = new ScreenshotService();
+        screenshotService.initService();
+
+        //SteamService steamService = new SteamService();
+        //steamService.GetPlayerAchievements();
 
         // Se inicia la ventana principal
         Window mw = new Window();
