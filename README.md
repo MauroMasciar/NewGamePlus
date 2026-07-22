@@ -15,8 +15,6 @@ El objetivo del proyecto es crear un ecosistema completo para jugadores, compues
 * Gestión de biblioteca de videojuegos.
 * Registro y organización de juegos.
 * Historial de sesiones de juego.
-* Estadísticas de actividad.
-* Resúmenes de progreso.
 * Almacenamiento local de datos.
 
 ### Próximamente
@@ -26,6 +24,8 @@ El objetivo del proyecto es crear un ecosistema completo para jugadores, compues
 * Acceso multiplataforma.
 * Sincronización de datos entre dispositivos.
 * Mejoras en estadísticas y análisis de actividad.
+* Estadísticas de actividad.
+* Resúmenes de progreso.
 
 ## Estado del proyecto
 
@@ -41,7 +41,7 @@ https://github.com/MauroMasciar/NewGamePlus
 
 ### Aplicación web
 
-Aún no disponible.
+Planificada para una futura versión.
 
 ### Aplicación Android
 
