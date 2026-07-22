@@ -1,17 +1,78 @@
-
 # NewGame+
-Gestor de videojuegos de código abierto con estadísticas, historial de sesiones, resúmenes y sincronización con el perfil en la web.
 
-Repositorio App: https://github.com/MauroMasciar/NewGamePlus
+Gestor de videojuegos de código abierto con estadísticas, historial de sesiones, resúmenes de actividad y sincronización multiplataforma.
 
-Repositorio Web: Aún no disponible
+## Descripción
 
+NewGame+ es una aplicación diseñada para administrar una biblioteca personal de videojuegos, permitiendo organizar la colección, registrar sesiones de juego, consultar estadísticas y mantener un historial de actividad.
 
-Historial de versiones:
+El objetivo del proyecto es crear un ecosistema completo para jugadores, compuesto por una aplicación de escritorio, una aplicación Android y una plataforma web sincronizada, permitiendo acceder a la información desde cualquier dispositivo.
 
-v1.0 - Iniciada el 23 de octubre de 2023
+## Características
 
-v2.0 - Iniciada el 13 de julio de 2026
+### Actualmente disponibles
 
+* Gestión de biblioteca de videojuegos.
+* Registro y organización de juegos.
+* Historial de sesiones de juego.
+* Estadísticas de actividad.
+* Resúmenes de progreso.
+* Almacenamiento local de datos.
 
-Mauro Masciadro
+### Próximamente
+
+* Sincronización con un perfil web.
+* Aplicación Android.
+* Acceso multiplataforma.
+* Sincronización de datos entre dispositivos.
+* Mejoras en estadísticas y análisis de actividad.
+
+## Estado del proyecto
+
+Actualmente NewGame+ se encuentra en desarrollo activo.
+
+La versión actual corresponde a la aplicación de escritorio. Las versiones web y Android están planificadas para futuras etapas del proyecto.
+
+## Repositorios
+
+### Aplicación de escritorio
+
+https://github.com/MauroMasciar/NewGamePlus
+
+### Aplicación web
+
+Aún no disponible.
+
+### Aplicación Android
+
+Planificada para una futura versión.
+
+## Tecnologías
+
+### Aplicación de escritorio
+
+* Java
+* Maven
+* SQLite
+
+### Aplicación web
+
+Próximamente.
+
+### Aplicación Android
+
+Próximamente.
+
+## Capturas
+
+Próximamente se agregarán capturas de pantalla de la aplicación.
+
+## Objetivo del proyecto
+
+NewGame+ nace con la idea de crear una herramienta donde los jugadores puedan organizar su colección, registrar sus experiencias y conservar un historial completo de su actividad gaming.
+
+El proyecto busca combinar la organización de una biblioteca personal con estadísticas detalladas y una experiencia conectada entre diferentes plataformas.
+
+---
+
+Desarrollado por **Mauro Masciadro**
