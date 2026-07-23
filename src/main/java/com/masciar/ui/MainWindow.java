@@ -18,7 +18,7 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.KeyStroke;
 
-public class Window extends JFrame implements ActionListener {
+public class MainWindow extends JFrame implements ActionListener {
 	private static final long serialVersionUID = 1092418710020581973L;
 	private final JMenuBar menubar = new JMenuBar();
     private final JMenu mnuGames = new JMenu("Juegos");
@@ -57,7 +57,7 @@ public class Window extends JFrame implements ActionListener {
     private final JMenuItem mnuiHelpDebug = new JMenuItem("Debug", new ImageIcon("gfx/debug.png"));
     private final JMenuItem mnuiGamesExit = new JMenuItem("Salir");
     private JDesktopPane desktopPane;
-	public Window() {
+	public MainWindow() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		String title = "NewGame+ — Game Session Tracker — v" + Main.VERSION_APP + "  ";
 		setTitle(title);
@@ -71,8 +71,8 @@ public class Window extends JFrame implements ActionListener {
         
 		initComponents();
     
-        add(new GamesList(desktopPane));
-        add(new SessionsHistory());
+        add(new GamesListInternalFrame(desktopPane));
+        add(new SessionsHistoryInternalFrame());
 
         @SuppressWarnings("unused")
         GeneralSummaryController generalSummaryController = new GeneralSummaryController(this);        
@@ -89,7 +89,7 @@ public class Window extends JFrame implements ActionListener {
             AddSessionManuallyController addSessionController = new AddSessionManuallyController(this);
         } else if(e.getSource() == mnuiHelpAbout) {
             @SuppressWarnings("unused")
-            About about = new About(this, true);
+            AboutDialog about = new AboutDialog(this, true);
         }
 	}
 

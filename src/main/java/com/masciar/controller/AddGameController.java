@@ -7,17 +7,17 @@ import com.masciar.model.Platforms;
 import com.masciar.service.AchievementService;
 import com.masciar.service.GameService;
 import com.masciar.service.LibraryService;
-import com.masciar.ui.AddGame;
-import com.masciar.ui.Window;
+import com.masciar.ui.AddGameDialog;
+import com.masciar.ui.MainWindow;
 import com.masciar.util.Utils;
 
 public class AddGameController {
-    private AddGame view;
+    private AddGameDialog view;
     private GameService GameService;
     private AchievementService achievementService;
     
-    public AddGameController(Window window) {
-        view = new AddGame(window, true);
+    public AddGameController(MainWindow window) {
+        view = new AddGameDialog(window, true);
         achievementService = new AchievementService(new LibraryService());
         GameService = new GameService(view, achievementService);
         

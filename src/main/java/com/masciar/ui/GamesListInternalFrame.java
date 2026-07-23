@@ -18,7 +18,7 @@ import java.awt.event.ActionListener;
 import java.util.Comparator;
 import java.awt.event.ActionEvent;
 
-public class GamesList extends JInternalFrame implements ActionListener {
+public class GamesListInternalFrame extends JInternalFrame implements ActionListener {
 	private static final long serialVersionUID = 6376047769180646261L;
 	JDesktopPane desktopPane;
 	
@@ -31,12 +31,12 @@ public class GamesList extends JInternalFrame implements ActionListener {
 	private DefaultListModel<Games> model = new DefaultListModel<>();
 	
 	
-	public GamesList(JDesktopPane desktopPane) {
+	public GamesListInternalFrame(JDesktopPane desktopPane) {
 		this.desktopPane = desktopPane;
 		setSize(300, 600);
 		//GridBagConstraints gbcListGames = new GridBagConstraints();
 		jlistGames.setModel(model);
-		jlistGames.setCellRenderer(new GameRenderer());
+		jlistGames.setCellRenderer(new GameRendererPanel());
 		
 		// Esto no debe ir aca, enviar a Services
 		Main.gameRepository.games_list.sort(Comparator.comparing(Games::getName, String.CASE_INSENSITIVE_ORDER));

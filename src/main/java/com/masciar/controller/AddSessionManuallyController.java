@@ -3,17 +3,17 @@ package com.masciar.controller;
 import com.masciar.app.Main;
 import com.masciar.model.Games;
 import com.masciar.service.AddSessionService;
-import com.masciar.ui.AddSessionManually;
-import com.masciar.ui.Window;
+import com.masciar.ui.AddSessionManuallyDialog;
+import com.masciar.ui.MainWindow;
 
 import java.util.Comparator;
 
 public class AddSessionManuallyController {
     AddSessionService addSessionService;
-    AddSessionManually view;
+    AddSessionManuallyDialog view;
 
-    public AddSessionManuallyController(Window window) {
-        view = new AddSessionManually(window, true);
+    public AddSessionManuallyController(MainWindow window) {
+        view = new AddSessionManuallyDialog(window, true);
         addSessionService = new AddSessionService();
         
         view.setBtnAddListener(e -> add());

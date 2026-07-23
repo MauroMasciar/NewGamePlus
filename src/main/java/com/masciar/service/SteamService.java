@@ -35,10 +35,10 @@ public class SteamService {
                 return vanity.getSteamid();
 
             /*
-             * JsonNode root = mapper.readTree(json);
-             * String steamId = root.get("response").get("steamid").asText();
-             * return steamId;
-             */
+            JsonNode root = mapper.readTree(json);
+            String steamId = root.get("response").get("steamid").asText();
+            return steamId;
+            */ 
         } catch (IOException | InterruptedException e) {
             e.printStackTrace();
         }
@@ -56,8 +56,6 @@ public class SteamService {
 
             HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
             GetOwnedGamesResponse steamResponse = mapper.readValue(response.body(), GetOwnedGamesResponse.class);
-            System.out.println(
-            steamResponse.getResponse().getGames().get(2).getName());
             return steamResponse.getResponse().getGames();
         } catch (IOException | InterruptedException e) {
             e.printStackTrace();
@@ -65,6 +63,7 @@ public class SteamService {
         return null;
     }
 
+    // TODO: Guardar en una lista
     public void getPlayerGameAchievements(String steamId64, int appId) {
         String url = String.format("https://api.steampowered.com/ISteamUserStats/GetPlayerAchievements/v1/?key=%s&steamid=%s&appid=%d", API_KEY, steamId64, appId);
 

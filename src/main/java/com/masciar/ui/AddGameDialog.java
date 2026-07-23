@@ -24,7 +24,7 @@ import javax.swing.WindowConstants;
 import javax.swing.event.ChangeListener;
 import com.raven.datechooser.DateChooser;
 
-public class AddGame extends JDialog {
+public class AddGameDialog extends JDialog {
     private final JPanel pnlDetails = new JPanel();
     private final JLabel lblTitle = new JLabel("Titulo:");
     private final JLabel lblReleaseDate = new JLabel("Fecha de lanzamiento:");
@@ -86,7 +86,7 @@ public class AddGame extends JDialog {
     private final DateChooser dcReleaseDate = new DateChooser();
     private final JButton btnSave = new JButton("Guardar");
 
-    public AddGame(Window window, boolean modal) {
+    public AddGameDialog(MainWindow window, boolean modal) {
         super(window, true);
         setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Añadir nuevo juego");

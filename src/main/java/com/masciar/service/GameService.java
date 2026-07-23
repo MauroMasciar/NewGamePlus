@@ -3,16 +3,16 @@ package com.masciar.service;
 import com.masciar.app.Main;
 import com.masciar.dao.GamesDAO;
 import com.masciar.model.Games;
-import com.masciar.ui.AddGame;
+import com.masciar.ui.AddGameDialog;
 import com.masciar.util.Utils;
 
 public class GameService {
-    private AddGame view;
+    private AddGameDialog view;
     private AchievementService achievementService;
 
     public GameService() { }
     
-    public GameService(AddGame view, AchievementService achievementService) {
+    public GameService(AddGameDialog view, AchievementService achievementService) {
         this.achievementService = achievementService;
         this.view = view;
     }

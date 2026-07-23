@@ -1,4 +1,4 @@
-package com.masciar.service;
+package com.masciar.listener;
 
 public interface ChronometerListener {
     void timeUpdate(int secondsPlayed, int secondsPaused);

@@ -13,12 +13,12 @@ import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.ListCellRenderer;
 
-public class GameRenderer extends JPanel implements ListCellRenderer<Games> {
+public class GameRendererPanel extends JPanel implements ListCellRenderer<Games> {
 	private JLabel lblIcon = new JLabel();
 	private JLabel lblName = new JLabel();
 	private JLabel lblTime = new JLabel();
 	
-	public GameRenderer() {
+	public GameRendererPanel() {
 		setLayout(new BorderLayout(10, 10));
 		JPanel text = new JPanel();
 		text.setLayout(new BoxLayout(text, BoxLayout.Y_AXIS));

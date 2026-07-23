@@ -18,7 +18,7 @@ import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.event.ActionListener;
 
-public class Chronometer extends JInternalFrame {
+public class ChronometerInternalFrame extends JInternalFrame {
 	private JLabel lblSeparator = new JLabel("_____________________________________________");
 	private JLabel lblSeparator2 = new JLabel("_____________________________________________");
 	private JLabel lblSeparator3 = new JLabel("_____________________________________________");
@@ -46,7 +46,7 @@ public class Chronometer extends JInternalFrame {
 	private JLabel lblInfoFutureTime = new JLabel("0h 0m");
 	private JLabel lblInfoFutureFooter = new JLabel("tiempo total jugado");
 	
-    public Chronometer() {
+    public ChronometerInternalFrame() {
         setDefaultCloseOperation(JInternalFrame.DISPOSE_ON_CLOSE);
     	initComponents();
 		setVisible(true);
