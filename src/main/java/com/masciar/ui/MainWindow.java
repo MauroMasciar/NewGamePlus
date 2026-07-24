@@ -61,6 +61,8 @@ public class MainWindow extends JFrame implements ActionListener {
 
     // Ventanas
     private GamesList gamesList;
+    private static GeneralSummaryController generalSummaryController;
+    private GameInfoController gameInfoController;
 
 	public MainWindow() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -77,19 +79,19 @@ public class MainWindow extends JFrame implements ActionListener {
 		initComponents();
 
         gamesList = new GamesList(desktopPane);
-        add(gamesList);
+        desktopPane.add(gamesList);
+        desktopPane.add(new SessionsHistory());
         
-        add(new SessionsHistory());
-        
-        @SuppressWarnings("unused")
-        GameInfoController gameInfoController = new GameInfoController(this);
-
+        gameInfoController = new GameInfoController(desktopPane);
         gamesList.setListener(gameInfoController);
 
-        @SuppressWarnings("unused")
-        GeneralSummaryController generalSummaryController = new GeneralSummaryController(this);        
+        generalSummaryController = new GeneralSummaryController(desktopPane);
 		setVisible(true);
 	}
+
+    public static void refreshOpenViews() {
+        if(generalSummaryController != null) generalSummaryController.refresh();
+    }
 
 	@Override
 	public void actionPerformed(ActionEvent e) {

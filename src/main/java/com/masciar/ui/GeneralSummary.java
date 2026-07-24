@@ -52,6 +52,7 @@ public class GeneralSummary extends JInternalFrame {
     }
     
     public void initComponents() {
+        setName("General Summary");
         setLayout(new GridBagLayout());
         panelTitle.setLayout(new GridBagLayout());
         panelTime.setLayout(new GridBagLayout());

@@ -8,6 +8,7 @@ import com.masciar.service.AddSessionService;
 import com.masciar.listener.ChronometerListener;
 import com.masciar.model.Games;
 import com.masciar.ui.Chronometer;
+import com.masciar.ui.MainWindow;
 import com.masciar.util.Utils;
 
 import java.time.LocalDateTime;
@@ -86,10 +87,10 @@ public class PlayingController implements ChronometerListener {
     public void endSession() {
         chronometerService.stop();
         if(timerStrobe != null) timerStrobe.stop();
-        view.dispose();
         if(playedSeconds > Utils.MINIMUN_SESSION_SECONDS) {
             AddSessionService addSessionService = new AddSessionService();
             addSessionService.addSession(game, startTime, playedSeconds, pausedSeconds);
+            MainWindow.refreshOpenViews();
         } else {
             view.showError("El tiempo de juego ha sido muy corto y no se ha guardado");
         }

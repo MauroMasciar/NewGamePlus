@@ -23,7 +23,7 @@ public class AchievementService {
     public void checkInGame(int playedSeconds) {
         String achievement = "";
 
-        if(game.getTimePlayed() + playedSeconds == 240) {
+        if(game.getTimePlayed() + playedSeconds == 310) {
             achievement = "Has jugado a " + game.getName() + " por primera vez";
             add(game.getName(), game.getId(), achievement, Utils.getFormattedDateTime());
         }

@@ -58,10 +58,10 @@ public class HistoryDAO {
 	}
 
 	public String getLastSessionFromGame(int id) {
-		String query = "SELECT datetime_start FROM games_sessions_history WHERE game_id = " + id + " ORDER BY id DESC LIMIT 1";
-		try {
-			Connection con = DriverManager.getConnection(url);
-			PreparedStatement ps = con.prepareStatement(query);
+		String query = "SELECT datetime_start FROM games_sessions_history WHERE game_id = " + id
+				+ " ORDER BY id DESC LIMIT 1";
+		try (Connection con = DriverManager.getConnection(url);
+				PreparedStatement ps = con.prepareStatement(query)) {
 			ResultSet rs = ps.executeQuery();
 			return rs.getString("datetime_start");
 		} catch (SQLException e) {
@@ -72,9 +72,8 @@ public class HistoryDAO {
 
 	public int getLastSessionTimeFromGame(int id) {
 		String query = "SELECT seconds FROM games_sessions_history WHERE game_id = " + id + " ORDER BY id DESC LIMIT 1";
-		try {
-			Connection con = DriverManager.getConnection(url);
-			PreparedStatement ps = con.prepareStatement(query);
+		try (Connection con = DriverManager.getConnection(url);
+				PreparedStatement ps = con.prepareStatement(query)) {
 			ResultSet rs = ps.executeQuery();
 			return rs.getInt("seconds");
 		} catch (SQLException e) {
