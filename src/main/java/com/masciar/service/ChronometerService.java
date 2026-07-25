@@ -1,9 +1,8 @@
 package com.masciar.service;
 
-import javax.swing.Timer;
-
 import com.masciar.listener.ChronometerListener;
 
+import javax.swing.Timer;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 
@@ -21,12 +20,12 @@ public class ChronometerService {
     public void start() {
         playStart = LocalDateTime.now();
         t = new Timer(1000, e -> run());
-    	t.start();
+        t.start();
     }
 
     private void run() {
-        if(isRunning) {
-            if(!isPaused) {
+        if (isRunning) {
+            if (!isPaused) {
                 int currentPlaying = (int) ChronoUnit.SECONDS.between(playStart, LocalDateTime.now());
                 int totalPlaying = totalSecondsPlaying + currentPlaying;
 
@@ -41,9 +40,10 @@ public class ChronometerService {
     }
 
     private void notifyTime(int playing_time, int pause_time) {
-        if(listener != null) {
+        if (listener != null) {
             listener.timeUpdate(playing_time, pause_time);
-            if(playing_time % 60 == 0 && playing_time != 0 && !isPaused) listener.notifyMinuteElapsed(playing_time);
+            if (playing_time % 60 == 0 && playing_time != 0 || pause_time % 60 == 0 && pause_time != 0 && isPaused)
+                listener.notifyMinuteElapsed(playing_time, pause_time);
         }
     }
 
@@ -53,7 +53,8 @@ public class ChronometerService {
 
     public void stop() {
         isRunning = false;
-        if(t != null) t.stop();
+        if (t != null)
+            t.stop();
     }
 
     public boolean isPaused() {
@@ -62,7 +63,7 @@ public class ChronometerService {
 
     public void setPaused(boolean p) {
         isPaused = p;
-        if(isPaused) {
+        if (isPaused) {
             pauseStart = LocalDateTime.now();
             totalSecondsPlaying += ChronoUnit.SECONDS.between(playStart, LocalDateTime.now());
             pauseCount++;

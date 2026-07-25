@@ -32,7 +32,7 @@ public class PlayingController implements ChronometerListener {
     public PlayingController(Games game, JDesktopPane desktopPane) {
         this.game = game;
         this.desktopPane = desktopPane;
-        
+
         // Iniciamos vista
         view = new Chronometer();
         desktopPane.add(view);
@@ -52,13 +52,14 @@ public class PlayingController implements ChronometerListener {
         view.setPlayCount(String.valueOf(game.getPlayCount()));
         view.setTotalPlayed(Utils.getTotalHoursFromSeconds(game.getTimePlayed(), true));
         view.setTotalPlayedAfterSession(Utils.getTotalHoursFromSeconds(game.getTimePlayed(), false));
-        view.setAgeSession("Iniciado a las " + startTime.format(format_time) + " hace " + Utils.getTotalHoursFromSeconds(0, false));
+        view.setAgeSession("Iniciado a las " + startTime.format(format_time) + " hace "
+                + Utils.getTotalHoursFromSeconds(0, false));
         try {
             view.setAvgTimePlayed(Utils.getTotalHoursFromSeconds(game.getTimePlayed() / game.getPlayCount(), false));
         } catch (Exception e) {
             view.setAvgTimePlayed("00h 00m");
         }
-        
+
         timerStrobe = new Timer(500, e -> view.strobe(chronometerService.isPaused()));
 
         // Asignamos listener a los componentes
@@ -69,11 +70,12 @@ public class PlayingController implements ChronometerListener {
     }
 
     public void pauseSession() {
-        if(chronometerService.isPaused()) {
+        if (chronometerService.isPaused()) {
             chronometerService.setPaused(false);
             view.btnPauseText("Pausar");
             Toast.showToast(desktopPane, "Cronómetro corriendo");
-            if(timerStrobe != null) timerStrobe.stop();
+            if (timerStrobe != null)
+                timerStrobe.stop();
         } else {
             chronometerService.setPaused(true);
             view.setPauseCount(String.valueOf(chronometerService.getPauseCount()));
@@ -86,8 +88,9 @@ public class PlayingController implements ChronometerListener {
 
     public void endSession() {
         chronometerService.stop();
-        if(timerStrobe != null) timerStrobe.stop();
-        if(playedSeconds > Utils.MINIMUN_SESSION_SECONDS) {
+        if (timerStrobe != null)
+            timerStrobe.stop();
+        if (playedSeconds > Utils.MINIMUN_SESSION_SECONDS) {
             AddSessionService addSessionService = new AddSessionService();
             addSessionService.addSession(game, startTime, playedSeconds, pausedSeconds);
             MainWindow.refreshOpenViews();
@@ -108,9 +111,10 @@ public class PlayingController implements ChronometerListener {
     }
 
     @Override
-    public void notifyMinuteElapsed(int seconds) {
-        view.setTotalFutureTime(Utils.getTotalHoursFromSeconds(game.getTimePlayed() + seconds, false));
-        view.setAgeSession("Iniciado a las " + startTime.format(format_time) + " hace " + Utils.getTotalHoursFromSeconds(seconds, false));
-        playingService.saveBackup(game.getId(), startTime.toString(), seconds);
+    public void notifyMinuteElapsed(int playedSeconds, int pausedSeconds) {
+        view.setTotalFutureTime(Utils.getTotalHoursFromSeconds(game.getTimePlayed() + playedSeconds, false));
+        view.setAgeSession("Iniciado a las " + startTime.format(format_time) + " hace "
+                + Utils.getTotalHoursFromSeconds(pausedSeconds + playedSeconds, false));
+        playingService.saveBackup(game.getId(), startTime.toString(), playedSeconds);
     }
 }

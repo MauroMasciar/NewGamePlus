@@ -18,7 +18,7 @@ public class GameInfoController implements GameSelectedListener {
     private PlatformService platformService;
     private HistoryService historyService;
     private LibraryService libraryService;
-        
+
     public GameInfoController(JDesktopPane desktopPane) {
         view = new GameInfo();
         categoryService = new CategoryService();
@@ -29,16 +29,21 @@ public class GameInfoController implements GameSelectedListener {
     }
 
     public void Update() {
-        view.setGameName(gameSelected.getName());
-        view.setLibrary(libraryService.findNameById(gameSelected.getLibrary()));
-        view.setCategory(categoryService.findNameById(gameSelected.getCategory()));
-        view.setPlatform(platformService.findNameById(gameSelected.getPlatform()));
-        view.setTotalTimeHoursValue(Utils.getTotalHoursFromSeconds(gameSelected.getTimePlayed(), true));
-        view.setTotalDaysValue(Utils.getTotalDaysFromSeconds(gameSelected.getTimePlayed()));
-        view.setTotalSessionsValue(String.valueOf(gameSelected.getPlayCount()));
-        view.setLastSessionValue(historyService.getLastSessionFromGame(gameSelected.getId()));
-        view.setLastSessionTimeValue(String.valueOf(historyService.getLastSessionTimeFromGame(gameSelected.getId())));
-        view.pack();
+        try {
+            view.setGameName(gameSelected.getName());
+            view.setLibrary(libraryService.findNameById(gameSelected.getLibrary()));
+            view.setCategory(categoryService.findNameById(gameSelected.getCategory()));
+            view.setPlatform(platformService.findNameById(gameSelected.getPlatform()));
+            view.setTotalTimeHoursValue(Utils.getTotalHoursFromSeconds(gameSelected.getTimePlayed(), true));
+            view.setTotalDaysValue(Utils.getTotalDaysFromSeconds(gameSelected.getTimePlayed()));
+            view.setTotalSessionsValue(String.valueOf(gameSelected.getPlayCount()));
+            view.setLastSessionValue(historyService.getLastSessionFromGame(gameSelected.getId()));
+            view.setLastSessionTimeValue(String.valueOf(historyService.getLastSessionTimeFromGame(gameSelected.getId())));
+            view.pack();
+        } catch (NullPointerException e) {
+            e.printStackTrace();
+        }
+
     }
 
     @Override
