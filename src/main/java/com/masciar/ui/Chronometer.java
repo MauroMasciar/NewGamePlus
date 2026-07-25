@@ -1,5 +1,6 @@
 package com.masciar.ui;
 
+import com.masciar.util.RoundedBorder;
 import com.masciar.util.Utils;
 
 import com.formdev.flatlaf.extras.FlatSVGIcon;
@@ -136,6 +137,7 @@ public class Chronometer extends JInternalFrame {
 	public void initComponents() {
         setResizable(false);
         setLayout(new BorderLayout(10, 10));
+        setBackground(Color.decode("#2B2F36"));
         
         lblSeparator.setForeground(Color.GRAY);
         lblSeparator2.setForeground(Color.GRAY);
@@ -157,6 +159,7 @@ public class Chronometer extends JInternalFrame {
         
         JPanel pnlLeft = new JPanel();
         JPanel pnlRight = new JPanel();
+        pnlRight.setBackground(Color.decode("#1F2328"));
         GridBagConstraints left = new GridBagConstraints();
         GridBagConstraints right = new GridBagConstraints();
         pnlLeft.setLayout(new GridBagLayout());
@@ -281,8 +284,11 @@ public class Chronometer extends JInternalFrame {
         Border linea = BorderFactory.createLineBorder(Color.DARK_GRAY, 1);
         Border margen = BorderFactory.createEmptyBorder(10, 10, 10, 10);
         
-        pnlLeft.setBorder(BorderFactory.createCompoundBorder(linea, margen));
-        pnlRight.setBorder(BorderFactory.createCompoundBorder(linea, margen));
+        //pnlLeft.setBorder(BorderFactory.createCompoundBorder(linea, margen));
+        //pnlRight.setBorder(BorderFactory.createCompoundBorder(linea, margen));
+
+        pnlLeft.setBorder(new RoundedBorder(18, new Color(70,70,70)));
+        pnlRight.setBorder(new RoundedBorder(18, new Color(70,70,70)));
         
         margen = BorderFactory.createEmptyBorder(2, 5, 2, 5);
         
@@ -296,8 +302,30 @@ public class Chronometer extends JInternalFrame {
         
     	add(pnlLeft, BorderLayout.WEST);
     	add(pnlRight, BorderLayout.EAST);
+
+        FlatSVGIcon icon = new FlatSVGIcon("resources/icons/player-pause.svg", 16, 16);
+    	icon.setColorFilter(new FlatSVGIcon.ColorFilter(color -> Color.WHITE));
+    	lblPauses.setIcon(icon);
+
+        icon = new FlatSVGIcon("resources/icons/calendar-week.svg", 16, 16);
+    	icon.setColorFilter(new FlatSVGIcon.ColorFilter(color -> Color.WHITE));
+    	lblMedTimeSession.setIcon(icon);
+
+        icon = new FlatSVGIcon("resources/icons/trophy-prize-achievement.svg", 32, 32);
+    	icon.setColorFilter(new FlatSVGIcon.ColorFilter(color -> Color.WHITE));
+    	lblInfoFuture.setIcon(icon);
+
+        icon = new FlatSVGIcon("resources/icons/chronometer.svg", 16, 16);
+    	icon.setColorFilter(new FlatSVGIcon.ColorFilter(color -> Color.WHITE));
+    	lblPauseTime.setIcon(icon);
+        lblTotalPlayedGame.setIcon(icon);
+        lblTotalTime.setIcon(icon);
+
+        icon = new FlatSVGIcon("resources/icons/play.svg", 16, 16);
+    	icon.setColorFilter(new FlatSVGIcon.ColorFilter(color -> Color.WHITE));
+    	lblPlayCount.setIcon(icon);
     	
-    	FlatSVGIcon icon = new FlatSVGIcon("resources/icons/player-pause.svg", 32, 32);
+    	icon = new FlatSVGIcon("resources/icons/player-pause.svg", 32, 32);
     	icon.setColorFilter(new FlatSVGIcon.ColorFilter(color -> Color.WHITE));
     	btnPause.setIcon(icon);
     	

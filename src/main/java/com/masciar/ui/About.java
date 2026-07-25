@@ -35,15 +35,7 @@ public class About extends JDialog {
         pnlInfo.add(lblFirstLine, gbc);
         gbc.gridy++;
         pnlInfo.add(lblSecondLine, gbc);
-
-        gbc.gridheight = 1;
-        gbc.gridwidth = 1;
-        gbc.weightx = 1.0;
-        gbc.weighty = 1.0;
-        gbc.ipadx = 40;
-        gbc.ipady = 0;
-        gbc.fill = GridBagConstraints.BOTH;
-        gbc.gridx = 0;
+        
         gbc.gridy = 0;
         add(pnlInfo, gbc);
 

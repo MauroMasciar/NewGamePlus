@@ -29,7 +29,7 @@ public class AddSessionManually extends JDialog {
     private final JComboBox<String> cbGame = new JComboBox<>();
     private final JSpinner spinTime = new JSpinner();
     private final SpinnerNumberModel spnModelTime = new SpinnerNumberModel();
-    private final JButton btnAdd = new JButton();
+    private final JButton btnAdd = new JButton("Añadir");
 
     public AddSessionManually(MainWindow window, boolean modal) {
         super(window, true);
@@ -79,7 +79,6 @@ public class AddSessionManually extends JDialog {
         panel.setLayout(new GridBagLayout());
         GridBagConstraints gbc = new GridBagConstraints();
         
-        btnAdd.setText("Añadir");
         timePicker.set24HourView(true);
 
         gbc.gridx = 0;
