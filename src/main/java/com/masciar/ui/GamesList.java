@@ -4,6 +4,7 @@ import com.masciar.app.Main;
 import com.masciar.controller.PlayingController;
 import com.masciar.listener.GameSelectedListener;
 import com.masciar.model.Games;
+import com.masciar.service.ConfigService;
 import com.masciar.service.GameService;
 
 import javax.swing.JInternalFrame;
@@ -23,10 +24,12 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import java.awt.BorderLayout;
 import java.awt.event.ActionListener;
+import java.awt.event.ComponentEvent;
+import java.awt.event.ComponentListener;
 import java.util.Comparator;
 import java.awt.event.ActionEvent;
 
-public class GamesList extends JInternalFrame implements ActionListener, ListSelectionListener, DocumentListener {
+public class GamesList extends JInternalFrame implements ActionListener, ListSelectionListener, DocumentListener, ComponentListener {
 	private static final long serialVersionUID = 6376047769180646261L;
 	JDesktopPane desktopPane;
 	
@@ -38,9 +41,10 @@ public class GamesList extends JInternalFrame implements ActionListener, ListSel
 	private JScrollPane scrollPane = new JScrollPane(jlistGames);
 	private DefaultListModel<Games> model = new DefaultListModel<>();
 	private GameSelectedListener listener;
-	private Timer debounce;
+	private Timer debounce, debounceTimer;
 	
 	public GamesList(JDesktopPane desktopPane) {
+		setLocation(Integer.parseInt(ConfigService.getProperty("GamesListX")), Integer.parseInt(ConfigService.getProperty("GamesListY")));
 		this.desktopPane = desktopPane;
 		setSize(300, 600);
 		//GridBagConstraints gbcListGames = new GridBagConstraints();
@@ -73,6 +77,11 @@ public class GamesList extends JInternalFrame implements ActionListener, ListSel
 		debounce = new Timer(500, e -> refreshList());
 		debounce.setRepeats(false);
 
+		this.addComponentListener(this);
+
+        debounceTimer = new Timer(2500, e -> saveFramePosition());
+		debounceTimer.setRepeats(false);
+
 		setVisible(true);
 	}
 
@@ -99,6 +108,11 @@ public class GamesList extends JInternalFrame implements ActionListener, ListSel
 		}
 	}
 
+	private void saveFramePosition() {
+        ConfigService.setProperty("GamesListX", String.valueOf(this.getX()));
+        ConfigService.setProperty("GamesListY", String.valueOf(this.getY()));
+    }
+
 	@Override
 	public void valueChanged(ListSelectionEvent e) {
 		if(listener != null) {
@@ -120,4 +134,21 @@ public class GamesList extends JInternalFrame implements ActionListener, ListSel
 	public void removeUpdate(DocumentEvent e) {
 		debounce.restart();
 	}
+
+	@Override
+    public void componentHidden(ComponentEvent e) {
+    }
+
+    @Override
+    public void componentMoved(ComponentEvent e) {
+        if(debounceTimer != null) debounceTimer.restart();
+    }
+
+    @Override
+    public void componentResized(ComponentEvent e) {
+    }
+
+    @Override
+    public void componentShown(ComponentEvent e) {
+    }
 }

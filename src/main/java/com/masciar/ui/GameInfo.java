@@ -3,10 +3,16 @@ package com.masciar.ui;
 import javax.swing.JInternalFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.Timer;
+
+import com.masciar.service.ConfigService;
+
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.awt.event.ComponentEvent;
+import java.awt.event.ComponentListener;
 
-public class GameInfo extends JInternalFrame {
+public class GameInfo extends JInternalFrame implements ComponentListener {
     // Ficha del juego
     private JPanel panelGameInfo = new JPanel();
     private JLabel lblName = new JLabel("Nombre del juego");
@@ -27,9 +33,15 @@ public class GameInfo extends JInternalFrame {
     private JLabel lblLastSession = new JLabel("Ultima sesion");
     private JLabel lblLastSessionValue = new JLabel("01/01/1900");
     private JLabel lblLastSessionTimeValue = new JLabel("0h 0m");
+    private Timer debounceTimer;
 
     public GameInfo() {
         initComponents();
+
+        this.addComponentListener(this);
+
+        debounceTimer = new Timer(2500, e -> saveFramePosition());
+		debounceTimer.setRepeats(false);
 
         setVisible(true);
     }
@@ -71,6 +83,7 @@ public class GameInfo extends JInternalFrame {
     }
 
     public void initComponents() {
+        setLocation(Integer.parseInt(ConfigService.getProperty("GameInfoX")), Integer.parseInt(ConfigService.getProperty("GameInfoY")));
         setLayout(new GridBagLayout());
         panelGameInfo.setLayout(new GridBagLayout());
         panelPlayerInfo.setLayout(new GridBagLayout());
@@ -183,5 +196,27 @@ public class GameInfo extends JInternalFrame {
         add(panelPlayerInfo, gbcPanels);
 
         pack();
+    }
+
+    private void saveFramePosition() {
+        ConfigService.setProperty("GameInfoX", String.valueOf(this.getX()));
+        ConfigService.setProperty("GameInfoY", String.valueOf(this.getY()));
+    }
+
+    @Override
+    public void componentHidden(ComponentEvent e) {
+    }
+
+    @Override
+    public void componentMoved(ComponentEvent e) {
+        if(debounceTimer != null) debounceTimer.restart();
+    }
+
+    @Override
+    public void componentResized(ComponentEvent e) {
+    }
+
+    @Override
+    public void componentShown(ComponentEvent e) {
     }
 }

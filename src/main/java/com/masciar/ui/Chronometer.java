@@ -1,5 +1,6 @@
 package com.masciar.ui;
 
+import com.masciar.service.ConfigService;
 import com.masciar.util.RoundedBorder;
 import com.masciar.util.Utils;
 
@@ -9,6 +10,8 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.Timer;
+
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Font;
@@ -16,8 +19,10 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.event.ActionListener;
+import java.awt.event.ComponentEvent;
+import java.awt.event.ComponentListener;
 
-public class Chronometer extends JInternalFrame {
+public class Chronometer extends JInternalFrame implements ComponentListener {
     private JLabel lblSeparator = new JLabel("____________________________________________________");
     private JLabel lblSeparator2 = new JLabel("____________________________________________________");
     private JLabel lblSeparator3 = new JLabel("____________________________________________________");
@@ -44,6 +49,7 @@ public class Chronometer extends JInternalFrame {
     private JLabel lblInfoFuture = new JLabel("Con esta sesión llegarás a");
     private JLabel lblInfoFutureTime = new JLabel("0h 0m");
     private JLabel lblInfoFutureFooter = new JLabel("tiempo total jugado");
+    private Timer debounceTimer;
 
     public Chronometer() {
         setDefaultCloseOperation(JInternalFrame.DISPOSE_ON_CLOSE);
@@ -51,9 +57,14 @@ public class Chronometer extends JInternalFrame {
 
         configureTypography();
         configureIcons();
-        
+
         setVisible(true);
         pack();
+
+        this.addComponentListener(this);
+
+        debounceTimer = new Timer(2500, e -> saveFramePosition());
+		debounceTimer.setRepeats(false);
     }
 
     public void showError(String message) {
@@ -209,6 +220,7 @@ public class Chronometer extends JInternalFrame {
     }
 
     private void initComponents() {
+        setLocation(Integer.parseInt(ConfigService.getProperty("ChronometerX")), Integer.parseInt(ConfigService.getProperty("ChronometerY")));
         setResizable(false);
         setLayout(new BorderLayout(10, 10));
         setBackground(Color.decode(Utils.COLOR_BACKGROUND_PANEL_2));
@@ -329,5 +341,27 @@ public class Chronometer extends JInternalFrame {
 
         add(pnlLeft, BorderLayout.WEST);
         add(pnlRight, BorderLayout.EAST);
+    }
+
+    private void saveFramePosition() {
+        ConfigService.setProperty("ChronometerX", String.valueOf(this.getX()));
+        ConfigService.setProperty("ChronometerY", String.valueOf(this.getY()));
+    }
+
+    @Override
+    public void componentHidden(ComponentEvent e) {
+    }
+
+    @Override
+    public void componentMoved(ComponentEvent e) {
+        if(debounceTimer != null) debounceTimer.restart();
+    }
+
+    @Override
+    public void componentResized(ComponentEvent e) {
+    }
+
+    @Override
+    public void componentShown(ComponentEvent e) {
     }
 }
