@@ -17,7 +17,7 @@ import javax.swing.table.TableColumn;
 public class Utils {
 	public static final String COLOR_GREEN = "#48bd4e";
     public static final String COLOR_BACKGROUND_PANEL = "#1F2328";
-    public static final String COLOR_BACKGROUND_PANEL_2 = "#2B2F36";    
+    public static final String COLOR_BACKGROUND_PANEL_2 = "#2B2F36";
     public static final String DATABASE_URL = "jdbc:sqlite:database.db?busy_timeout=5000";
     public static final int MINIMUN_SESSION_SECONDS = 300;
     public static final int SECONDS_PER_HOUR = 3600;
@@ -95,9 +95,9 @@ public class Utils {
 
         StringBuilder time = new StringBuilder();
 
-        if (days > 0) time.append(days).append(" d ");
-        if (hours > 0 || hours > 0) time.append(hours).append(" h ");
-        time.append(minutes).append(" m ");
+        if (days > 0) time.append(days).append(" días ");
+        if (hours > 0 || hours > 0) time.append(hours).append("h ");
+        time.append(minutes).append("m ");
 
         return time.toString().trim();
     }

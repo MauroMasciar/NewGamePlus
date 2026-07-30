@@ -22,8 +22,8 @@ import javax.swing.JOptionPane;
 import javax.swing.KeyStroke;
 
 public class MainWindow extends JFrame implements ActionListener {
-	private static final long serialVersionUID = 1092418710020581973L;
-	private final JMenuBar menubar = new JMenuBar();
+    private static final long serialVersionUID = 1092418710020581973L;
+    private final JMenuBar menubar = new JMenuBar();
     private final JMenu mnuGames = new JMenu("Juegos");
     private final JMenuItem mnuiGamesAdd = new JMenuItem("Nuevo", new ImageIcon("/resources/icons/new_game.png"));
     private final JMenuItem mnuiGamesEdit = new JMenuItem("Editar");
@@ -66,10 +66,10 @@ public class MainWindow extends JFrame implements ActionListener {
     private static GeneralSummaryController generalSummaryController;
     private GameInfoController gameInfoController;
 
-	public MainWindow() {
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		String title = "NewGame+ — Game Session Tracker — v" + Main.VERSION_APP + "  ";
-		setTitle(title);
+    public MainWindow() {
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        String title = "NewGame+ — Game Session Tracker — " + Main.VERSION_APP + "  ";
+        setTitle(title);
         try {
             setIconImage(new ImageIcon(getClass().getResource("/resources/icons/icon.png")).getImage());
         } catch (NullPointerException e) {
@@ -78,46 +78,51 @@ public class MainWindow extends JFrame implements ActionListener {
         setBounds(30, 30, 1400, 900);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
-		setLayout(new FlowLayout());
+        //setLayout(new FlowLayout());
         desktopPane = new JDesktopPane();
         setContentPane(desktopPane);
-        
-		initComponents();
+
+        initComponents();
 
         gamesList = new GamesList(desktopPane);
         desktopPane.add(gamesList);
         desktopPane.add(new SessionsHistory());
-        
+
         gameInfoController = new GameInfoController(desktopPane);
         gamesList.setListener(gameInfoController);
 
         generalSummaryController = new GeneralSummaryController(desktopPane);
-		setVisible(true);
-	}
-
-    public static void refreshOpenViews() {
-        if(generalSummaryController != null) generalSummaryController.refresh();
+        setVisible(true);
     }
 
-	@Override
-	public void actionPerformed(ActionEvent e) {
-		if(e.getSource() == mnuiGamesAdd) {
+    public static void refreshOpenViews() {
+        if (generalSummaryController != null)
+            generalSummaryController.refresh();
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        if (e.getSource() == mnuiGamesAdd) {
             @SuppressWarnings("unused")
             AddGameController addGameController = new AddGameController(this);
-        } else if(e.getSource() == mnuiPlayerAddSession) {
+        } else if (e.getSource() == mnuiPlayerAddSession) {
             @SuppressWarnings("unused")
             AddSessionManuallyController addSessionController = new AddSessionManuallyController(this);
-        } else if(e.getSource() == mnuiHelpAbout) {
+        } else if (e.getSource() == mnuiHelpAbout) {
             @SuppressWarnings("unused")
             About about = new About(this, true);
-        } else if(e.getSource() == mnuiHelpConfig) {
+        } else if (e.getSource() == mnuiHelpConfig) {
             @SuppressWarnings("unused")
             ConfigController configController = new ConfigController(desktopPane);
         }
-	}
+    }
 
-	public void initComponents() {
-		menubar.add(mnuGames);
+    public void initComponents() {
+        createMenuBar();
+    }
+
+    public void createMenuBar() {
+        menubar.add(mnuGames);
         menubar.add(mnuPlayer);
         menubar.add(mnuData);
         menubar.add(mnuUtils);
@@ -183,7 +188,7 @@ public class MainWindow extends JFrame implements ActionListener {
         mnuiHelpUpdate.addActionListener(this);
         mnuiHelpDebug.addActionListener(this);
         mnuiItemsCronometer.addActionListener(this);
-        
+
         mnuiGamesAdd.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_N, ActionEvent.CTRL_MASK));
         mnuiGamesEdit.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_E, ActionEvent.CTRL_MASK));
         mnuiGamesList.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_F, ActionEvent.CTRL_MASK));
@@ -192,6 +197,6 @@ public class MainWindow extends JFrame implements ActionListener {
         mnuiPlayerActivities.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_J, ActionEvent.CTRL_MASK));
         mnuiItemsCronometer.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_C, ActionEvent.CTRL_MASK));
 
-		setJMenuBar(menubar);
-	}
+        setJMenuBar(menubar);
+    }
 }

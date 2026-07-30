@@ -18,15 +18,7 @@ public class Config extends JInternalFrame {
         initComponents();
     }
 
-    public void setBtnSaveListener(ActionListener listener) {
-        btnSave.addActionListener(listener);
-    }
-
-    public String getTxtSteamId() {
-        return txtSteamId.getText();
-    }
-
-    public void initComponents() {
+    private void initComponents() {
         setTitle("Configuración");
         setSize(800, 500);
         setDefaultCloseOperation(JInternalFrame.DISPOSE_ON_CLOSE);
@@ -37,5 +29,13 @@ public class Config extends JInternalFrame {
         add(btnSave);
 
         setVisible(true);
+    }
+
+    public void setBtnSaveListener(ActionListener listener) {
+        btnSave.addActionListener(listener);
+    }
+
+    public String getTxtSteamId() {
+        return txtSteamId.getText();
     }
 }

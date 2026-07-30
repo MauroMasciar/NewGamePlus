@@ -92,6 +92,7 @@ public class AddGame extends JDialog {
         setTitle("Añadir nuevo juego");
 
         initComponents();
+        loadRating();
     }
 
     public void showError(String message) {
@@ -195,28 +196,38 @@ public class AddGame extends JDialog {
     }
 
     public boolean getFavoriteState() {
-        if(chFavorite.isSelected()) return true;
-        else return false;
+        if (chFavorite.isSelected())
+            return true;
+        else
+            return false;
     }
 
     public boolean getCompletedState() {
-        if(chCompleted.isSelected()) return true;
-        else return false;
+        if (chCompleted.isSelected())
+            return true;
+        else
+            return false;
     }
 
     public boolean getStatisticState() {
-        if(chStatistic.isSelected()) return true;
-        else return false;
+        if (chStatistic.isSelected())
+            return true;
+        else
+            return false;
     }
 
     public boolean getPortableState() {
-        if(chPortable.isSelected()) return true;
-        else return false;
+        if (chPortable.isSelected())
+            return true;
+        else
+            return false;
     }
 
     public boolean getHideState() {
-        if(chHide.isSelected()) return true;
-        else return false;
+        if (chHide.isSelected())
+            return true;
+        else
+            return false;
     }
 
     public String getRatingValueString() {
@@ -245,7 +256,55 @@ public class AddGame extends JDialog {
 
     public void initComponents() {
         setLayout(new GridBagLayout());
-        
+
+        initPanelDetails();
+        initPanelNotes();
+
+        chGhost.setToolTipText(
+                "Especifica si quieres iniciar el juego manualmente en vez de que lo inicie la aplicación");
+        txtPath.setToolTipText("Especifica la ruta completa al ejecutable");
+        chStatistic.setToolTipText("Especifica si quieres que este juego aparezca en las estadísticas");
+
+        spinnerNumberModelScore.setMinimum(0);
+        spinnerNumberModelScore.setMaximum(100);
+        spinnerNumberModelGameTime.setMinimum(0);
+        spinScore.setModel(spinnerNumberModelScore);
+        spinGameTime.setModel(spinnerNumberModelGameTime);
+        txtAdded.setText(Utils.getFormattedDate());
+        txtModified.setText(Utils.getFormattedDateTime());
+
+        txtGenre.setEditable(false);
+        txtPlayCount.setEditable(false);
+        txtLastPlayed.setEditable(false);
+
+        txtGenre.setVisible(false);
+        lblGenre.setVisible(false);
+
+        dcCompletedDate.setDateFormat("yyyy-MM-dd");
+        dcCompletedDate.setTextRefernce(txtCompletedDate);
+        dcCompletedDate.hidePopup();
+        dcReleaseDate.setDateFormat("yyyy-MM-dd");
+        dcReleaseDate.setTextRefernce(txtReleaseDate);
+        dcReleaseDate.hidePopup();
+        dcCompletedDate.setSelectedDate(new Date(System.currentTimeMillis()));
+        dcReleaseDate.setSelectedDate(new Date(System.currentTimeMillis()));
+
+        txtPlayCount.setText("0");
+
+        chGhost.setSelected(true);
+
+        if (Validations.isEmpty(txtReleaseDate))
+            txtReleaseDate.setText("1900-01-01");
+        if (Validations.isEmpty(txtLastPlayed))
+            txtLastPlayed.setText("1900-01-01 00:00:00");
+
+        txtAdded.setEditable(false);
+        txtModified.setEditable(false);
+        txtaNotes.setLineWrap(true);
+        txtaNotes.setWrapStyleWord(true);
+    }
+
+    public void initPanelDetails() {
         pnlDetails.setLayout(new GridBagLayout());
         pnlDetails.setBorder(BorderFactory.createTitledBorder("Detalles"));
 
@@ -393,7 +452,7 @@ public class AddGame extends JDialog {
         gbc.gridx++;
         pnlDetails.add(spinGameTime, gbc);
         gbc.gridx++;
-        pnlDetails.add(lblConvertedSeconds, gbc);	
+        pnlDetails.add(lblConvertedSeconds, gbc);
         gbc.gridy++;
         gbc.gridx = 0;
         pnlDetails.add(lblCategory, gbc);
@@ -409,10 +468,13 @@ public class AddGame extends JDialog {
         pnlDetails.add(lblScore, gbc);
         gbc.gridx++;
         pnlDetails.add(spinScore, gbc);
-        
-        // Panel notes
+    }
+
+    public void initPanelNotes() {
         pnlNotes.setLayout(new GridBagLayout());
         pnlNotes.setBorder(BorderFactory.createTitledBorder("Notas"));
+        GridBagConstraints gbc = new GridBagConstraints();
+
         gbc.gridheight = 1;
         gbc.gridwidth = 1;
         gbc.weightx = 1.0;
@@ -447,48 +509,6 @@ public class AddGame extends JDialog {
         gbc.weighty = 1.0;
         gbc.fill = GridBagConstraints.NONE;
         add(btnSave, gbc);
-
-        chGhost.setToolTipText("Especifica si quieres iniciar el juego manualmente en vez de que lo inicie la aplicación");
-        txtPath.setToolTipText("Especifica la ruta completa al ejecutable");
-        chStatistic.setToolTipText("Especifica si quieres que este juego aparezca en las estadísticas");
-
-        spinnerNumberModelScore.setMinimum(0);
-        spinnerNumberModelScore.setMaximum(100);
-        spinnerNumberModelGameTime.setMinimum(0);
-        spinScore.setModel(spinnerNumberModelScore);
-        spinGameTime.setModel(spinnerNumberModelGameTime);
-        txtAdded.setText(Utils.getFormattedDate());
-        txtModified.setText(Utils.getFormattedDateTime());
-
-        txtGenre.setEditable(false);
-        txtPlayCount.setEditable(false);
-        txtLastPlayed.setEditable(false);
-        
-        txtGenre.setVisible(false);
-        lblGenre.setVisible(false);
-
-        dcCompletedDate.setDateFormat("yyyy-MM-dd");
-        dcCompletedDate.setTextRefernce(txtCompletedDate);
-        dcCompletedDate.hidePopup();
-        dcReleaseDate.setDateFormat("yyyy-MM-dd");
-        dcReleaseDate.setTextRefernce(txtReleaseDate);
-        dcReleaseDate.hidePopup();
-        dcCompletedDate.setSelectedDate(new Date(System.currentTimeMillis()));
-        dcReleaseDate.setSelectedDate(new Date(System.currentTimeMillis()));
-        
-        txtPlayCount.setText("0");
-
-        chGhost.setSelected(true);
-
-        if(Validations.isEmpty(txtReleaseDate)) txtReleaseDate.setText("1900-01-01");
-        if(Validations.isEmpty(txtLastPlayed)) txtLastPlayed.setText("1900-01-01 00:00:00");
-
-        txtAdded.setEditable(false);
-        txtModified.setEditable(false);
-        txtaNotes.setLineWrap(true);
-        txtaNotes.setWrapStyleWord(true);
-
-        loadRating();
     }
 
     public void loadRating() {

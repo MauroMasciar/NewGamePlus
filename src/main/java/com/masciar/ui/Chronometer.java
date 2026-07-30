@@ -48,7 +48,12 @@ public class Chronometer extends JInternalFrame {
     public Chronometer() {
         setDefaultCloseOperation(JInternalFrame.DISPOSE_ON_CLOSE);
         initComponents();
+
+        configureTypography();
+        configureIcons();
+        
         setVisible(true);
+        pack();
     }
 
     public void showError(String message) {
@@ -132,11 +137,7 @@ public class Chronometer extends JInternalFrame {
         btnStop.addActionListener(listener);
     }
 
-    public void initComponents() {
-        setResizable(false);
-        setLayout(new BorderLayout(10, 10));
-        setBackground(Color.decode(Utils.COLOR_BACKGROUND_PANEL_2));
-
+    private void configureTypography() {
         lblSeparator.setForeground(Color.GRAY);
         lblSeparator2.setForeground(Color.GRAY);
         lblSeparator3.setForeground(Color.GRAY);
@@ -154,6 +155,63 @@ public class Chronometer extends JInternalFrame {
         btnStop.setBackground(Color.RED);
         btnPause.setFont(new Font("Arial", Font.BOLD, 24));
         btnStop.setFont(new Font("Arial", Font.BOLD, 24));
+
+        lblStats.setFont(new Font("Arial", Font.BOLD, 16));
+        lblPauses.setFont(new Font("Arial", Font.BOLD, 14));
+        lblPausesValue.setFont(new Font("Arial", Font.BOLD, 14));
+        lblPauseTime.setFont(new Font("Arial", Font.BOLD, 14));
+        lblPauseTimeValue.setFont(new Font("Arial", Font.BOLD, 14));
+        lblTotalTime.setFont(new Font("Arial", Font.BOLD, 14));
+        lblTotalTimeValue.setFont(new Font("Arial", Font.BOLD, 14));
+        lblMedTimeSession.setFont(new Font("Arial", Font.BOLD, 14));
+        lblMedTimeSessionValue.setFont(new Font("Arial", Font.BOLD, 14));
+        lblPlayCount.setFont(new Font("Arial", Font.BOLD, 14));
+        lblPlayCountValue.setFont(new Font("Arial", Font.BOLD, 14));
+        lblInfoFuture.setHorizontalAlignment(JLabel.CENTER);
+        lblInfoFutureTime.setHorizontalAlignment(JLabel.CENTER);
+        lblInfoFutureFooter.setHorizontalAlignment(JLabel.CENTER);
+        lblInfoFuture.setFont(new Font("Arial", Font.BOLD, 18));
+        lblInfoFutureTime.setFont(new Font("Arial", Font.BOLD, 28));
+        lblInfoFutureFooter.setFont(new Font("Arial", Font.BOLD, 18));
+        lblInfoFutureTime.setForeground(Color.decode(Utils.COLOR_GREEN));
+    }
+
+    private void configureIcons() {
+        FlatSVGIcon icon = new FlatSVGIcon("resources/icons/player-pause.svg", 16, 16);
+        icon.setColorFilter(new FlatSVGIcon.ColorFilter(color -> Color.WHITE));
+        lblPauses.setIcon(icon);
+
+        icon = new FlatSVGIcon("resources/icons/calendar-week.svg", 16, 16);
+        icon.setColorFilter(new FlatSVGIcon.ColorFilter(color -> Color.WHITE));
+        lblMedTimeSession.setIcon(icon);
+
+        icon = new FlatSVGIcon("resources/icons/trophy-prize-achievement.svg", 32, 32);
+        icon.setColorFilter(new FlatSVGIcon.ColorFilter(color -> Color.WHITE));
+        lblInfoFuture.setIcon(icon);
+
+        icon = new FlatSVGIcon("resources/icons/chronometer.svg", 16, 16);
+        icon.setColorFilter(new FlatSVGIcon.ColorFilter(color -> Color.WHITE));
+        lblPauseTime.setIcon(icon);
+        lblTotalPlayedGame.setIcon(icon);
+        lblTotalTime.setIcon(icon);
+
+        icon = new FlatSVGIcon("resources/icons/play.svg", 16, 16);
+        icon.setColorFilter(new FlatSVGIcon.ColorFilter(color -> Color.WHITE));
+        lblPlayCount.setIcon(icon);
+
+        icon = new FlatSVGIcon("resources/icons/player-pause.svg", 32, 32);
+        icon.setColorFilter(new FlatSVGIcon.ColorFilter(color -> Color.WHITE));
+        btnPause.setIcon(icon);
+
+        icon = new FlatSVGIcon("resources/icons/player-stop.svg", 32, 32);
+        icon.setColorFilter(new FlatSVGIcon.ColorFilter(color -> Color.WHITE));
+        btnStop.setIcon(icon);
+    }
+
+    private void initComponents() {
+        setResizable(false);
+        setLayout(new BorderLayout(10, 10));
+        setBackground(Color.decode(Utils.COLOR_BACKGROUND_PANEL_2));
 
         JPanel pnlLeft = new JPanel();
         pnlLeft.setBackground(Color.decode(Utils.COLOR_BACKGROUND_PANEL));
@@ -199,25 +257,6 @@ public class Chronometer extends JInternalFrame {
         left.gridy++;
         pnlLeft.add(btnStop, left);
 
-        lblStats.setFont(new Font("Arial", Font.BOLD, 16));
-        lblPauses.setFont(new Font("Arial", Font.BOLD, 14));
-        lblPausesValue.setFont(new Font("Arial", Font.BOLD, 14));
-        lblPauseTime.setFont(new Font("Arial", Font.BOLD, 14));
-        lblPauseTimeValue.setFont(new Font("Arial", Font.BOLD, 14));
-        lblTotalTime.setFont(new Font("Arial", Font.BOLD, 14));
-        lblTotalTimeValue.setFont(new Font("Arial", Font.BOLD, 14));
-        lblMedTimeSession.setFont(new Font("Arial", Font.BOLD, 14));
-        lblMedTimeSessionValue.setFont(new Font("Arial", Font.BOLD, 14));
-        lblPlayCount.setFont(new Font("Arial", Font.BOLD, 14));
-        lblPlayCountValue.setFont(new Font("Arial", Font.BOLD, 14));
-        lblInfoFuture.setHorizontalAlignment(JLabel.CENTER);
-        lblInfoFutureTime.setHorizontalAlignment(JLabel.CENTER);
-        lblInfoFutureFooter.setHorizontalAlignment(JLabel.CENTER);
-        lblInfoFuture.setFont(new Font("Arial", Font.BOLD, 18));
-        lblInfoFutureTime.setFont(new Font("Arial", Font.BOLD, 28));
-        lblInfoFutureFooter.setFont(new Font("Arial", Font.BOLD, 18));
-        lblInfoFutureTime.setForeground(Color.decode(Utils.COLOR_GREEN));
-        
         // Panel derecho
         right.gridheight = 1;
         right.gridwidth = 1;
@@ -290,37 +329,5 @@ public class Chronometer extends JInternalFrame {
 
         add(pnlLeft, BorderLayout.WEST);
         add(pnlRight, BorderLayout.EAST);
-
-        FlatSVGIcon icon = new FlatSVGIcon("resources/icons/player-pause.svg", 16, 16);
-        icon.setColorFilter(new FlatSVGIcon.ColorFilter(color -> Color.WHITE));
-        lblPauses.setIcon(icon);
-
-        icon = new FlatSVGIcon("resources/icons/calendar-week.svg", 16, 16);
-        icon.setColorFilter(new FlatSVGIcon.ColorFilter(color -> Color.WHITE));
-        lblMedTimeSession.setIcon(icon);
-
-        icon = new FlatSVGIcon("resources/icons/trophy-prize-achievement.svg", 32, 32);
-        icon.setColorFilter(new FlatSVGIcon.ColorFilter(color -> Color.WHITE));
-        lblInfoFuture.setIcon(icon);
-
-        icon = new FlatSVGIcon("resources/icons/chronometer.svg", 16, 16);
-        icon.setColorFilter(new FlatSVGIcon.ColorFilter(color -> Color.WHITE));
-        lblPauseTime.setIcon(icon);
-        lblTotalPlayedGame.setIcon(icon);
-        lblTotalTime.setIcon(icon);
-
-        icon = new FlatSVGIcon("resources/icons/play.svg", 16, 16);
-        icon.setColorFilter(new FlatSVGIcon.ColorFilter(color -> Color.WHITE));
-        lblPlayCount.setIcon(icon);
-
-        icon = new FlatSVGIcon("resources/icons/player-pause.svg", 32, 32);
-        icon.setColorFilter(new FlatSVGIcon.ColorFilter(color -> Color.WHITE));
-        btnPause.setIcon(icon);
-
-        icon = new FlatSVGIcon("resources/icons/player-stop.svg", 32, 32);
-        icon.setColorFilter(new FlatSVGIcon.ColorFilter(color -> Color.WHITE));
-        btnStop.setIcon(icon);
-
-        pack();
     }
 }

@@ -21,7 +21,7 @@ public class About extends JDialog {
         setLayout(new GridBagLayout());
         GridBagConstraints gbc = new GridBagConstraints();
         lblFirstLine.setText("Software desarrollado por Mauro Masciadro - MASCIAR - Version " + Main.VERSION_APP);
-        lblSecondLine.setText("https://dywtpn.fun/");
+        lblSecondLine.setText("https://github.com/MauroMasciar/NewGamePlus");
 
         gbc.gridheight = 1;
         gbc.gridwidth = 1;
@@ -35,7 +35,7 @@ public class About extends JDialog {
         pnlInfo.add(lblFirstLine, gbc);
         gbc.gridy++;
         pnlInfo.add(lblSecondLine, gbc);
-        
+
         gbc.gridy = 0;
         add(pnlInfo, gbc);
 

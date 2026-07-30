@@ -1,16 +1,22 @@
 package com.masciar.ui;
 
-import javax.swing.BorderFactory;
 import javax.swing.JInternalFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.border.Border;
+import javax.swing.Timer;
 
+import com.formdev.flatlaf.extras.FlatSVGIcon;
+import com.masciar.service.ConfigService;
+import com.masciar.util.RoundedBorder;
 import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.awt.event.ComponentEvent;
+import java.awt.event.ComponentListener;
 
-public class GeneralSummary extends JInternalFrame {
+public class GeneralSummary extends JInternalFrame implements ComponentListener {
     private JPanel panelTitle = new JPanel();
     private JLabel lblTitle = new JLabel("Resumen general");
     private JPanel panelTime = new JPanel();
@@ -26,33 +32,85 @@ public class GeneralSummary extends JInternalFrame {
     private JPanel panelSessions = new JPanel();
     private JLabel lblSessions = new JLabel("Sesiones");
     private JLabel lblSessionsValue = new JLabel("No se pudieron cargar los datos");
-    
+    private Timer debounceTimer;
+
     public GeneralSummary() {
-        initComponents();
+        createLayout();
+        configurePanels();
+        configureTypography();
+        configureIcons();
+
+        pack();
+        
+        setVisible(true);
+
+        this.addComponentListener(this);
+
+        debounceTimer = new Timer(2500, e -> saveFramePosition());
+		debounceTimer.setRepeats(false);
     }
 
-    public void setLblTotalTimeHoursValue(String text) {
-        lblTotalTimeHoursValue.setText(text);
+    private void configurePanels() {
+        panelTime.setBackground(Color.decode("#162d57"));
+        panelGameStarted.setBackground(Color.decode("#0d5729"));
+        panelCompleted.setBackground(Color.decode("#472a55"));
+        panelSessions.setBackground(Color.decode("#523a0e"));
+
+        panelTime.setBorder(new RoundedBorder(18, new Color(70, 70, 70), 5, 5, 5, 5));
+        panelGameStarted.setBorder(new RoundedBorder(18, new Color(70, 70, 70), 5, 5, 5, 5));
+        panelCompleted.setBorder(new RoundedBorder(18, new Color(70, 70, 70), 5, 5, 5, 5));
+        panelSessions.setBorder(new RoundedBorder(18, new Color(70, 70, 70), 5, 5, 5, 5));
+
+        panelTime.setPreferredSize(new Dimension(175, 75));
+        panelGameStarted.setPreferredSize(new Dimension(175, 75));
+        panelCompleted.setPreferredSize(new Dimension(175, 75));
+        panelSessions.setPreferredSize(new Dimension(175, 75));
     }
 
-    public void setlblTotalTimeDaysValue(String text) {
-        lblTotalTimeDaysValue.setText(text);
+    private void configureTypography() {
+        /* Tiempo total */
+        lblTitle.setFont(new Font("Segoe UI", Font.BOLD, 20));
+
+        lblTotalTime.setFont(new Font("Segoe UI", Font.BOLD, 18));
+        lblTotalTime.setForeground(Color.decode("#b1b5b9"));
+
+        lblTotalTimeHoursValue.setFont(new Font("Segoe UI", Font.BOLD, 28));
+        lblTotalTimeHoursValue.setForeground(Color.decode("#4c8fdb"));
+
+        lblTotalTimeDaysValue.setFont(new Font("Segoe UI", Font.BOLD, 18));
+        lblTotalTimeDaysValue.setForeground(Color.decode("#b1b5b9"));
+
+        /* Completados */
+        lblCompleted.setFont(new Font("Segoe UI", Font.BOLD, 18));
+        lblCompleted.setForeground(Color.decode("#b1b5b9"));
+
+        lblCompletedValue.setFont(new Font("Segoe UI", Font.BOLD, 28));
+        lblCompletedValue.setForeground(Color.decode("#4c8fdb"));
+
+        /* Juegos iniciados */
+        lblTotalGamesStarted.setFont(new Font("Segoe UI", Font.BOLD, 18));
+        lblTotalGamesStarted.setForeground(Color.decode("#b1b5b9"));
+
+        lblTotalGamesStartedValue.setFont(new Font("Segoe UI", Font.BOLD, 28));
+        lblTotalGamesStartedValue.setForeground(Color.decode("#4c8fdb"));
+        
+        /* Sesiones */
+        lblSessions.setFont(new Font("Segoe UI", Font.BOLD, 18));
+        lblSessions.setForeground(Color.decode("#b1b5b9"));
+
+        lblSessionsValue.setFont(new Font("Segoe UI", Font.BOLD, 28));
+        lblSessionsValue.setForeground(Color.decode("#4c8fdb"));
     }
 
-    public void lblTotalGamesStartedValue(String text) {
-        lblTotalGamesStartedValue.setText(text);
+    private void configureIcons() {
+        FlatSVGIcon icon = new FlatSVGIcon("resources/icons/general-summary.svg", 16, 16);
+        icon.setColorFilter(new FlatSVGIcon.ColorFilter(color -> Color.WHITE));
+        lblTitle.setIcon(icon);
     }
 
-    public void lblCompletedValue(String text) {
-        lblCompletedValue.setText(text);
-    }
+    private void createLayout() {
+        setLocation(Integer.parseInt(ConfigService.getProperty("GeneralSummaryX")), Integer.parseInt(ConfigService.getProperty("GeneralSummaryY")));
 
-    public void lblSessionsValue(String text) {
-        lblSessionsValue.setText(text);
-    }
-    
-    public void initComponents() {
-        setName("General Summary");
         setLayout(new GridBagLayout());
         panelTitle.setLayout(new GridBagLayout());
         panelTime.setLayout(new GridBagLayout());
@@ -120,17 +178,48 @@ public class GeneralSummary extends JInternalFrame {
         gbc.gridy++;
         add(panelCompleted, gbc);
         gbc.gridx++;
-        add(panelSessions, gbc);
+        add(panelSessions, gbc);        
+    }
 
-        Border linea = BorderFactory.createLineBorder(Color.DARK_GRAY, 1);
-        Border margen = BorderFactory.createEmptyBorder(10, 10, 10, 10);
+    private void saveFramePosition() {
+        ConfigService.setProperty("GeneralSummaryX", String.valueOf(this.getX()));
+        ConfigService.setProperty("GeneralSummaryY", String.valueOf(this.getY()));
+    }
 
-        panelTime.setBorder(BorderFactory.createCompoundBorder(linea, margen));
-        panelGameStarted.setBorder(BorderFactory.createCompoundBorder(linea, margen));
-        panelCompleted.setBorder(BorderFactory.createCompoundBorder(linea, margen));
-        panelSessions.setBorder(BorderFactory.createCompoundBorder(linea, margen));
+    public void setLblTotalTimeHoursValue(String text) {
+        lblTotalTimeHoursValue.setText(text);
+    }
 
-        pack();
-        setVisible(true);
+    public void setlblTotalTimeDaysValue(String text) {
+        lblTotalTimeDaysValue.setText(text);
+    }
+
+    public void setLblTotalGamesStartedValue(String text) {
+        lblTotalGamesStartedValue.setText(text);
+    }
+
+    public void setLblCompletedValue(String text) {
+        lblCompletedValue.setText(text);
+    }
+
+    public void setLblSessionsValue(String text) {
+        lblSessionsValue.setText(text);
+    }
+
+    @Override
+    public void componentHidden(ComponentEvent e) {
+    }
+
+    @Override
+    public void componentMoved(ComponentEvent e) {
+        if(debounceTimer != null) debounceTimer.restart();
+    }
+
+    @Override
+    public void componentResized(ComponentEvent e) {
+    }
+
+    @Override
+    public void componentShown(ComponentEvent e) {
     }
 }

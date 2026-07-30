@@ -36,7 +36,7 @@ import javax.swing.UnsupportedLookAndFeelException;
 import com.formdev.flatlaf.themes.FlatMacDarkLaf;
 
 public class Main {
-    public static final String VERSION_APP = "2.0.0.33";
+    public static final String VERSION_APP = "2.0.34";
     public static PlayerRepository playerRepository;
     public static GameRepository gameRepository;
     public static CategoryRepository categoryRepository;
