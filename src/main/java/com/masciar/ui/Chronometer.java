@@ -49,9 +49,10 @@ public class Chronometer extends JInternalFrame implements ComponentListener {
     private JLabel lblInfoFuture = new JLabel("Con esta sesión llegarás a");
     private JLabel lblInfoFutureTime = new JLabel("0h 0m");
     private JLabel lblInfoFutureFooter = new JLabel("tiempo total jugado");
-    private Timer debounceTimer;
+    private Timer debounceUpdateWindowPositionTimer;
 
     public Chronometer() {
+        this.getContentPane().setBackground(Color.decode(Utils.COLOR_BACKGROUND));
         setDefaultCloseOperation(JInternalFrame.DISPOSE_ON_CLOSE);
         initComponents();
 
@@ -63,8 +64,8 @@ public class Chronometer extends JInternalFrame implements ComponentListener {
 
         this.addComponentListener(this);
 
-        debounceTimer = new Timer(2500, e -> saveFramePosition());
-		debounceTimer.setRepeats(false);
+        debounceUpdateWindowPositionTimer = new Timer(2500, e -> saveFramePosition());
+		debounceUpdateWindowPositionTimer.setRepeats(false);
     }
 
     public void showError(String message) {
@@ -354,7 +355,7 @@ public class Chronometer extends JInternalFrame implements ComponentListener {
 
     @Override
     public void componentMoved(ComponentEvent e) {
-        if(debounceTimer != null) debounceTimer.restart();
+        if(debounceUpdateWindowPositionTimer != null) debounceUpdateWindowPositionTimer.restart();
     }
 
     @Override

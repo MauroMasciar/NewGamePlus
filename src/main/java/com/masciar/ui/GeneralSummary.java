@@ -4,17 +4,18 @@ import javax.swing.JInternalFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.Timer;
-
-import com.formdev.flatlaf.extras.FlatSVGIcon;
-import com.masciar.service.ConfigService;
-import com.masciar.util.RoundedBorder;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.awt.Insets;
 import java.awt.event.ComponentEvent;
 import java.awt.event.ComponentListener;
+import com.formdev.flatlaf.extras.FlatSVGIcon;
+import com.masciar.service.ConfigService;
+import com.masciar.util.RoundedBorder;
+import com.masciar.util.Utils;
 
 public class GeneralSummary extends JInternalFrame implements ComponentListener {
     private JPanel panelTitle = new JPanel();
@@ -32,13 +33,16 @@ public class GeneralSummary extends JInternalFrame implements ComponentListener 
     private JPanel panelSessions = new JPanel();
     private JLabel lblSessions = new JLabel("Sesiones");
     private JLabel lblSessionsValue = new JLabel("No se pudieron cargar los datos");
-    private Timer debounceTimer;
+    private Timer debounceUpdateWindowPositionTimer;
 
     public GeneralSummary() {
         createLayout();
         configurePanels();
         configureTypography();
         configureIcons();
+        setResizable(true);
+
+        this.getContentPane().setBackground(Color.decode(Utils.COLOR_BACKGROUND));
 
         pack();
         
@@ -46,20 +50,21 @@ public class GeneralSummary extends JInternalFrame implements ComponentListener 
 
         this.addComponentListener(this);
 
-        debounceTimer = new Timer(2500, e -> saveFramePosition());
-		debounceTimer.setRepeats(false);
+        debounceUpdateWindowPositionTimer = new Timer(2500, e -> saveFramePosition());
+		debounceUpdateWindowPositionTimer.setRepeats(false);
     }
 
     private void configurePanels() {
-        panelTime.setBackground(Color.decode("#162d57"));
-        panelGameStarted.setBackground(Color.decode("#0d5729"));
-        panelCompleted.setBackground(Color.decode("#472a55"));
-        panelSessions.setBackground(Color.decode("#523a0e"));
+        panelTitle.setBackground(new Color(18, 18, 20));
+        panelTime.setBackground(new Color(21, 33, 47, 85));
+        panelGameStarted.setBackground(new Color(24, 35, 37, 85));
+        panelCompleted.setBackground(new Color(71, 42, 85, 85));
+        panelSessions.setBackground(new Color(82, 25, 14, 85));
 
-        panelTime.setBorder(new RoundedBorder(18, new Color(70, 70, 70), 5, 5, 5, 5));
-        panelGameStarted.setBorder(new RoundedBorder(18, new Color(70, 70, 70), 5, 5, 5, 5));
-        panelCompleted.setBorder(new RoundedBorder(18, new Color(70, 70, 70), 5, 5, 5, 5));
-        panelSessions.setBorder(new RoundedBorder(18, new Color(70, 70, 70), 5, 5, 5, 5));
+        panelTime.setBorder(new RoundedBorder(18, new Color(21, 33, 47), 5, 5, 5, 5));
+        panelGameStarted.setBorder(new RoundedBorder(18, new Color(24, 35, 37), 5, 5, 5, 5));
+        panelCompleted.setBorder(new RoundedBorder(18, new Color(71, 42, 85, 75), 5, 5, 5, 5));
+        panelSessions.setBorder(new RoundedBorder(18, new Color(82, 25, 14, 75), 5, 5, 5, 5));
 
         panelTime.setPreferredSize(new Dimension(175, 75));
         panelGameStarted.setPreferredSize(new Dimension(175, 75));
@@ -71,35 +76,35 @@ public class GeneralSummary extends JInternalFrame implements ComponentListener 
         /* Tiempo total */
         lblTitle.setFont(new Font("Segoe UI", Font.BOLD, 20));
 
-        lblTotalTime.setFont(new Font("Segoe UI", Font.BOLD, 18));
-        lblTotalTime.setForeground(Color.decode("#b1b5b9"));
+        lblTotalTime.setFont(new Font("Segoe UI", Font.PLAIN, 18));
+        lblTotalTime.setForeground(new Color(130, 145, 160));
 
         lblTotalTimeHoursValue.setFont(new Font("Segoe UI", Font.BOLD, 28));
-        lblTotalTimeHoursValue.setForeground(Color.decode("#4c8fdb"));
+        lblTotalTimeHoursValue.setForeground(new Color(0, 150, 255));
 
-        lblTotalTimeDaysValue.setFont(new Font("Segoe UI", Font.BOLD, 18));
-        lblTotalTimeDaysValue.setForeground(Color.decode("#b1b5b9"));
+        lblTotalTimeDaysValue.setFont(new Font("Segoe UI", Font.PLAIN, 16));
+        lblTotalTimeDaysValue.setForeground(new Color(130, 145, 160));
 
         /* Completados */
-        lblCompleted.setFont(new Font("Segoe UI", Font.BOLD, 18));
-        lblCompleted.setForeground(Color.decode("#b1b5b9"));
+        lblCompleted.setFont(new Font("Segoe UI", Font.PLAIN, 18));
+        lblCompleted.setForeground(new Color(130, 145, 160));
 
         lblCompletedValue.setFont(new Font("Segoe UI", Font.BOLD, 28));
-        lblCompletedValue.setForeground(Color.decode("#4c8fdb"));
+        lblCompletedValue.setForeground(new Color(220, 230, 255)); //% 190, 110, 255
 
         /* Juegos iniciados */
-        lblTotalGamesStarted.setFont(new Font("Segoe UI", Font.BOLD, 18));
-        lblTotalGamesStarted.setForeground(Color.decode("#b1b5b9"));
+        lblTotalGamesStarted.setFont(new Font("Segoe UI", Font.PLAIN, 18));
+        lblTotalGamesStarted.setForeground(new Color(130, 145, 160));
 
         lblTotalGamesStartedValue.setFont(new Font("Segoe UI", Font.BOLD, 28));
-        lblTotalGamesStartedValue.setForeground(Color.decode("#4c8fdb"));
+        lblTotalGamesStartedValue.setForeground(new Color(240, 255, 240));
         
         /* Sesiones */
-        lblSessions.setFont(new Font("Segoe UI", Font.BOLD, 18));
-        lblSessions.setForeground(Color.decode("#b1b5b9"));
+        lblSessions.setFont(new Font("Segoe UI", Font.PLAIN, 18));
+        lblSessions.setForeground(new Color(130, 145, 160));
 
         lblSessionsValue.setFont(new Font("Segoe UI", Font.BOLD, 28));
-        lblSessionsValue.setForeground(Color.decode("#4c8fdb"));
+        lblSessionsValue.setForeground(new Color(255, 220, 160));
     }
 
     private void configureIcons() {
@@ -129,6 +134,7 @@ public class GeneralSummary extends JInternalFrame implements ComponentListener 
         gbcPanels.weighty = 1.0;
         gbcPanels.ipadx = 1;
         gbcPanels.ipady = 1;
+        //gbcPanels.insets = new Insets(5, 5, 5, 5);
         gbcPanels.fill = GridBagConstraints.HORIZONTAL;
 
         panelTitle.add(lblTitle, gbcPanels);
@@ -161,14 +167,16 @@ public class GeneralSummary extends JInternalFrame implements ComponentListener 
 
         gbc.gridx = 0;
         gbc.gridy = 0;
-        gbc.gridwidth = 2;
+        gbc.gridwidth = 1;
         gbc.gridheight = 1;
         gbc.weightx = 1.0;
         gbc.weighty = 1.0;
         gbc.ipadx = 1;
         gbc.ipady = 1;
-        gbc.fill = GridBagConstraints.HORIZONTAL;
+        gbc.fill = GridBagConstraints.NONE;
+        gbc.insets = new Insets(0, 0, 10, 0); // arriba izq abajo derecha
         add(panelTitle, gbc);
+        gbc.insets = new Insets(5, 5, 5, 5);
         gbc.gridwidth = 1;
         gbc.gridy++;
         add(panelTime, gbc);
@@ -212,7 +220,7 @@ public class GeneralSummary extends JInternalFrame implements ComponentListener 
 
     @Override
     public void componentMoved(ComponentEvent e) {
-        if(debounceTimer != null) debounceTimer.restart();
+        if(debounceUpdateWindowPositionTimer != null) debounceUpdateWindowPositionTimer.restart();
     }
 
     @Override

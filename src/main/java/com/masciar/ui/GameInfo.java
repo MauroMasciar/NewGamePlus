@@ -1,12 +1,13 @@
 package com.masciar.ui;
 
+import com.masciar.service.ConfigService;
+import com.masciar.util.Utils;
+
 import javax.swing.JInternalFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.Timer;
-
-import com.masciar.service.ConfigService;
-
+import java.awt.Color;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.event.ComponentEvent;
@@ -33,56 +34,21 @@ public class GameInfo extends JInternalFrame implements ComponentListener {
     private JLabel lblLastSession = new JLabel("Ultima sesion");
     private JLabel lblLastSessionValue = new JLabel("01/01/1900");
     private JLabel lblLastSessionTimeValue = new JLabel("0h 0m");
-    private Timer debounceTimer;
+    private Timer debounceUpdateWindowPositionTimer;
 
     public GameInfo() {
+        this.getContentPane().setBackground(Color.decode(Utils.COLOR_BACKGROUND));
         initComponents();
 
         this.addComponentListener(this);
 
-        debounceTimer = new Timer(2500, e -> saveFramePosition());
-		debounceTimer.setRepeats(false);
+        debounceUpdateWindowPositionTimer = new Timer(2500, e -> saveFramePosition());
+        debounceUpdateWindowPositionTimer.setRepeats(false);
 
         setVisible(true);
     }
 
-    public void setGameName(String name) {
-        lblName.setText(name);
-    }
-
-    public void setLibrary(String library) {
-        lblLibrary.setText(library);
-    }
-
-    public void setCategory(String category) {
-        lblCategory.setText(category);
-    }
-
-    public void setPlatform(String platform) {
-        lblPlatform.setText(platform);
-    }
-
-    public void setTotalTimeHoursValue(String totalTimeHoursValue) {
-        lblTotalTimeHoursValue.setText(totalTimeHoursValue);
-    }
-
-    public void setTotalDaysValue(String totalDaysValue) {
-        lblTotalDaysValue.setText(totalDaysValue);
-    }
-
-    public void setTotalSessionsValue(String totalSessionsValue) {
-        lblTotalSessionsValue.setText(totalSessionsValue);
-    }
-
-    public void setLastSessionValue(String lastSessionValue) {
-        lblLastSessionValue.setText(lastSessionValue);
-    }
-
-    public void setLastSessionTimeValue(String lastSessionTimeValue) {
-        lblLastSessionTimeValue.setText(lastSessionTimeValue);
-    }
-
-    public void initComponents() {
+    private void initComponents() {
         setLocation(Integer.parseInt(ConfigService.getProperty("GameInfoX")), Integer.parseInt(ConfigService.getProperty("GameInfoY")));
         setLayout(new GridBagLayout());
         panelGameInfo.setLayout(new GridBagLayout());
@@ -195,6 +161,12 @@ public class GameInfo extends JInternalFrame implements ComponentListener {
         gbcPanels.gridy++;
         add(panelPlayerInfo, gbcPanels);
 
+        panelGameInfo.setBackground(Color.decode(Utils.COLOR_BACKGROUND));
+        panelPlayerInfo.setBackground(Color.decode(Utils.COLOR_BACKGROUND));
+        panelTotalTime.setBackground(Color.decode(Utils.COLOR_BACKGROUND));
+        panelTotalSessions.setBackground(Color.decode(Utils.COLOR_BACKGROUND));
+        panelLastSession.setBackground(Color.decode(Utils.COLOR_BACKGROUND));
+
         pack();
     }
 
@@ -209,7 +181,8 @@ public class GameInfo extends JInternalFrame implements ComponentListener {
 
     @Override
     public void componentMoved(ComponentEvent e) {
-        if(debounceTimer != null) debounceTimer.restart();
+        if (debounceUpdateWindowPositionTimer != null)
+            debounceUpdateWindowPositionTimer.restart();
     }
 
     @Override
@@ -218,5 +191,41 @@ public class GameInfo extends JInternalFrame implements ComponentListener {
 
     @Override
     public void componentShown(ComponentEvent e) {
+    }
+
+    public void setGameName(String name) {
+        lblName.setText(name);
+    }
+
+    public void setLibrary(String library) {
+        lblLibrary.setText(library);
+    }
+
+    public void setCategory(String category) {
+        lblCategory.setText(category);
+    }
+
+    public void setPlatform(String platform) {
+        lblPlatform.setText(platform);
+    }
+
+    public void setTotalTimeHoursValue(String totalTimeHoursValue) {
+        lblTotalTimeHoursValue.setText(totalTimeHoursValue);
+    }
+
+    public void setTotalDaysValue(String totalDaysValue) {
+        lblTotalDaysValue.setText(totalDaysValue);
+    }
+
+    public void setTotalSessionsValue(String totalSessionsValue) {
+        lblTotalSessionsValue.setText(totalSessionsValue);
+    }
+
+    public void setLastSessionValue(String lastSessionValue) {
+        lblLastSessionValue.setText(lastSessionValue);
+    }
+
+    public void setLastSessionTimeValue(String lastSessionTimeValue) {
+        lblLastSessionTimeValue.setText(lastSessionTimeValue);
     }
 }
