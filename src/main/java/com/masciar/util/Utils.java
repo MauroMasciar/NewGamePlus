@@ -1,5 +1,6 @@
 package com.masciar.util;
 
+import java.awt.Color;
 import java.awt.Component;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -15,6 +16,8 @@ import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableColumn;
 
 public class Utils {
+    public static final String GAME_INFO_SESSION_TEXT_VALUE = "#ffffff";
+    public static final Color COLOR_BACKGROUND_GAMEINFO_SESSION = new Color((int) Long.parseLong("101F2328", 16), true);
     public static final String COLOR_BACKGROUND = "#121214";
 	public static final String COLOR_GREEN = "#48bd4e";
     public static final String COLOR_BACKGROUND_PANEL = "#1F2328";
@@ -96,7 +99,7 @@ public class Utils {
 
         StringBuilder time = new StringBuilder();
 
-        if (days > 0) time.append(days).append(" días ");
+        time.append(days).append(" días ");
         if (hours > 0 || hours > 0) time.append(hours).append("h ");
         time.append(minutes).append("m ");
 

@@ -6,6 +6,7 @@ import com.masciar.controller.AddSessionManuallyController;
 import com.masciar.controller.GameInfoController;
 import com.masciar.controller.GeneralSummaryController;
 import com.masciar.service.ConfigService;
+import com.masciar.ui.gameinfo.GameInfo;
 import com.masciar.controller.ConfigController;
 
 import javax.swing.ImageIcon;
@@ -111,6 +112,7 @@ public class MainWindow extends JFrame implements ActionListener, WindowStateLis
         gamesList.setListener(gameInfoController);
 
         generalSummaryController = new GeneralSummaryController(desktopPane);
+
         setVisible(true);
     }
 
