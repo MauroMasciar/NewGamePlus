@@ -56,6 +56,10 @@ public class Config extends JInternalFrame implements ComponentListener {
         return txtSteamId.getText();
     }
 
+    public void setTxtSteamId(String steamId) {
+        txtSteamId.setText(steamId);
+    }
+
     @Override
     public void componentHidden(ComponentEvent e) {
     }

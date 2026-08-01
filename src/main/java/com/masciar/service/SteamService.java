@@ -16,8 +16,9 @@ import java.net.http.HttpResponse;
 import java.util.List;
 
 public class SteamService {
-    ApiSteamKey apiSteamKey = new ApiSteamKey();
+    private ApiSteamKey apiSteamKey = new ApiSteamKey();
     private String API_KEY = apiSteamKey.GetApiSteamKey();
+    private String steamId64 = ConfigService.getProperty("steam.id");
 
     public String getSteamID64(String name) {
         String url = String.format("https://api.steampowered.com/ISteamUser/ResolveVanityURL/v1/?key=%s&vanityurl=%s",
@@ -34,19 +35,13 @@ public class SteamService {
             VanityModel vanity = steamResponse.getResponse();
             if (vanity.getSuccess() == 1)
                 return vanity.getSteamid();
-
-            /*
-            JsonNode root = mapper.readTree(json);
-            String steamId = root.get("response").get("steamid").asText();
-            return steamId;
-            */ 
         } catch (IOException | InterruptedException e) {
             ErrorHandler.handle(e);
         }
         return "0";
     }
 
-    public List<GameModel> getOwnedGames(String steamId64) {
+    public List<GameModel> getOwnedGames() {
         HttpClient client = HttpClient.newHttpClient();
         ObjectMapper mapper = new ObjectMapper();
         String url = String.format(
@@ -64,9 +59,22 @@ public class SteamService {
         return null;
     }
 
-    // TODO: Guardar en una lista
-    public void getPlayerGameAchievements(String steamId64, int appId) {
+    public void getPlayerGameAchievements(int appId) {
         String url = String.format("https://api.steampowered.com/ISteamUserStats/GetPlayerAchievements/v1/?key=%s&steamid=%s&appid=%d", API_KEY, steamId64, appId);
+
+        HttpClient client = HttpClient.newHttpClient();
+        HttpRequest request = HttpRequest.newBuilder().uri(URI.create(url)).GET().build();
+
+        try {
+            HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
+            System.out.println(response.body());
+        } catch (IOException | InterruptedException e) {
+            ErrorHandler.handle(e);
+        }
+    }
+
+    public void getAchievementsGame(int appId) {
+        String url = String.format("https://api.steampowered.com/ISteamUserStats/GetSchemaForGame/v2/?key=%s&appid=%d&l=spanish", API_KEY, appId);
 
         HttpClient client = HttpClient.newHttpClient();
         HttpRequest request = HttpRequest.newBuilder().uri(URI.create(url)).GET().build();

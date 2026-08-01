@@ -10,8 +10,8 @@ public class ConfigController {
     public ConfigController(JDesktopPane desktopPane) {
         desktopPane.add(view);
 
+        view.setTxtSteamId(ConfigService.getProperty("steam.id"));
         view.setBtnSaveListener(e -> saveConfig());
-
     }
 
     public void saveConfig() {
