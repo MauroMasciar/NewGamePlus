@@ -1,12 +1,10 @@
 package com.masciar.logging;
 
+import javax.swing.JOptionPane;
 import java.io.PrintWriter;
 import java.io.StringWriter;
 
-import javax.swing.JOptionPane;
-
 public class ErrorHandler {
-
     public static void handle(Exception e) {
 		StringWriter sw = new StringWriter();
 		e.printStackTrace(new PrintWriter(sw));

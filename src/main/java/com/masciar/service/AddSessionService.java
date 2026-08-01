@@ -9,6 +9,7 @@ import com.masciar.dao.PlatformDAO;
 import com.masciar.model.Games;
 import com.masciar.model.History;
 import com.masciar.ui.SessionsHistory;
+import com.masciar.util.Utils;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -49,6 +50,7 @@ public class AddSessionService {
     private void saveGameTime(Games game, int seconds) {
         game.setTimePlayed(game.getTimePlayed() + seconds);
         game.setPlayCount(game.getPlayCount() + 1);
+        game.setLastPlayed(Utils.getFormattedDateTime());
         GamesDAO gamesDao = new GamesDAO();
         gamesDao.update(game);
     }

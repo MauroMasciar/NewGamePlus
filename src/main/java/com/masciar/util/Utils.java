@@ -4,8 +4,6 @@ import com.masciar.logging.ErrorHandler;
 
 import java.awt.Color;
 import java.awt.Component;
-import java.io.PrintWriter;
-import java.io.StringWriter;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.time.LocalDate;
@@ -27,7 +25,7 @@ public class Utils {
     public static final String COLOR_BACKGROUND_PANEL = "#1F2328";
     public static final String COLOR_BACKGROUND_PANEL_2 = "#2B2F36";
     public static final String DATABASE_URL = "jdbc:sqlite:database.db?busy_timeout=5000";
-    public static final int MINIMUN_SESSION_SECONDS = 1;
+    public static final int MINIMUN_SESSION_SECONDS = 300;
     public static final int SECONDS_PER_HOUR = 3600;
     
     public static String getFormattedDate() {

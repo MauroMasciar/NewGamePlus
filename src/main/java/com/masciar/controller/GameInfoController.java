@@ -29,23 +29,19 @@ public class GameInfoController implements GameSelectedListener {
         desktopPane.add(view);
     }
 
-    public void Update() {
+    private void Update() {
         try {
             view.getSummaryPanel().setGameName(gameSelected.getName());
             view.getSummaryPanel().setLibrary(libraryService.findNameById(gameSelected.getLibrary()));
             view.getSummaryPanel().setCategory(categoryService.findNameById(gameSelected.getCategory()));
             view.getSummaryPanel().setPlatform(platformService.findNameById(gameSelected.getPlatform()));
-            view.getSessionPanel()
-                    .setTotalTimeHoursValue(Utils.getTotalHoursFromSeconds(gameSelected.getTimePlayed(), true));
+            view.getSessionPanel().setTotalTimeHoursValue(Utils.getTotalHoursFromSeconds(gameSelected.getTimePlayed(), true));
             view.getSessionPanel().setTotalDaysValue(Utils.getTotalDaysFromSeconds(gameSelected.getTimePlayed()));
             view.getSessionPanel().setTotalSessionsValue(String.valueOf(gameSelected.getPlayCount()));
-            view.getSessionPanel().setLastSessionDate(
-                    Utils.formatDateFromString(historyService.getLastSessionFromGame(gameSelected.getId()), 2));
-            view.getSessionPanel().setLastSessionTime(Utils
-                    .getTotalHoursFromSeconds(historyService.getLastSessionTimeFromGame(gameSelected.getId()), true));
+            view.getSessionPanel().setLastSessionDate(Utils.formatDateFromString(historyService.getLastSessionFromGame(gameSelected.getId()), 2));
+            view.getSessionPanel().setLastSessionTime(Utils.getTotalHoursFromSeconds(historyService.getLastSessionTimeFromGame(gameSelected.getId()), true));
             view.pack();
         } catch (NullPointerException e) {
-            e.printStackTrace();
             ErrorHandler.handle(e);
         }
     }

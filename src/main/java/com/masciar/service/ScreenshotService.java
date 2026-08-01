@@ -1,6 +1,7 @@
 package com.masciar.service;
 
 import com.masciar.logging.ErrorHandler;
+import com.masciar.util.Utils;
 
 import java.io.IOException;
 import com.sun.jna.platform.win32.User32;
@@ -14,8 +15,7 @@ public class ScreenshotService {
             MSG msg = new MSG();
             while (User32.INSTANCE.GetMessage(msg, null, 0, 0) != 0) {
                 if (msg.message == WinUser.WM_HOTKEY) {
-                    System.out.println("reconoce");
-                    String name = String.valueOf(Math.random() + ".png"); // TODO: Obtener nombre con fecha y hora
+                    String name = String.valueOf("NewGamePlus - " + Utils.getFormattedDateTime() + ".png");
                     ProcessBuilder pb = new ProcessBuilder(
                             "ffmpeg.exe",
                             "-f", "gdigrab",

@@ -6,7 +6,6 @@ import com.masciar.service.Toast;
 import com.masciar.service.AchievementService;
 import com.masciar.service.AddSessionService;
 import com.masciar.listener.ChronometerListener;
-import com.masciar.logging.ErrorHandler;
 import com.masciar.model.Games;
 import com.masciar.ui.Chronometer;
 import com.masciar.ui.MainWindow;
@@ -53,13 +52,11 @@ public class PlayingController implements ChronometerListener {
         view.setPlayCount(String.valueOf(game.getPlayCount()));
         view.setTotalPlayed(Utils.getTotalHoursFromSeconds(game.getTimePlayed(), true));
         view.setTotalPlayedAfterSession(Utils.getTotalHoursFromSeconds(game.getTimePlayed(), false));
-        view.setAgeSession("Iniciado a las " + startTime.format(format_time) + " hace "
-                + Utils.getTotalHoursFromSeconds(0, false));
+        view.setAgeSession("Iniciado a las " + startTime.format(format_time) + " hace " + Utils.getTotalHoursFromSeconds(0, false));
         try {
             view.setAvgTimePlayed(Utils.getTotalHoursFromSeconds(game.getTimePlayed() / game.getPlayCount(), false));
         } catch (Exception e) {
             view.setAvgTimePlayed("00h 00m");
-            ErrorHandler.handle(e);
         }
 
         timerStrobe = new Timer(500, e -> view.strobe(chronometerService.isPaused()));
@@ -71,7 +68,7 @@ public class PlayingController implements ChronometerListener {
         Toast.showToast(desktopPane, "Juego lanzado");
     }
 
-    public void pauseSession() {
+    private void pauseSession() {
         if (chronometerService.isPaused()) {
             chronometerService.setPaused(false);
             view.btnPauseText("Pausar");
@@ -88,7 +85,7 @@ public class PlayingController implements ChronometerListener {
         view.strobe(chronometerService.isPaused());
     }
 
-    public void endSession() {
+    private void endSession() {
         chronometerService.stop();
         if (timerStrobe != null)
             timerStrobe.stop();
