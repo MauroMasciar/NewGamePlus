@@ -1,6 +1,7 @@
 package com.masciar.dao;
 
 import com.masciar.app.Main;
+import com.masciar.logging.ErrorHandler;
 import com.masciar.model.Platforms;
 import com.masciar.util.Utils;
 
@@ -27,7 +28,7 @@ public class PlatformDAO {
                 Platforms.add(platforms);
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            ErrorHandler.handle(e);
         }
         return Platforms;
     }
@@ -44,7 +45,7 @@ public class PlatformDAO {
             if (rowsAffected != 0)
                 System.out.println("Plataforma actualizada");
         } catch (SQLException e) {
-            e.printStackTrace();
+            ErrorHandler.handle(e);
         }
     }
 }

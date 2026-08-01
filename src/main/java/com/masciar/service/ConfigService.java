@@ -1,5 +1,7 @@
 package com.masciar.service;
 
+import com.masciar.logging.ErrorHandler;
+
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -16,10 +18,10 @@ public class ConfigService {
 	        try(FileOutputStream output = new FileOutputStream("config.properties")) {
 	        	prop.store(output, "Application and user config");
 	        } catch(IOException e) {
-	            e.printStackTrace();
+	            ErrorHandler.handle(e);
 	        }
 		} catch (IOException e) {
-			e.printStackTrace();
+			ErrorHandler.handle(e);
 		}
 	}
 	
@@ -30,7 +32,7 @@ public class ConfigService {
 			file = new FileInputStream("config.properties");
 			prop.load(file);
 		} catch(IOException e) {
-			e.printStackTrace();
+			ErrorHandler.handle(e);
 		}
         
         return prop.getProperty(key);

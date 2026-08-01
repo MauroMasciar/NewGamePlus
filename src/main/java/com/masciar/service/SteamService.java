@@ -2,6 +2,7 @@ package com.masciar.service;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.masciar.app.ApiSteamKey;
+import com.masciar.logging.ErrorHandler;
 import com.masciar.model.steam.GetOwnedGames.GameModel;
 import com.masciar.model.steam.GetOwnedGames.GetOwnedGamesResponse;
 import com.masciar.model.steam.vanity.ResolveVanityResponse;
@@ -40,7 +41,7 @@ public class SteamService {
             return steamId;
             */ 
         } catch (IOException | InterruptedException e) {
-            e.printStackTrace();
+            ErrorHandler.handle(e);
         }
         return "0";
     }
@@ -58,7 +59,7 @@ public class SteamService {
             GetOwnedGamesResponse steamResponse = mapper.readValue(response.body(), GetOwnedGamesResponse.class);
             return steamResponse.getResponse().getGames();
         } catch (IOException | InterruptedException e) {
-            e.printStackTrace();
+            ErrorHandler.handle(e);
         }
         return null;
     }
@@ -74,7 +75,7 @@ public class SteamService {
             HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
             System.out.println(response.body());
         } catch (IOException | InterruptedException e) {
-            e.printStackTrace();
+            ErrorHandler.handle(e);
         }
     }
 }

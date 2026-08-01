@@ -1,5 +1,6 @@
 package com.masciar.dao;
 
+import com.masciar.logging.ErrorHandler;
 import com.masciar.model.History;
 import com.masciar.util.Utils;
 
@@ -28,7 +29,7 @@ public class HistoryDAO {
 				history.add(h);
 			}
 		} catch (SQLException e) {
-			e.printStackTrace();
+			ErrorHandler.handle(e);
 		}
 		return history;
 	}
@@ -52,7 +53,7 @@ public class HistoryDAO {
 			else
 				System.out.println("Error al añadir sesion al historial");
 		} catch (SQLException e) {
-			e.printStackTrace();
+			ErrorHandler.handle(e);
 		}
 	}
 
@@ -64,7 +65,7 @@ public class HistoryDAO {
 			ResultSet rs = ps.executeQuery();
 			return rs.getString("datetime_start");
 		} catch (SQLException e) {
-			e.printStackTrace();
+			ErrorHandler.handle(e);
 		}
 		return null;
 	}
@@ -76,7 +77,7 @@ public class HistoryDAO {
 			ResultSet rs = ps.executeQuery();
 			return rs.getInt("seconds");
 		} catch (SQLException e) {
-			e.printStackTrace();
+			ErrorHandler.handle(e);
 		}
 		return 0;
 	}

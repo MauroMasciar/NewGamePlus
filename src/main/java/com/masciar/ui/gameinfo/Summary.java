@@ -6,7 +6,6 @@ import com.masciar.util.Utils;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import java.awt.Color;
-import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;

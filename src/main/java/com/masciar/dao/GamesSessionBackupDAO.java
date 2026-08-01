@@ -1,5 +1,6 @@
 package com.masciar.dao;
 
+import com.masciar.logging.ErrorHandler;
 import com.masciar.util.Utils;
 
 import java.sql.Connection;
@@ -18,7 +19,7 @@ public class GamesSessionBackupDAO {
             else
                 System.out.println("Error al borrar backup antiguo");
         } catch (SQLException e) {
-            e.printStackTrace();
+            ErrorHandler.handle(e);
         }
 
         query = "INSERT INTO games_session_backup (game_id, date_time, seconds) VALUES (?, ?, ?)";
@@ -33,7 +34,7 @@ public class GamesSessionBackupDAO {
             else
                 System.out.println("Fallo al crear el backup de la sesion");
         } catch (SQLException e) {
-            e.printStackTrace();
+            ErrorHandler.handle(e);
         }
     }
 }

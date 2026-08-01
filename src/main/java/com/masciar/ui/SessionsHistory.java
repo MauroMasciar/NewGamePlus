@@ -105,7 +105,7 @@ class HistoryTableModel extends AbstractTableModel {
             case 1:
                 return Utils.getTotalHoursFromSeconds(list.get(rowIndex).getSeconds(), true);
             case 2:
-                return Utils.formatDateFromString(list.get(rowIndex).getDateTimeStart());
+                return Utils.formatDateFromString(list.get(rowIndex).getDateTimeStart(), 1);
         }
         return "";
     }

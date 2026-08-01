@@ -1,5 +1,6 @@
 package com.masciar.dao;
 
+import com.masciar.logging.ErrorHandler;
 import com.masciar.model.Games;
 import com.masciar.util.Utils;
 
@@ -36,7 +37,7 @@ public class GamesDAO {
 				games.add(game);
 			}
 		} catch (SQLException e) {
-			e.printStackTrace();
+			ErrorHandler.handle(e);
 		}
 
 		return games;
@@ -49,7 +50,7 @@ public class GamesDAO {
 				ResultSet rs = ps.executeQuery()) {
 			return rs.getInt("time_played");
 		} catch (SQLException e) {
-			e.printStackTrace();
+			ErrorHandler.handle(e);
 		}
 		return 0;
 	}
@@ -92,7 +93,7 @@ public class GamesDAO {
 			if (rowsAffected != 0)
 				return true;
 		} catch (SQLException e) {
-			e.printStackTrace();
+			ErrorHandler.handle(e);
 		}
 		return false;
 	}
@@ -136,7 +137,7 @@ public class GamesDAO {
 			if (rowsAffected != 0)
 				System.out.println("Juego actualizado");
 		} catch (SQLException e) {
-			e.printStackTrace();
+			ErrorHandler.handle(e);
 		}
 	}
 }

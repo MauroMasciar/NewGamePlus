@@ -1,5 +1,6 @@
 package com.masciar.dao;
 
+import com.masciar.logging.ErrorHandler;
 import com.masciar.model.Player;
 import com.masciar.util.Utils;
 
@@ -27,7 +28,7 @@ public class PlayerDAO {
                 player_list.add(player);
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            ErrorHandler.handle(e);
         }
         return player_list;
     }

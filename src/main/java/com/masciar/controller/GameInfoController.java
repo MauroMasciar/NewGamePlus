@@ -1,8 +1,7 @@
 package com.masciar.controller;
 
-import javax.swing.JDesktopPane;
-
 import com.masciar.listener.GameSelectedListener;
+import com.masciar.logging.ErrorHandler;
 import com.masciar.model.Games;
 import com.masciar.service.CategoryService;
 import com.masciar.service.HistoryService;
@@ -10,6 +9,8 @@ import com.masciar.service.LibraryService;
 import com.masciar.service.PlatformService;
 import com.masciar.ui.gameinfo.GameInfo;
 import com.masciar.util.Utils;
+
+import javax.swing.JDesktopPane;
 
 public class GameInfoController implements GameSelectedListener {
     private Games gameSelected;
@@ -34,14 +35,18 @@ public class GameInfoController implements GameSelectedListener {
             view.getSummaryPanel().setLibrary(libraryService.findNameById(gameSelected.getLibrary()));
             view.getSummaryPanel().setCategory(categoryService.findNameById(gameSelected.getCategory()));
             view.getSummaryPanel().setPlatform(platformService.findNameById(gameSelected.getPlatform()));
-            view.getSessionPanel().setTotalTimeHoursValue(Utils.getTotalHoursFromSeconds(gameSelected.getTimePlayed(), true));
+            view.getSessionPanel()
+                    .setTotalTimeHoursValue(Utils.getTotalHoursFromSeconds(gameSelected.getTimePlayed(), true));
             view.getSessionPanel().setTotalDaysValue(Utils.getTotalDaysFromSeconds(gameSelected.getTimePlayed()));
             view.getSessionPanel().setTotalSessionsValue(String.valueOf(gameSelected.getPlayCount()));
-            view.getSessionPanel().setLastSessionDate(historyService.getLastSessionFromGame(gameSelected.getId()));
-            view.getSessionPanel().setLastSessionTime(Utils.getTotalHoursFromSeconds(historyService.getLastSessionTimeFromGame(gameSelected.getId()), true));
+            view.getSessionPanel().setLastSessionDate(
+                    Utils.formatDateFromString(historyService.getLastSessionFromGame(gameSelected.getId()), 2));
+            view.getSessionPanel().setLastSessionTime(Utils
+                    .getTotalHoursFromSeconds(historyService.getLastSessionTimeFromGame(gameSelected.getId()), true));
             view.pack();
         } catch (NullPointerException e) {
             e.printStackTrace();
+            ErrorHandler.handle(e);
         }
     }
 

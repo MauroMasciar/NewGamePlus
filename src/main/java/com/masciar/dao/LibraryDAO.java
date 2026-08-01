@@ -1,6 +1,7 @@
 package com.masciar.dao;
 
 import com.masciar.app.Main;
+import com.masciar.logging.ErrorHandler;
 import com.masciar.model.Libraries;
 import com.masciar.util.Utils;
 
@@ -27,7 +28,7 @@ public class LibraryDAO {
                 libraries.add(library);
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            ErrorHandler.handle(e);
         }
         return libraries;
     }
@@ -44,7 +45,7 @@ public class LibraryDAO {
             if (rowsAffected != 0)
                 System.out.println("Libreria actualizada");
         } catch (SQLException e) {
-            e.printStackTrace();
+            ErrorHandler.handle(e);
         }
     }
 }

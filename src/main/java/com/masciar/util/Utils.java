@@ -1,7 +1,11 @@
 package com.masciar.util;
 
+import com.masciar.logging.ErrorHandler;
+
 import java.awt.Color;
 import java.awt.Component;
+import java.io.PrintWriter;
+import java.io.StringWriter;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.time.LocalDate;
@@ -23,7 +27,7 @@ public class Utils {
     public static final String COLOR_BACKGROUND_PANEL = "#1F2328";
     public static final String COLOR_BACKGROUND_PANEL_2 = "#2B2F36";
     public static final String DATABASE_URL = "jdbc:sqlite:database.db?busy_timeout=5000";
-    public static final int MINIMUN_SESSION_SECONDS = 300;
+    public static final int MINIMUN_SESSION_SECONDS = 1;
     public static final int SECONDS_PER_HOUR = 3600;
     
     public static String getFormattedDate() {
@@ -143,7 +147,7 @@ public class Utils {
             }
             return hexString.toString();
         } catch (NoSuchAlgorithmException e) {
-            e.printStackTrace();
+            ErrorHandler.handle(e);
             return null;
         }
     }
@@ -169,7 +173,7 @@ public class Utils {
         }
     }
     
-    public static String formatDateFromString(String dateString) {
+    public static String formatDateFromString(String dateString, int opt) {
         List<String> dateArray = Arrays.asList(dateString);
         DateTimeFormatter formatterFlex = new DateTimeFormatterBuilder()
                 .appendOptional(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"))
@@ -177,8 +181,15 @@ public class Utils {
                 .appendOptional(DateTimeFormatter.ofPattern("yyyy/MM/dd'T'HH:mm:ss"))
                 .appendOptional(DateTimeFormatter.ISO_DATE_TIME)
                 .toFormatter();
+        DateTimeFormatter formatter;
 
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
+        if(opt == 1) 
+            formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
+        else if(opt == 2)
+            formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        else
+            formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
+        
         String result = "";
         for (String fechaTexto : dateArray) {
             try {
@@ -186,6 +197,7 @@ public class Utils {
                 result = fecha.format(formatter);                
             } catch (Exception e) {
                 System.out.println("Error: No se pudo procesar el formato de: " + fechaTexto);
+                //ErrorHandler.handle(e);
             }
         }
         return result;

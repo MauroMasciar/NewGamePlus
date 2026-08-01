@@ -1,6 +1,7 @@
 package com.masciar.dao;
 
 import com.masciar.app.Main;
+import com.masciar.logging.ErrorHandler;
 import com.masciar.model.Categories;
 import com.masciar.util.Utils;
 
@@ -27,7 +28,7 @@ public class CategoryDAO {
                 categories.add(category);
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            ErrorHandler.handle(e);
         }
         return categories;
     }
@@ -44,7 +45,7 @@ public class CategoryDAO {
             if (rowsAffected != 0)
                 System.out.println("Categoria actualizada");
         } catch (SQLException e) {
-            e.printStackTrace();
+            ErrorHandler.handle(e);
         }
     }
 }

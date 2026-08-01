@@ -1,5 +1,6 @@
 package com.masciar.dao;
 
+import com.masciar.logging.ErrorHandler;
 import com.masciar.model.Achievements;
 import com.masciar.util.Utils;
 
@@ -26,7 +27,7 @@ public class AchievementDAO {
                 achievementsList.add(a);
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            ErrorHandler.handle(e);
         }
         return achievementsList;
     }
@@ -46,7 +47,7 @@ public class AchievementDAO {
             else
                 System.out.println("Error al añadir logro");
         } catch (SQLException e) {
-            e.printStackTrace();
+            ErrorHandler.handle(e);
         }
     }
 }

@@ -1,5 +1,7 @@
 package com.masciar.service;
 
+import com.masciar.logging.ErrorHandler;
+
 import java.io.IOException;
 import com.sun.jna.platform.win32.User32;
 import com.sun.jna.platform.win32.WinUser;
@@ -28,9 +30,9 @@ public class ScreenshotService {
                         p = pb.start();
                         p.waitFor();
                     } catch (IOException e) {
-                        e.printStackTrace();
+                        ErrorHandler.handle(e);
                     } catch (InterruptedException e) {
-                        e.printStackTrace();
+                        ErrorHandler.handle(e);
                     }
                 }
             }
