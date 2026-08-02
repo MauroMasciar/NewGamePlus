@@ -92,6 +92,8 @@ public class GameService {
             completed_date = "1900-01-01";
         if (notes.isEmpty())
             notes = "";
+        
+        int appId = 0;
 
         if (name.isEmpty()) {
             return false;
@@ -101,7 +103,7 @@ public class GameService {
                     hide, path, releasedate,
                     developer, series, playMode, status, lastPlayed, rating, platform, publisher, region, version,
                     added, modified, favorite, statistic,
-                    portable, image, notes);
+                    portable, image, notes, appId);
             GamesDAO gamesDao = new GamesDAO();
             if (gamesDao.add(game)) {
                 Main.gameRepository.games_list.add(game);

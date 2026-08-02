@@ -1,7 +1,6 @@
 package com.masciar.controller;
 
 import com.masciar.listener.GameSelectedListener;
-import com.masciar.logging.ErrorHandler;
 import com.masciar.model.Games;
 import com.masciar.service.CategoryService;
 import com.masciar.service.HistoryService;
@@ -29,7 +28,7 @@ public class GameInfoController implements GameSelectedListener {
         desktopPane.add(view);
     }
 
-    private void Update() {
+    private void update() {
         try {
             view.getSummaryPanel().setGameName(gameSelected.getName());
             view.getSummaryPanel().setLibrary(libraryService.findNameById(gameSelected.getLibrary()));
@@ -42,14 +41,13 @@ public class GameInfoController implements GameSelectedListener {
             view.getSessionPanel().setLastSessionTime(Utils.getTotalHoursFromSeconds(historyService.getLastSessionTimeFromGame(gameSelected.getId()), true));
             view.pack();
         } catch (NullPointerException e) {
-            ErrorHandler.handle(e);
+            e.printStackTrace();
         }
     }
 
     @Override
     public void selectionChanged(Games game) {
         gameSelected = game;
-        Update();
+        update();
     }
-
 }

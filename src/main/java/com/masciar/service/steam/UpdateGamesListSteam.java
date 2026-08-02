@@ -1,13 +1,12 @@
 package com.masciar.service.steam;
 
+import com.masciar.logging.ErrorHandler;
+import com.masciar.util.Utils;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
-
-import com.masciar.logging.ErrorHandler;
-import com.masciar.service.SteamService;
-import com.masciar.util.Utils;
 
 public class UpdateGamesListSteam {
     public void update() {
@@ -19,7 +18,6 @@ public class UpdateGamesListSteam {
                 ps.setString(1, ss.getOwnedGames().get(i).getName());
                 ps.setString(2, ss.getOwnedGames().get(i).getImg_icon_url());
                 ps.setInt(3, ss.getOwnedGames().get(i).getAppid());
-
                 ps.setInt(4, ss.getOwnedGames().get(i).getPlaytime_windows_forever());
                 ps.setInt(5, ss.getOwnedGames().get(i).getPlaytime_linux_forever());
                 ps.setInt(6, ss.getOwnedGames().get(i).getPlaytime_deck_forever());

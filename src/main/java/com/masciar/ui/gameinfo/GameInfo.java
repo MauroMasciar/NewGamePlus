@@ -13,9 +13,9 @@ import java.awt.GridBagConstraints;
 
 public class GameInfo extends JInternalFrame implements ComponentListener {
     private Timer debounceUpdateWindowPositionTimer;
-    Image image;
-    Summary summary;
-    Session session;
+    private Image image;
+    private Summary summary;
+    private Session session;
 
     public GameInfo() {
         image = new Image();
@@ -26,6 +26,8 @@ public class GameInfo extends JInternalFrame implements ComponentListener {
         setLayout(new GridBagLayout());
         setTitle("Información del juego");
         getContentPane().setBackground(Color.decode(Utils.COLOR_BACKGROUND));
+
+        addComponentListener(this);
 
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.gridx = 0;

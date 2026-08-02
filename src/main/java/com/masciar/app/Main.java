@@ -21,6 +21,7 @@
 
 package com.masciar.app;
 
+import com.masciar.logging.ErrorHandler;
 import com.masciar.repository.AchievementRepository;
 import com.masciar.repository.CategoryRepository;
 import com.masciar.repository.GameRepository;
@@ -37,7 +38,7 @@ import javax.swing.UnsupportedLookAndFeelException;
 import com.formdev.flatlaf.themes.FlatMacDarkLaf;
 
 public class Main {
-    public static final String VERSION_APP = "2.0.40";
+    public static final String VERSION_APP = "2.0.41";
     public static PlayerRepository playerRepository;
     public static GameRepository gameRepository;
     public static CategoryRepository categoryRepository;
@@ -52,10 +53,9 @@ public class Main {
         try {
             UIManager.setLookAndFeel(new FlatMacDarkLaf());
         } catch (UnsupportedLookAndFeelException e) {
-            e.printStackTrace();
+            ErrorHandler.handle(e);
         }
 
-        // Se inician los repositorios
         playerRepository = new PlayerRepository();
         gameRepository = new GameRepository();
         categoryRepository = new CategoryRepository();
@@ -68,16 +68,11 @@ public class Main {
         ScreenshotService screenshotService = new ScreenshotService();
         screenshotService.initService();
 
-        //SteamService ss = new SteamService();
-        // System.out.println("User id de steam: " +
-        // steamService.getSteamID64("MauroMasciar")); // 76561198201938341
-        // steamService.getOwnedGames("76561198201938341");
         // Se inicia la ventana principal
         MainWindow mw = new MainWindow();
 
-        //UpdateGamesListSteam u = new UpdateGamesListSteam();
-        //u.update();
-
-        //ss.getAchievementsGame(377160);
+        // UpdateGamesListSteam u = new UpdateGamesListSteam();
+        // u.update();
+        // ss.getAchievementsGame(377160);
     }
 }

@@ -30,12 +30,13 @@ public class Games {
     private int portable;
     private String image;
     private String notes;
+	private int appId;
 
 	public Games(int id, String name, int category, int library, int score, int timePlayed, int play_count,
 				int completed, String completed_date, int hidden, String path, String release_date,
 				String developer, String series, String play_mode, String status, String last_played,
 				String rating, int platform, String publisher, String region, String version, String added, String modified,
-				int favorite, int statistic, int portable, String image, String notes) {
+				int favorite, int statistic, int portable, String image, String notes, int appId) {
 		this.id = id;
 		this.name = name;
 		this.category = category;
@@ -65,6 +66,7 @@ public class Games {
 		this.portable = portable;
 		this.image = image;
 		this.notes = notes;
+		this.appId = appId;
 	}
 
 	public int getId() {
@@ -297,5 +299,13 @@ public class Games {
 
 	public void setNotes(String notes) {
 		this.notes = notes;
+	}
+
+	public int getAppId() {
+		return appId;
+	}
+
+	public void setAppId(int appId) {
+		this.appId = appId;
 	}
 }

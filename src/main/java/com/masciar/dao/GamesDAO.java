@@ -32,7 +32,7 @@ public class GamesDAO {
 						rs.getString("rating"), rs.getInt("platform"), rs.getString("publisher"),
 						rs.getString("region"), rs.getString("version"), rs.getString("added"),
 						rs.getString("modified"), rs.getInt("favorite"), rs.getInt("statistic"), rs.getInt("portable"),
-						rs.getString("image"), rs.getString("notes"));
+						rs.getString("image"), rs.getString("notes"), rs.getInt("steam_id"));
 
 				games.add(game);
 			}
@@ -56,7 +56,7 @@ public class GamesDAO {
 	}
 
 	public boolean add(Games game) {
-		String query = "INSERT INTO games (name, category, library, score, time_played, play_count, completed, completed_date, hidden, path, release_date, developer, series, play_mode, status, last_played, rating, platform, publisher, region, version, added, modified, favorite, statistic, portable, image, notes) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+		String query = "INSERT INTO games (name, category, library, score, time_played, play_count, completed, completed_date, hidden, path, release_date, developer, series, play_mode, status, last_played, rating, platform, publisher, region, version, added, modified, favorite, statistic, portable, image, notes, app_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 		try (Connection con = DriverManager.getConnection(Utils.DATABASE_URL);
 				PreparedStatement ps = con.prepareStatement(query)) {
 
@@ -88,6 +88,7 @@ public class GamesDAO {
 			ps.setInt(26, game.getPortable());
 			ps.setString(27, game.getImage());
 			ps.setString(28, game.getNotes());
+			ps.setInt(29, game.getAppId());
 
 			int rowsAffected = ps.executeUpdate();
 			if (rowsAffected != 0)
@@ -99,7 +100,7 @@ public class GamesDAO {
 	}
 
 	public void update(Games game) {
-		String query = "UPDATE games SET name = ?, category = ?, library = ?, score = ?, time_played = ?, play_count = ?, completed = ?, completed_date = ?, hidden = ?, path = ?, release_date = ?, developer = ?, series = ?, play_mode = ?, status = ?, last_played = ?, rating = ?, platform = ?, publisher = ?, region = ?, version = ?, added = ?, modified = ?, favorite = ?, statistic = ?, portable = ?, image = ?, notes = ? WHERE id = ?;";
+		String query = "UPDATE games SET name = ?, category = ?, library = ?, score = ?, time_played = ?, play_count = ?, completed = ?, completed_date = ?, hidden = ?, path = ?, release_date = ?, developer = ?, series = ?, play_mode = ?, status = ?, last_played = ?, rating = ?, platform = ?, publisher = ?, region = ?, version = ?, added = ?, modified = ?, favorite = ?, statistic = ?, portable = ?, image = ?, notes = ?, app_id = ? WHERE id = ?;";
 		try (Connection con = DriverManager.getConnection(Utils.DATABASE_URL);
 				PreparedStatement ps = con.prepareStatement(query)) {
 
@@ -131,7 +132,8 @@ public class GamesDAO {
 			ps.setInt(26, game.getPortable());
 			ps.setString(27, game.getImage());
 			ps.setString(28, game.getNotes());
-			ps.setInt(29, game.getId());
+			ps.setInt(29, game.getAppId());
+			ps.setInt(30, game.getId());
 
 			int rowsAffected = ps.executeUpdate();
 			if (rowsAffected != 0)

@@ -1,18 +1,24 @@
-package com.masciar.service;
+package com.masciar.service.steam;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.masciar.app.ApiSteamKey;
+import com.masciar.app.Main;
 import com.masciar.logging.ErrorHandler;
 import com.masciar.model.steam.GetOwnedGames.GameModel;
 import com.masciar.model.steam.GetOwnedGames.GetOwnedGamesResponse;
 import com.masciar.model.steam.vanity.ResolveVanityResponse;
 import com.masciar.model.steam.vanity.VanityModel;
+import com.masciar.service.ConfigService;
+import com.masciar.util.Utils;
 
 import java.io.IOException;
 import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.util.List;
 
 public class SteamService {
@@ -84,6 +90,24 @@ public class SteamService {
             System.out.println(response.body());
         } catch (IOException | InterruptedException e) {
             ErrorHandler.handle(e);
+        }
+    }
+
+    public void assignAppIdToGame() {
+        for (int i = 0; i < Main.steamGamesRepository.game_list.size(); i++) {
+            for (int g = 0; g < Main.gameRepository.games_list.size(); g++) {
+                if (Main.gameRepository.games_list.get(g).getName().equals(Main.steamGamesRepository.game_list.get(i).getName())) {
+                    String query = "UPDATE games SET steam_id = ? WHERE name = ?";
+                    try (Connection con = DriverManager.getConnection(Utils.DATABASE_URL);
+                            PreparedStatement ps = con.prepareStatement(query)) {
+                        ps.setInt(1, Main.steamGamesRepository.getList().get(i).getAppId());
+                        ps.setString(2, Main.gameRepository.games_list.get(g).getName());
+                        ps.executeUpdate();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
         }
     }
 }
