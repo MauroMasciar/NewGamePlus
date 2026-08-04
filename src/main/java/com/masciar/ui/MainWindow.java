@@ -7,6 +7,7 @@ import com.masciar.controller.GameInfoController;
 import com.masciar.controller.GeneralSummaryController;
 import com.masciar.service.ConfigService;
 import com.masciar.controller.ConfigController;
+import com.masciar.controller.EditGameController;
 
 import javax.swing.ImageIcon;
 import javax.swing.JCheckBoxMenuItem;
@@ -67,7 +68,7 @@ public class MainWindow extends JFrame implements ActionListener, WindowStateLis
     // Ventanas
     private GamesList gamesList;
     private static GeneralSummaryController generalSummaryController;
-    private GameInfoController gameInfoController;
+    private static GameInfoController gameInfoController;
 
     public MainWindow() {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -95,7 +96,7 @@ public class MainWindow extends JFrame implements ActionListener, WindowStateLis
         desktopPane.add(gamesList);
         desktopPane.add(new SessionsHistory());
 
-        gameInfoController = new GameInfoController(desktopPane);
+        gameInfoController = new GameInfoController(desktopPane, this);
         gamesList.setListener(gameInfoController);
 
         generalSummaryController = new GeneralSummaryController(desktopPane);
@@ -106,6 +107,9 @@ public class MainWindow extends JFrame implements ActionListener, WindowStateLis
     public static void refreshOpenViews() {
         if (generalSummaryController != null)
             generalSummaryController.refresh();
+        if(gameInfoController != null) {
+            gameInfoController.update();
+        }
     }
 
     @Override
@@ -113,6 +117,9 @@ public class MainWindow extends JFrame implements ActionListener, WindowStateLis
         if (e.getSource() == mnuiGamesAdd) {
             @SuppressWarnings("unused")
             AddGameController addGameController = new AddGameController(this);
+        } else if (e.getSource() == mnuiGamesEdit) {
+            @SuppressWarnings("unused")
+            EditGameController editGameController = new EditGameController(this, gameInfoController.gameSelected);            
         } else if (e.getSource() == mnuiPlayerAddSession) {
             @SuppressWarnings("unused")
             AddSessionManuallyController addSessionController = new AddSessionManuallyController(this);

@@ -22,8 +22,8 @@ public class GameService {
         this.view = view;
     }
 
-    public boolean saveData() {
-        int hide = 0, favorite = 0, statistic = 0, portable = 0, completed = 0, play_count = 0;
+    public boolean addGame() {
+        int hide = 0, favorite = 0, statistic = 0, portable = 0, completed = 0;
 
         if (view.getFavoriteState())
             favorite = 1;
@@ -61,6 +61,7 @@ public class GameService {
         int score = view.getSpinScoreValue();
         int gameTime = (Integer) view.getSpinGameTimeValue();
         int category = cs.findIdByName(view.getCbCategoryString());
+        int playCount = 0;
         String image = "";
 
         name = name.replace("'", "");
@@ -99,7 +100,7 @@ public class GameService {
             return false;
         } else {
             int id = Main.gameRepository.getList().size() + 1;
-            Games game = new Games(id, name, category, library, score, gameTime, play_count, completed, completed_date,
+            Games game = new Games(id, name, category, library, score, gameTime, playCount, completed, completed_date,
                     hide, path, releasedate,
                     developer, series, playMode, status, lastPlayed, rating, platform, publisher, region, version,
                     added, modified, favorite, statistic,
@@ -113,6 +114,11 @@ public class GameService {
             } else
                 return false;
         }
+    }
+
+    public void saveGame(Games game) {
+        GamesDAO gamesDao = new GamesDAO();
+        gamesDao.update(game);
     }
 
     public Games findById(int id) {

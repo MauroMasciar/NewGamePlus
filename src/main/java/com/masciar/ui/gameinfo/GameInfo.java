@@ -3,9 +3,11 @@ package com.masciar.ui.gameinfo;
 import com.masciar.service.ConfigService;
 import com.masciar.util.Utils;
 
+import javax.swing.JButton;
 import javax.swing.JInternalFrame;
 import javax.swing.Timer;
 import java.awt.GridBagLayout;
+import java.awt.event.ActionListener;
 import java.awt.event.ComponentEvent;
 import java.awt.event.ComponentListener;
 import java.awt.Color;
@@ -16,6 +18,7 @@ public class GameInfo extends JInternalFrame implements ComponentListener {
     private Image image;
     private Summary summary;
     private Session session;
+    private JButton btnEdit = new JButton("Editar");
 
     public GameInfo() {
         image = new Image();
@@ -39,6 +42,7 @@ public class GameInfo extends JInternalFrame implements ComponentListener {
         gbc.ipadx = 1;
         gbc.ipady = 1;
         gbc.fill = GridBagConstraints.NONE;
+        add(btnEdit, gbc);
 
         add(image, gbc);
         gbc.gridx++;
@@ -70,6 +74,10 @@ public class GameInfo extends JInternalFrame implements ComponentListener {
     private void saveFramePosition() {
         ConfigService.setProperty("GameInfoX", String.valueOf(this.getX()));
         ConfigService.setProperty("GameInfoY", String.valueOf(this.getY()));
+    }
+
+    public void setBtnEditListener(ActionListener listener) {
+        btnEdit.addActionListener(listener);
     }
 
     @Override

@@ -1,5 +1,6 @@
 package com.masciar.ui;
 
+import com.masciar.model.Games;
 import com.masciar.util.Utils;
 import com.masciar.util.Validations;
 
@@ -65,7 +66,6 @@ public class AddGame extends JDialog {
     private final JTextField txtModified = new JTextField(10);
     private final JTextField txtPath = new JTextField(10);
     private final JTextField txtCompletedDate = new JTextField(10);
-    private final JTextField txtPlayCount = new JTextField();
     private final JCheckBox chFavorite = new JCheckBox("Favorito");
     private final JCheckBox chCompleted = new JCheckBox("Completado");
     private final JCheckBox chStatistic = new JCheckBox("Estadísticas");
@@ -77,8 +77,10 @@ public class AddGame extends JDialog {
     private final JComboBox<String> cbLibrary = new JComboBox<>();
     private final SpinnerNumberModel spinnerNumberModelScore = new SpinnerNumberModel();
     private final SpinnerNumberModel spinnerNumberModelGameTime = new SpinnerNumberModel();
+    private final SpinnerNumberModel spinnerNumberModelSessions = new SpinnerNumberModel();
     private final JSpinner spinScore = new JSpinner();
     private final JSpinner spinGameTime = new JSpinner();
+    private final JSpinner spinPlayCount = new JSpinner();
     private final JPanel pnlNotes = new JPanel();
     private final JTextArea txtaNotes = new JTextArea();
     private final JScrollPane scrNotes = new JScrollPane(txtaNotes);
@@ -88,9 +90,19 @@ public class AddGame extends JDialog {
 
     public AddGame(MainWindow window, boolean modal) {
         super(window, true);
-        setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Añadir nuevo juego");
+        load();
+    }
 
+    public AddGame(MainWindow window, Games game, boolean modal) {
+        super(window, true);
+        String title = "Editar juego: " + game.getName();
+        setTitle(title);
+        load();
+    }
+
+    private void load() {
+        setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
         initComponents();
         loadRating();
     }
@@ -254,29 +266,159 @@ public class AddGame extends JDialog {
         return Integer.parseInt(spinGameTime.getValue().toString());
     }
 
+    public int getSpinPlayCount() {
+        return Integer.parseInt(spinPlayCount.getValue().toString());
+    }
+
+    public boolean getHidden() {
+        if(chHide.isSelected()) return true;
+        else return false;
+    }
+
+    public String getDateRelease() {
+        return txtReleaseDate.getText();
+    }
+
+    public String getDateModified() {
+        return txtModified.getText();
+    }
+
+    public String getDateAdded() {
+        return txtAdded.getText();
+    }
+
+    public void setTxtGameName(String name) {
+        txtGameName.setText(name);
+    }
+
+    public void setSpinScore(int score) {
+        spinScore.setValue(score);
+    }
+
+    public void setSpinTime(int time) {
+        spinGameTime.setValue(time);
+    }
+
+    public void setSpinPlayCount(int count) {
+        spinPlayCount.setValue(count);
+    }
+
+    public void setDateCompletedDate(String date) {
+        txtCompletedDate.setText(date);
+    }
+
+    public void setCheckCompleted(boolean check) {
+        chCompleted.setSelected(check);
+    }
+
+    public void setCheckHidden(boolean check) {
+        chHide.setSelected(check);
+    }
+
+    public void setTxtPath(String path) {
+        txtPath.setText(path);
+    }
+
+    public void setDateReleaseDate(String date) {
+        txtCompletedDate.setText(date);
+    }
+
+    public void setTxtDeveloper(String developer) {
+        txtDeveloper.setText(developer);
+    }
+
+    public void setTxtSeries(String series) {
+        txtSeries.setText(series);
+    }
+    
+    public void setTxtPlayMode(String playMode) {
+        txtPlayMode.setText(playMode);
+    }
+
+    public void setTxtStatus(String status) {
+        txtStatus.setText(status);
+    }
+
+    public void setTxtPublisher(String publisher) {
+        txtPublisher.setText(publisher);
+    }
+
+    public void setTxtRegion(String region) {
+        txtRegion.setText(region);
+    }
+
+    public void setTxtVersion(String version) {
+        txtVersion.setText(version);
+    }
+
+    public void setDateAddded(String dateAdded) {
+        txtAdded.setText(dateAdded);
+    }
+
+    public void setDateModified(String dateModified) {
+        txtModified.setText(dateModified);
+    }
+
+    public void setTxtLastPlayed(String lastPlayed) {
+        txtLastPlayed.setText(lastPlayed);
+    }
+
+    public void setTxtaNotes(String notes) {
+        txtaNotes.setText(notes);
+    }
+
+    public void setCheckFavorite(boolean check) {
+        chFavorite.setSelected(check);
+    }
+
+    public void setCheckStatistic(boolean check) {
+        chStatistic.setSelected(check);
+    }
+
+    public void setCheckPortable(boolean check) {
+        chPortable.setSelected(check);
+    }
+
+    public void setCbRating(String rating) {
+        cbRating.setSelectedItem(rating);
+    }
+
+    public void setCbCategory(String category) {
+        cbCategory.setSelectedItem(category);
+    }
+    
+    public void setCbLibrary(String library) {
+        cbLibrary.setSelectedItem(library);
+    }
+
+    public void setCbPlatform(String platform) {
+        cbPlatform.setSelectedItem(platform);
+    }
+    
     public void initComponents() {
         setLayout(new GridBagLayout());
 
         initPanelDetails();
         initPanelNotes();
 
-        chGhost.setToolTipText(
-                "Especifica si quieres iniciar el juego manualmente en vez de que lo inicie la aplicación");
         txtPath.setToolTipText("Especifica la ruta completa al ejecutable");
         chStatistic.setToolTipText("Especifica si quieres que este juego aparezca en las estadísticas");
 
         spinnerNumberModelScore.setMinimum(0);
         spinnerNumberModelScore.setMaximum(100);
         spinnerNumberModelGameTime.setMinimum(0);
+        spinnerNumberModelSessions.setMinimum(0);
         spinScore.setModel(spinnerNumberModelScore);
         spinGameTime.setModel(spinnerNumberModelGameTime);
+        spinPlayCount.setModel(spinnerNumberModelSessions);
         txtAdded.setText(Utils.getFormattedDate());
         txtModified.setText(Utils.getFormattedDateTime());
 
-        txtGenre.setEditable(false);
+        /*txtGenre.setEditable(false);
         txtPlayCount.setEditable(false);
-        txtLastPlayed.setEditable(false);
+        txtLastPlayed.setEditable(false);*/
 
+        chGhost.setVisible(false);
         txtGenre.setVisible(false);
         lblGenre.setVisible(false);
 
@@ -288,8 +430,6 @@ public class AddGame extends JDialog {
         dcReleaseDate.hidePopup();
         dcCompletedDate.setSelectedDate(new Date(System.currentTimeMillis()));
         dcReleaseDate.setSelectedDate(new Date(System.currentTimeMillis()));
-
-        txtPlayCount.setText("0");
 
         chGhost.setSelected(true);
 
@@ -463,7 +603,7 @@ public class AddGame extends JDialog {
         gbc.gridwidth = 1;
         pnlDetails.add(lblPlayCount, gbc);
         gbc.gridx++;
-        pnlDetails.add(txtPlayCount, gbc);
+        pnlDetails.add(spinPlayCount, gbc);
         gbc.gridx++;
         pnlDetails.add(lblScore, gbc);
         gbc.gridx++;

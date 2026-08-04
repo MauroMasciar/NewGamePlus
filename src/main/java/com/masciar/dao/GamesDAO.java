@@ -56,7 +56,7 @@ public class GamesDAO {
 	}
 
 	public boolean add(Games game) {
-		String query = "INSERT INTO games (name, category, library, score, time_played, play_count, completed, completed_date, hidden, path, release_date, developer, series, play_mode, status, last_played, rating, platform, publisher, region, version, added, modified, favorite, statistic, portable, image, notes, app_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+		String query = "INSERT INTO games (name, category, library, score, time_played, play_count, completed, completed_date, hidden, path, release_date, developer, series, play_mode, status, last_played, rating, platform, publisher, region, version, added, modified, favorite, statistic, portable, image, notes, steam_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 		try (Connection con = DriverManager.getConnection(Utils.DATABASE_URL);
 				PreparedStatement ps = con.prepareStatement(query)) {
 
@@ -100,7 +100,7 @@ public class GamesDAO {
 	}
 
 	public void update(Games game) {
-		String query = "UPDATE games SET name = ?, category = ?, library = ?, score = ?, time_played = ?, play_count = ?, completed = ?, completed_date = ?, hidden = ?, path = ?, release_date = ?, developer = ?, series = ?, play_mode = ?, status = ?, last_played = ?, rating = ?, platform = ?, publisher = ?, region = ?, version = ?, added = ?, modified = ?, favorite = ?, statistic = ?, portable = ?, image = ?, notes = ?, app_id = ? WHERE id = ?;";
+		String query = "UPDATE games SET name = ?, category = ?, library = ?, score = ?, time_played = ?, play_count = ?, completed = ?, completed_date = ?, hidden = ?, path = ?, release_date = ?, developer = ?, series = ?, play_mode = ?, status = ?, last_played = ?, rating = ?, platform = ?, publisher = ?, region = ?, version = ?, added = ?, modified = ?, favorite = ?, statistic = ?, portable = ?, image = ?, notes = ?, steam_id = ? WHERE id = ?;";
 		try (Connection con = DriverManager.getConnection(Utils.DATABASE_URL);
 				PreparedStatement ps = con.prepareStatement(query)) {
 
