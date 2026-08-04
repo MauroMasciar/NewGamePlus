@@ -10,34 +10,24 @@ import com.masciar.ui.MainWindow;
 import com.masciar.ui.gameinfo.GameInfo;
 import com.masciar.util.Utils;
 
-import javax.swing.JDesktopPane;
-
 public class GameInfoController implements GameSelectedListener {
-    public Games gameSelected;
+    private Games gameSelected;
     private GameInfo view;
     private CategoryService categoryService;
     private PlatformService platformService;
     private HistoryService historyService;
     private LibraryService libraryService;
-    private MainWindow window;
 
-    public GameInfoController(JDesktopPane desktopPane, MainWindow window) {
+    public GameInfoController(MainWindow window) {
         view = new GameInfo();
         categoryService = new CategoryService();
         platformService = new PlatformService();
         historyService = new HistoryService();
         libraryService = new LibraryService();
 
-        this.window = window;
+        window.add(view);
 
-        desktopPane.add(view);
-
-        view.setBtnEditListener(e -> editGame());
-    }
-
-    @SuppressWarnings("unused")
-    private void editGame() {
-        EditGameController editGameController = new EditGameController(window, gameSelected);
+        view.setBtnEditListener(e -> new EditGameController(window, gameSelected));
     }
 
     public void update() {
@@ -57,9 +47,14 @@ public class GameInfoController implements GameSelectedListener {
         }
     }
 
+    public Games getGameSelected() {
+        return gameSelected;
+    }
+
     @Override
     public void selectionChanged(Games game) {
         gameSelected = game;
         update();
+        view.setVisible(true);
     }
 }

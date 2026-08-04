@@ -7,7 +7,8 @@ public class VanityModel {
     private String steamid;
     private int success;
 
-    public VanityModel() { }
+    public VanityModel() {
+    }
 
     public VanityModel(String steamid, int success) {
         this.steamid = steamid;

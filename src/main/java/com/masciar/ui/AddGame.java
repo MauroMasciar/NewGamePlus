@@ -101,12 +101,6 @@ public class AddGame extends JDialog {
         load();
     }
 
-    private void load() {
-        setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
-        initComponents();
-        loadRating();
-    }
-
     public void showError(String message) {
         JOptionPane.showMessageDialog(this, message, "Error", JOptionPane.ERROR_MESSAGE);
     }
@@ -121,18 +115,6 @@ public class AddGame extends JDialog {
 
     public void showPopupReleaseDateListener(ActionListener listener) {
         txtReleaseDate.addActionListener(listener);
-    }
-
-    public void setBtnSaveListener(ActionListener listener) {
-        btnSave.addActionListener(listener);
-    }
-
-    public void setLblConvertedSeconds(String text) {
-        lblConvertedSeconds.setText(text);
-    }
-
-    public void setSpinGameTimeListener(ChangeListener listener) {
-        spinGameTime.addChangeListener(listener);
     }
 
     public void fillComboBoxCategory(String value) {
@@ -155,247 +137,13 @@ public class AddGame extends JDialog {
         dcReleaseDate.showPopup();
     }
 
-    public String getTxtNameString() {
-        return txtGameName.getText();
+    private void load() {
+        setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+        initComponents();
+        loadRating();
     }
 
-    public String getTxtReleaseDate() {
-        return txtReleaseDate.getText();
-    }
-
-    public String getTxtDeveloper() {
-        return txtDeveloper.getText();
-    }
-
-    public String getTxtPublisher() {
-        return txtPublisher.getText();
-    }
-
-    public String getTxtSeries() {
-        return txtSeries.getText();
-    }
-
-    public String getTxtStatus() {
-        return txtStatus.getText();
-    }
-
-    public String getTxtPlayMode() {
-        return txtPlayMode.getText();
-    }
-
-    public String getTxtVersion() {
-        return txtVersion.getText();
-    }
-
-    public String getTxtRegion() {
-        return txtRegion.getText();
-    }
-
-    public String getTxtPath() {
-        return txtPath.getText();
-    }
-
-    public String getTxtCompletedDateString() {
-        return txtCompletedDate.getText();
-    }
-
-    public String getTxtLastPlayed() {
-        return txtLastPlayed.getText();
-    }
-
-    public String getTxtaNotes() {
-        return txtaNotes.getText();
-    }
-
-    public boolean getFavoriteState() {
-        if (chFavorite.isSelected())
-            return true;
-        else
-            return false;
-    }
-
-    public boolean getCompletedState() {
-        if (chCompleted.isSelected())
-            return true;
-        else
-            return false;
-    }
-
-    public boolean getStatisticState() {
-        if (chStatistic.isSelected())
-            return true;
-        else
-            return false;
-    }
-
-    public boolean getPortableState() {
-        if (chPortable.isSelected())
-            return true;
-        else
-            return false;
-    }
-
-    public boolean getHideState() {
-        if (chHide.isSelected())
-            return true;
-        else
-            return false;
-    }
-
-    public String getRatingValueString() {
-        return cbRating.getSelectedItem().toString();
-    }
-
-    public String getCbPlatformString() {
-        return cbPlatform.getSelectedItem().toString();
-    }
-
-    public String getCbLibraryString() {
-        return cbLibrary.getSelectedItem().toString();
-    }
-
-    public String getCbCategoryString() {
-        return cbCategory.getSelectedItem().toString();
-    }
-
-    public int getSpinScoreValue() {
-        return Integer.parseInt(spinScore.getValue().toString());
-    }
-
-    public int getSpinGameTimeValue() {
-        return Integer.parseInt(spinGameTime.getValue().toString());
-    }
-
-    public int getSpinPlayCount() {
-        return Integer.parseInt(spinPlayCount.getValue().toString());
-    }
-
-    public boolean getHidden() {
-        if(chHide.isSelected()) return true;
-        else return false;
-    }
-
-    public String getDateRelease() {
-        return txtReleaseDate.getText();
-    }
-
-    public String getDateModified() {
-        return txtModified.getText();
-    }
-
-    public String getDateAdded() {
-        return txtAdded.getText();
-    }
-
-    public void setTxtGameName(String name) {
-        txtGameName.setText(name);
-    }
-
-    public void setSpinScore(int score) {
-        spinScore.setValue(score);
-    }
-
-    public void setSpinTime(int time) {
-        spinGameTime.setValue(time);
-    }
-
-    public void setSpinPlayCount(int count) {
-        spinPlayCount.setValue(count);
-    }
-
-    public void setDateCompletedDate(String date) {
-        txtCompletedDate.setText(date);
-    }
-
-    public void setCheckCompleted(boolean check) {
-        chCompleted.setSelected(check);
-    }
-
-    public void setCheckHidden(boolean check) {
-        chHide.setSelected(check);
-    }
-
-    public void setTxtPath(String path) {
-        txtPath.setText(path);
-    }
-
-    public void setDateReleaseDate(String date) {
-        txtCompletedDate.setText(date);
-    }
-
-    public void setTxtDeveloper(String developer) {
-        txtDeveloper.setText(developer);
-    }
-
-    public void setTxtSeries(String series) {
-        txtSeries.setText(series);
-    }
-    
-    public void setTxtPlayMode(String playMode) {
-        txtPlayMode.setText(playMode);
-    }
-
-    public void setTxtStatus(String status) {
-        txtStatus.setText(status);
-    }
-
-    public void setTxtPublisher(String publisher) {
-        txtPublisher.setText(publisher);
-    }
-
-    public void setTxtRegion(String region) {
-        txtRegion.setText(region);
-    }
-
-    public void setTxtVersion(String version) {
-        txtVersion.setText(version);
-    }
-
-    public void setDateAddded(String dateAdded) {
-        txtAdded.setText(dateAdded);
-    }
-
-    public void setDateModified(String dateModified) {
-        txtModified.setText(dateModified);
-    }
-
-    public void setTxtLastPlayed(String lastPlayed) {
-        txtLastPlayed.setText(lastPlayed);
-    }
-
-    public void setTxtaNotes(String notes) {
-        txtaNotes.setText(notes);
-    }
-
-    public void setCheckFavorite(boolean check) {
-        chFavorite.setSelected(check);
-    }
-
-    public void setCheckStatistic(boolean check) {
-        chStatistic.setSelected(check);
-    }
-
-    public void setCheckPortable(boolean check) {
-        chPortable.setSelected(check);
-    }
-
-    public void setCbRating(String rating) {
-        cbRating.setSelectedItem(rating);
-    }
-
-    public void setCbCategory(String category) {
-        cbCategory.setSelectedItem(category);
-    }
-    
-    public void setCbLibrary(String library) {
-        cbLibrary.setSelectedItem(library);
-    }
-
-    public void setCbPlatform(String platform) {
-        cbPlatform.setSelectedItem(platform);
-    }
-    
-    public void initComponents() {
+    private void initComponents() {
         setLayout(new GridBagLayout());
 
         initPanelDetails();
@@ -414,9 +162,11 @@ public class AddGame extends JDialog {
         txtAdded.setText(Utils.getFormattedDate());
         txtModified.setText(Utils.getFormattedDateTime());
 
-        /*txtGenre.setEditable(false);
-        txtPlayCount.setEditable(false);
-        txtLastPlayed.setEditable(false);*/
+        /*
+         * txtGenre.setEditable(false);
+         * txtPlayCount.setEditable(false);
+         * txtLastPlayed.setEditable(false);
+         */
 
         chGhost.setVisible(false);
         txtGenre.setVisible(false);
@@ -444,7 +194,7 @@ public class AddGame extends JDialog {
         txtaNotes.setWrapStyleWord(true);
     }
 
-    public void initPanelDetails() {
+    private void initPanelDetails() {
         pnlDetails.setLayout(new GridBagLayout());
         pnlDetails.setBorder(BorderFactory.createTitledBorder("Detalles"));
 
@@ -610,7 +360,7 @@ public class AddGame extends JDialog {
         pnlDetails.add(spinScore, gbc);
     }
 
-    public void initPanelNotes() {
+    private void initPanelNotes() {
         pnlNotes.setLayout(new GridBagLayout());
         pnlNotes.setBorder(BorderFactory.createTitledBorder("Notas"));
         GridBagConstraints gbc = new GridBagConstraints();
@@ -651,7 +401,7 @@ public class AddGame extends JDialog {
         add(btnSave, gbc);
     }
 
-    public void loadRating() {
+    private void loadRating() {
         cbRating.addItem("E - Everyone");
         cbRating.addItem("E10+ - Everyone 10+");
         cbRating.addItem("T - Teen");
@@ -659,5 +409,259 @@ public class AddGame extends JDialog {
         cbRating.addItem("A - Adults Only 18+");
         cbRating.addItem("EC - Early Childhood");
         cbRating.addItem("RP - Rating Pending");
+    }
+
+    public String getTxtNameString() {
+        return txtGameName.getText();
+    }
+
+    public String getTxtReleaseDate() {
+        return txtReleaseDate.getText();
+    }
+
+    public String getTxtDeveloper() {
+        return txtDeveloper.getText();
+    }
+
+    public String getTxtPublisher() {
+        return txtPublisher.getText();
+    }
+
+    public String getTxtSeries() {
+        return txtSeries.getText();
+    }
+
+    public String getTxtStatus() {
+        return txtStatus.getText();
+    }
+
+    public String getTxtPlayMode() {
+        return txtPlayMode.getText();
+    }
+
+    public String getTxtVersion() {
+        return txtVersion.getText();
+    }
+
+    public String getTxtRegion() {
+        return txtRegion.getText();
+    }
+
+    public String getTxtPath() {
+        return txtPath.getText();
+    }
+
+    public String getTxtCompletedDateString() {
+        return txtCompletedDate.getText();
+    }
+
+    public String getTxtLastPlayed() {
+        return txtLastPlayed.getText();
+    }
+
+    public String getTxtaNotes() {
+        return txtaNotes.getText();
+    }
+
+    public boolean getFavoriteState() {
+        if (chFavorite.isSelected())
+            return true;
+        else
+            return false;
+    }
+
+    public boolean getCompletedState() {
+        if (chCompleted.isSelected())
+            return true;
+        else
+            return false;
+    }
+
+    public boolean getStatisticState() {
+        if (chStatistic.isSelected())
+            return true;
+        else
+            return false;
+    }
+
+    public boolean getPortableState() {
+        if (chPortable.isSelected())
+            return true;
+        else
+            return false;
+    }
+
+    public boolean getHideState() {
+        if (chHide.isSelected())
+            return true;
+        else
+            return false;
+    }
+
+    public String getRatingValueString() {
+        return cbRating.getSelectedItem().toString();
+    }
+
+    public String getCbPlatformString() {
+        return cbPlatform.getSelectedItem().toString();
+    }
+
+    public String getCbLibraryString() {
+        return cbLibrary.getSelectedItem().toString();
+    }
+
+    public String getCbCategoryString() {
+        return cbCategory.getSelectedItem().toString();
+    }
+
+    public int getSpinScoreValue() {
+        return Integer.parseInt(spinScore.getValue().toString());
+    }
+
+    public int getSpinGameTimeValue() {
+        return Integer.parseInt(spinGameTime.getValue().toString());
+    }
+
+    public int getSpinPlayCount() {
+        return Integer.parseInt(spinPlayCount.getValue().toString());
+    }
+
+    public boolean getHidden() {
+        if (chHide.isSelected())
+            return true;
+        else
+            return false;
+    }
+
+    public String getDateRelease() {
+        return txtReleaseDate.getText();
+    }
+
+    public String getDateModified() {
+        return txtModified.getText();
+    }
+
+    public String getDateAdded() {
+        return txtAdded.getText();
+    }
+
+    public void setTxtGameName(String name) {
+        txtGameName.setText(name);
+    }
+
+    public void setSpinScore(int score) {
+        spinScore.setValue(score);
+    }
+
+    public void setSpinTime(int time) {
+        spinGameTime.setValue(time);
+    }
+
+    public void setSpinPlayCount(int count) {
+        spinPlayCount.setValue(count);
+    }
+
+    public void setDateCompletedDate(String date) {
+        txtCompletedDate.setText(date);
+    }
+
+    public void setCheckCompleted(boolean check) {
+        chCompleted.setSelected(check);
+    }
+
+    public void setCheckHidden(boolean check) {
+        chHide.setSelected(check);
+    }
+
+    public void setTxtPath(String path) {
+        txtPath.setText(path);
+    }
+
+    public void setDateReleaseDate(String date) {
+        txtCompletedDate.setText(date);
+    }
+
+    public void setTxtDeveloper(String developer) {
+        txtDeveloper.setText(developer);
+    }
+
+    public void setTxtSeries(String series) {
+        txtSeries.setText(series);
+    }
+
+    public void setTxtPlayMode(String playMode) {
+        txtPlayMode.setText(playMode);
+    }
+
+    public void setTxtStatus(String status) {
+        txtStatus.setText(status);
+    }
+
+    public void setTxtPublisher(String publisher) {
+        txtPublisher.setText(publisher);
+    }
+
+    public void setTxtRegion(String region) {
+        txtRegion.setText(region);
+    }
+
+    public void setTxtVersion(String version) {
+        txtVersion.setText(version);
+    }
+
+    public void setDateAddded(String dateAdded) {
+        txtAdded.setText(dateAdded);
+    }
+
+    public void setDateModified(String dateModified) {
+        txtModified.setText(dateModified);
+    }
+
+    public void setTxtLastPlayed(String lastPlayed) {
+        txtLastPlayed.setText(lastPlayed);
+    }
+
+    public void setTxtaNotes(String notes) {
+        txtaNotes.setText(notes);
+    }
+
+    public void setCheckFavorite(boolean check) {
+        chFavorite.setSelected(check);
+    }
+
+    public void setCheckStatistic(boolean check) {
+        chStatistic.setSelected(check);
+    }
+
+    public void setCheckPortable(boolean check) {
+        chPortable.setSelected(check);
+    }
+
+    public void setCbRating(String rating) {
+        cbRating.setSelectedItem(rating);
+    }
+
+    public void setCbCategory(String category) {
+        cbCategory.setSelectedItem(category);
+    }
+
+    public void setCbLibrary(String library) {
+        cbLibrary.setSelectedItem(library);
+    }
+
+    public void setCbPlatform(String platform) {
+        cbPlatform.setSelectedItem(platform);
+    }
+
+    public void setBtnSaveListener(ActionListener listener) {
+        btnSave.addActionListener(listener);
+    }
+
+    public void setLblConvertedSeconds(String text) {
+        lblConvertedSeconds.setText(text);
+    }
+
+    public void setSpinGameTimeListener(ChangeListener listener) {
+        spinGameTime.addChangeListener(listener);
     }
 }

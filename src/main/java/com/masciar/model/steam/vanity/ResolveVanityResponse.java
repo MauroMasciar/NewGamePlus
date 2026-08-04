@@ -7,7 +7,8 @@ public class ResolveVanityResponse {
 
     private VanityModel response;
 
-    public ResolveVanityResponse() { }
+    public ResolveVanityResponse() {
+    }
 
     public VanityModel getResponse() {
         return response;

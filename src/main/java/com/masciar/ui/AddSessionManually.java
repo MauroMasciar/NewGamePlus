@@ -53,32 +53,12 @@ public class AddSessionManually extends JDialog {
         cbGame.addItem(value);
     }
 
-    public void setBtnAddListener(ActionListener listener) {
-        btnAdd.addActionListener(listener);
-    }
-
-    public String getGameSelectedString() {
-        return cbGame.getSelectedItem().toString();
-    }
-
-    public String getTimeString() {
-        return spinTime.getValue().toString();
-    }
-
-    public String getDateString() {
-        return txtDate.getText();
-    }
-
-    public String getHourString() {
-        return txtTime.getText();
-    }
-
-    public void initComponents() {
+    private void initComponents() {
         setLayout(new GridBagLayout());
         JPanel panel = new JPanel();
         panel.setLayout(new GridBagLayout());
         GridBagConstraints gbc = new GridBagConstraints();
-        
+
         timePicker.set24HourView(true);
 
         gbc.gridx = 0;
@@ -94,7 +74,7 @@ public class AddSessionManually extends JDialog {
         gbc.gridx++;
         panel.add(cbGame, gbc);
         gbc.gridx = 0;
-        gbc.gridy ++;
+        gbc.gridy++;
         panel.add(lblTime, gbc);
         gbc.gridx++;
         panel.add(spinTime, gbc);
@@ -120,10 +100,30 @@ public class AddSessionManually extends JDialog {
         spnModelTime.setMinimum(0);
         spinTime.setModel(spnModelTime);
         spinTime.setToolTipText("El tiempo es en minutos");
-        
+
         dcDate.hidePopup();
         dcDate.setDateFormat("yyyy-MM-dd");
         dcDate.setTextRefernce(txtDate);
         timePicker.setEditor(txtTime);
+    }
+
+    public void setBtnAddListener(ActionListener listener) {
+        btnAdd.addActionListener(listener);
+    }
+
+    public String getGameSelectedString() {
+        return cbGame.getSelectedItem().toString();
+    }
+
+    public String getTimeString() {
+        return spinTime.getValue().toString();
+    }
+
+    public String getDateString() {
+        return txtDate.getText();
+    }
+
+    public String getHourString() {
+        return txtTime.getText();
     }
 }

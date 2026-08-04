@@ -23,6 +23,12 @@ public class ChronometerService {
         t.start();
     }
 
+    public void stop() {
+        isRunning = false;
+        if (t != null)
+            t.stop();
+    }
+
     private void run() {
         if (isRunning) {
             if (!isPaused) {
@@ -49,12 +55,6 @@ public class ChronometerService {
 
     public void setListener(ChronometerListener listener) {
         this.listener = listener;
-    }
-
-    public void stop() {
-        isRunning = false;
-        if (t != null)
-            t.stop();
     }
 
     public boolean isPaused() {

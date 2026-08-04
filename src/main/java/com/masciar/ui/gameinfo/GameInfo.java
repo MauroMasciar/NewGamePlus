@@ -53,10 +53,14 @@ public class GameInfo extends JInternalFrame implements ComponentListener {
         add(session, gbc);
 
         pack();
-        setVisible(true);
 
         debounceUpdateWindowPositionTimer = new Timer(2500, e -> saveFramePosition());
         debounceUpdateWindowPositionTimer.setRepeats(false);
+    }
+
+    private void saveFramePosition() {
+        ConfigService.setProperty("GameInfoX", String.valueOf(this.getX()));
+        ConfigService.setProperty("GameInfoY", String.valueOf(this.getY()));
     }
 
     public Image getImagePanel() {
@@ -69,11 +73,6 @@ public class GameInfo extends JInternalFrame implements ComponentListener {
 
     public Session getSessionPanel() {
         return session;
-    }
-
-    private void saveFramePosition() {
-        ConfigService.setProperty("GameInfoX", String.valueOf(this.getX()));
-        ConfigService.setProperty("GameInfoY", String.valueOf(this.getY()));
     }
 
     public void setBtnEditListener(ActionListener listener) {

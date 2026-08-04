@@ -17,7 +17,7 @@ public class Logger {
         }
     }
 
-    public static void loguear(String string) {
+    private void loguear(String string) {
         c = LocalDate.now();
         t = LocalTime.now();
 

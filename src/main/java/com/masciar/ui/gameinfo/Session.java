@@ -100,30 +100,6 @@ public class Session extends JPanel {
         configureTypography();
     }
 
-    public void setTotalTimeHoursValue(String value) {
-        lblTimeHoursValue.setText(value);
-    }
-
-    public void setTotalDaysValue(String value) {
-        lblTimeDaysValue.setText(value);
-    }
-
-    public void setTotalSessionsValue(String value) {
-        lblSessionsValue.setText(value);
-    }
-
-    public void setSessionsMonthValue(String value) {
-        lblSessionsMonthValue.setText(value);
-    }
-
-    public void setLastSessionDate(String value) {
-        lblLastSessionDate.setText(value);
-    }
-
-    public void setLastSessionTime(String value) {
-        lblLastSessionTime.setText(value);
-    }
-
     private void configurePanels() {
         pnlTime.setBorder(new RoundedBorder(18, new Color(21, 33, 47), 5, 5, 5, 5));
         pnlTime.setPreferredSize(new Dimension(175, 80));
@@ -174,5 +150,29 @@ public class Session extends JPanel {
         lblLastSessionDate.setForeground(Color.decode(Utils.GAME_INFO_SESSION_TEXT_VALUE));
         lblLastSessionTime.setFont(new Font("Segoe UI", Font.PLAIN, 14));
         lblLastSessionTime.setForeground(Color.decode(Utils.GAME_INFO_SESSION_TEXT_VALUE));
+    }
+
+    public void setTotalTimeHoursValue(String value) {
+        lblTimeHoursValue.setText(value);
+    }
+
+    public void setTotalDaysValue(String value) {
+        lblTimeDaysValue.setText(value);
+    }
+
+    public void setTotalSessionsValue(String value) {
+        lblSessionsValue.setText(value);
+    }
+
+    public void setSessionsMonthValue(String value) {
+        lblSessionsMonthValue.setText(value);
+    }
+
+    public void setLastSessionDate(String value) {
+        lblLastSessionDate.setText(value);
+    }
+
+    public void setLastSessionTime(String value) {
+        lblLastSessionTime.setText(value);
     }
 }

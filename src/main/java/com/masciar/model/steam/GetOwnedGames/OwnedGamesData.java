@@ -8,7 +8,7 @@ public class OwnedGamesData {
     @JsonProperty("game_count")
     private int gameCount;
     private List<GameModel> games;
-    
+
     public OwnedGamesData() {
     }
 

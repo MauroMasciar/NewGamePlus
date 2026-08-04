@@ -9,7 +9,7 @@ public class ErrorHandler {
 		StringWriter sw = new StringWriter();
 		e.printStackTrace(new PrintWriter(sw));
 		String error = sw.toString();
-        Logger.loguear(error);
+        new Logger(error);
         JOptionPane.showMessageDialog(null, error, "Error", JOptionPane.ERROR_MESSAGE);
     }
 }

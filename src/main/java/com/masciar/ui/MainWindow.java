@@ -96,7 +96,7 @@ public class MainWindow extends JFrame implements ActionListener, WindowStateLis
         desktopPane.add(gamesList);
         desktopPane.add(new SessionsHistory());
 
-        gameInfoController = new GameInfoController(desktopPane, this);
+        gameInfoController = new GameInfoController(this);
         gamesList.setListener(gameInfoController);
 
         generalSummaryController = new GeneralSummaryController(desktopPane);
@@ -119,7 +119,7 @@ public class MainWindow extends JFrame implements ActionListener, WindowStateLis
             AddGameController addGameController = new AddGameController(this);
         } else if (e.getSource() == mnuiGamesEdit) {
             @SuppressWarnings("unused")
-            EditGameController editGameController = new EditGameController(this, gameInfoController.gameSelected);            
+            EditGameController editGameController = new EditGameController(this, gameInfoController.getGameSelected());            
         } else if (e.getSource() == mnuiPlayerAddSession) {
             @SuppressWarnings("unused")
             AddSessionManuallyController addSessionController = new AddSessionManuallyController(this);

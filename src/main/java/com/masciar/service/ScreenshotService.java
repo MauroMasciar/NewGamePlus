@@ -9,7 +9,10 @@ import com.sun.jna.platform.win32.WinUser;
 import com.sun.jna.platform.win32.WinUser.MSG;
 
 public class ScreenshotService {
-    public void initService() {
+    public ScreenshotService() {
+        initService();
+    }
+    private void initService() {
         new Thread(() -> {
             User32.INSTANCE.RegisterHotKey(null, 1, 0, 0x7B); // F12
             MSG msg = new MSG();

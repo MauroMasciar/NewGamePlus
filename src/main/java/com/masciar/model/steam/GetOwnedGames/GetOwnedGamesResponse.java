@@ -5,8 +5,9 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class GetOwnedGamesResponse {
     private OwnedGamesData response;
-    
-    public GetOwnedGamesResponse() { }
+
+    public GetOwnedGamesResponse() {
+    }
 
     public OwnedGamesData getResponse() {
         return response;
@@ -15,6 +16,4 @@ public class GetOwnedGamesResponse {
     public void setResponse(OwnedGamesData response) {
         this.response = response;
     }
-
-    
 }

@@ -16,17 +16,18 @@ public class GameModel {
     private List<Integer> content_descriptorids;
     private int playtime_disconnected;
 
-    public GameModel() { }
+    public GameModel() {
+    }
 
     public GameModel(int appid,
-                           String name,
-                           String img_icon_url,
-                           int playtime_windows_forever,
-                           int playtime_linux_forever,
-                           int playtime_deck_forever,
-                           int rtime_last_played,
-                           List<Integer> content_descriptorids,
-                           int playtime_disconnected) {
+            String name,
+            String img_icon_url,
+            int playtime_windows_forever,
+            int playtime_linux_forever,
+            int playtime_deck_forever,
+            int rtime_last_played,
+            List<Integer> content_descriptorids,
+            int playtime_disconnected) {
         this.appid = appid;
         this.name = name;
         this.img_icon_url = img_icon_url;

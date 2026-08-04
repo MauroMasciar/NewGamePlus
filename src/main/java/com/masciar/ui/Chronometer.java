@@ -92,63 +92,7 @@ public class Chronometer extends JInternalFrame implements ComponentListener {
             lblTime.setForeground(Color.decode(Utils.COLOR_GREEN));
         }
     }
-
-    public void setTime(String seconds) {
-        lblTime.setText(seconds);
-    }
-
-    public void setTimeTotal(String seconds) {
-        lblTotalTimeValue.setText(seconds);
-    }
-
-    public void setTimePaused(String seconds) {
-        lblPauseTimeValue.setText(seconds);
-    }
-
-    public void setGameName(String name) {
-        lblGameName.setText(name);
-    }
-
-    public void setPlayCount(String text) {
-        lblPlayCountValue.setText(text);
-    }
-
-    public void setTotalPlayed(String text) {
-        lblTotalPlayedGameValue.setText(text);
-    }
-
-    public void setTotalPlayedAfterSession(String text) {
-        lblInfoFutureTime.setText(text);
-    }
-
-    public void setTotalFutureTime(String text) {
-        lblInfoFutureTime.setText(text);
-    }
-
-    public void setAgeSession(String text) {
-        lblInitDate.setText(text);
-    }
-
-    public void setAvgTimePlayed(String text) {
-        lblMedTimeSessionValue.setText(text);
-    }
-
-    public void btnPauseText(String text) {
-        btnPause.setText(text);
-    }
-
-    public void setPauseCount(String text) {
-        lblPausesValue.setText(text);
-    }
-
-    public void setBtnPauseListener(ActionListener listener) {
-        btnPause.addActionListener(listener);
-    }
-
-    public void setBtnStopListener(ActionListener listener) {
-        btnStop.addActionListener(listener);
-    }
-
+    
     private void configureTypography() {
         lblSeparator.setForeground(Color.GRAY);
         lblSeparator2.setForeground(Color.GRAY);
@@ -347,6 +291,62 @@ public class Chronometer extends JInternalFrame implements ComponentListener {
     private void saveFramePosition() {
         ConfigService.setProperty("ChronometerX", String.valueOf(this.getX()));
         ConfigService.setProperty("ChronometerY", String.valueOf(this.getY()));
+    }
+
+    public void setTime(String seconds) {
+        lblTime.setText(seconds);
+    }
+
+    public void setTimeTotal(String seconds) {
+        lblTotalTimeValue.setText(seconds);
+    }
+
+    public void setTimePaused(String seconds) {
+        lblPauseTimeValue.setText(seconds);
+    }
+
+    public void setGameName(String name) {
+        lblGameName.setText(name);
+    }
+
+    public void setPlayCount(String text) {
+        lblPlayCountValue.setText(text);
+    }
+
+    public void setTotalPlayed(String text) {
+        lblTotalPlayedGameValue.setText(text);
+    }
+
+    public void setTotalPlayedAfterSession(String text) {
+        lblInfoFutureTime.setText(text);
+    }
+
+    public void setTotalFutureTime(String text) {
+        lblInfoFutureTime.setText(text);
+    }
+
+    public void setAgeSession(String text) {
+        lblInitDate.setText(text);
+    }
+
+    public void setAvgTimePlayed(String text) {
+        lblMedTimeSessionValue.setText(text);
+    }
+
+    public void btnPauseText(String text) {
+        btnPause.setText(text);
+    }
+
+    public void setPauseCount(String text) {
+        lblPausesValue.setText(text);
+    }
+
+    public void setBtnPauseListener(ActionListener listener) {
+        btnPause.addActionListener(listener);
+    }
+
+    public void setBtnStopListener(ActionListener listener) {
+        btnStop.addActionListener(listener);
     }
 
     @Override
