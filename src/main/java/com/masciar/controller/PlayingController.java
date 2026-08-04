@@ -1,16 +1,20 @@
 package com.masciar.controller;
 
 import com.masciar.service.ChronometerService;
+import com.masciar.service.ConfigService;
+import com.masciar.service.LibraryService;
 import com.masciar.service.PlayingService;
 import com.masciar.service.Toast;
 import com.masciar.service.AchievementService;
 import com.masciar.service.AddSessionService;
 import com.masciar.listener.ChronometerListener;
+import com.masciar.logging.ErrorHandler;
 import com.masciar.model.Games;
 import com.masciar.ui.Chronometer;
 import com.masciar.ui.MainWindow;
 import com.masciar.util.Utils;
 
+import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import javax.swing.JDesktopPane;
@@ -33,6 +37,8 @@ public class PlayingController implements ChronometerListener {
         this.game = game;
         this.desktopPane = desktopPane;
 
+        launchGame();
+
         // Iniciamos vista
         view = new Chronometer();
         desktopPane.add(view);
@@ -52,7 +58,8 @@ public class PlayingController implements ChronometerListener {
         view.setPlayCount(String.valueOf(game.getPlayCount()));
         view.setTotalPlayed(Utils.getTotalHoursFromSeconds(game.getTimePlayed(), true));
         view.setTotalPlayedAfterSession(Utils.getTotalHoursFromSeconds(game.getTimePlayed(), false));
-        view.setAgeSession("Iniciado a las " + startTime.format(format_time) + " hace " + Utils.getTotalHoursFromSeconds(0, false));
+        view.setAgeSession("Iniciado a las " + startTime.format(format_time) + " hace "
+                + Utils.getTotalHoursFromSeconds(0, false));
         try {
             view.setAvgTimePlayed(Utils.getTotalHoursFromSeconds(game.getTimePlayed() / game.getPlayCount(), false));
         } catch (Exception e) {
@@ -66,6 +73,35 @@ public class PlayingController implements ChronometerListener {
         view.setBtnStopListener(e -> endSession());
 
         Toast.showToast(desktopPane, "Juego lanzado");
+    }
+
+    private void launchGame() {
+        LibraryService libraryService = new LibraryService();
+        if ("Steam".equals(libraryService.findNameById(game.getLibrary()))) {
+            new Thread(() -> {
+                try {
+                    ProcessBuilder pb = new ProcessBuilder(ConfigService.getProperty("steam.dir"), "steam://run/" + game.getAppId());
+                    pb.start();
+                } catch (IOException e) {
+                    ErrorHandler.handle(e);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }).start();
+        } else if (!"N/A".equals(game.getPath()) && !"Steam".equals(libraryService.findNameById(game.getLibrary()))) {
+            new Thread(() -> {
+                try {
+                    ProcessBuilder pb = new ProcessBuilder(game.getPath());
+                    Process p = pb.start();
+                    p.waitFor();
+                    endSession();
+                } catch (IOException e) {
+                    ErrorHandler.handle(e);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }).start();
+        }
     }
 
     private void pauseSession() {

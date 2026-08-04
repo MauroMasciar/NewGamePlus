@@ -15,12 +15,11 @@ public class AddGameController {
     private AddGame view;
     private GameService GameService;
     private AchievementService achievementService;
-    
+
     public AddGameController(MainWindow window) {
         view = new AddGame(window, true);
         achievementService = new AchievementService(new LibraryService());
         GameService = new GameService(view, achievementService);
-        
 
         loadCategories();
         loadLibraries();
@@ -32,30 +31,30 @@ public class AddGameController {
         view.showPopupReleaseDateListener(e -> showPopupReleaseDate());
         view.setBtnSaveListener(e -> {
             boolean saved = GameService.addGame();
-            if(saved) view.showInfo("El juego ha sido añadido a tu biblioteca");
-            else view.showError("Ha habido un error al agregar el juego a la biblioteca");
-        }
-            
-        );
+            if (saved)
+                view.showInfo("El juego ha sido añadido a tu biblioteca");
+            else
+                view.showError("Ha habido un error al agregar el juego a la biblioteca");
+        });
         view.setSpinGameTimeListener(e -> setSpinGameTimer());
 
         view.setVisible(true);
     }
 
     public void loadCategories() {
-        for(Categories category : Main.categoryRepository.categories_list) {
+        for (Categories category : Main.categoryRepository.categories_list) {
             view.fillComboBoxCategory(category.getName());
         }
     }
 
     public void loadLibraries() {
-        for(Libraries library : Main.librariesRepository.library_list) {
+        for (Libraries library : Main.librariesRepository.library_list) {
             view.fillComboBoxLibrary(library.getName());
         }
     }
 
     public void loadPlatforms() {
-        for(Platforms platforms : Main.platformsRepository.platforms_list) {
+        for (Platforms platforms : Main.platformsRepository.platforms_list) {
             view.filLComboBoxPlatform(platforms.getName());
         }
     }
