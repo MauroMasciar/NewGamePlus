@@ -561,7 +561,7 @@ public class AddGame extends JDialog {
         spinPlayCount.setValue(count);
     }
 
-    public void setDateCompletedDate(String date) {
+    public void setCompletedDate(String date) {
         txtCompletedDate.setText(date);
     }
 
@@ -577,7 +577,7 @@ public class AddGame extends JDialog {
         txtPath.setText(path);
     }
 
-    public void setDateReleaseDate(String date) {
+    public void setReleaseDate(String date) {
         txtCompletedDate.setText(date);
     }
 

@@ -11,6 +11,9 @@ public class AchievementService {
     private LibraryService libraryService;
     private Games game;
 
+    public AchievementService() {
+    }
+
     public AchievementService(LibraryService libraryService) {
         this.libraryService = libraryService;
     }
@@ -77,6 +80,12 @@ public class AchievementService {
         String text = "Obtuviste " + game.getName() + " en " + libraryService.findNameById(game.getLibrary());
         add(game.getName(), game.getId(), text, Utils.getFormattedDateTime());
     }
+
+    public void createCompletedGameAchievement(Games game) {
+        String text = "Has terminado el juego " + game.getName() + " en " + Utils.getTotalHoursFromSeconds(game.getTimePlayed(), false);
+        add(game.getName(), game.getId(), text, game.getCompletedDate());
+    }
+    
 
     public void add(String name, int gameId, String description, String date) {
         AchievementDAO achievementDAO = new AchievementDAO();

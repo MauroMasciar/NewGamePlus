@@ -15,6 +15,7 @@ public class GameService {
     private AchievementService achievementService;
 
     public GameService() {
+        this.achievementService = new AchievementService();
     }
 
     public GameService(AddGame view, AchievementService achievementService) {
@@ -93,7 +94,7 @@ public class GameService {
             completed_date = "1900-01-01";
         if (notes.isEmpty())
             notes = "";
-        
+
         int appId = 0;
 
         if (name.isEmpty()) {
@@ -117,6 +118,8 @@ public class GameService {
     }
 
     public void saveGame(Games game) {
+        if (game.getCompleted() == 1)
+            achievementService.createCompletedGameAchievement(game);
         GamesDAO gamesDao = new GamesDAO();
         gamesDao.update(game);
     }
@@ -143,7 +146,7 @@ public class GameService {
         for (Games game : Main.gameRepository.games_list) {
             if (game.getName().toLowerCase().contains(name)) {
                 model.addElement(game);
-            }                
+            }
         }
         return model;
     }

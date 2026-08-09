@@ -47,7 +47,7 @@ public class AchievementDAO {
             else
                 System.out.println("Error al añadir logro");
         } catch (SQLException e) {
-            ErrorHandler.handle(e);
+            //ErrorHandler.handle(e);
         }
     }
 }

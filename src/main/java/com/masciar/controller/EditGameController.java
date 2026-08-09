@@ -85,9 +85,9 @@ public class EditGameController {
         view.setSpinScore(game.getScore());
         view.setSpinTime(game.getTimePlayed());
         view.setSpinPlayCount(game.getPlayCount());
-        view.setDateCompletedDate(game.getCompletedDate());
+        view.setCompletedDate(game.getCompletedDate());
         view.setTxtPath(game.getPath());
-        view.setDateReleaseDate(game.getReleaseDate());
+        view.setReleaseDate(game.getReleaseDate());
         view.setTxtDeveloper(game.getDeveloper());
         view.setTxtSeries(game.getSeries());
         view.setTxtPlayMode(game.getPlayMode());
@@ -114,11 +114,17 @@ public class EditGameController {
             view.setCheckPortable(true);
         else
             view.setCheckPortable(false);
+
         if(game.getCompleted() == 1)
             view.setCheckCompleted(true);
         else
             view.setCheckCompleted(false);
-        view.setDateCompletedDate(game.getCompletedDate());
+
+        if(game.getCompleted() == 1) 
+            view.setCompletedDate(game.getCompletedDate());
+        else
+            view.setCompletedDate(Utils.getFormattedDate());
+
         if(game.getHidden() == 1)
             view.setCheckHidden(true);
         else
@@ -155,7 +161,6 @@ public class EditGameController {
         game.setModified(view.getDateModified());
         game.setTimePlayed(view.getSpinGameTimeValue());
         game.setNotes(view.getTxtaNotes());
-
 
         if(view.getCompletedState()) 
             game.setCompleted(1);
