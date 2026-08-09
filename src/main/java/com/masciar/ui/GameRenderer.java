@@ -1,6 +1,7 @@
 package com.masciar.ui;
 
 import com.masciar.model.Games;
+import com.masciar.service.HistoryService;
 import com.masciar.util.Utils;
 
 import java.awt.BorderLayout;
@@ -16,35 +17,44 @@ import javax.swing.ListCellRenderer;
 public class GameRenderer extends JPanel implements ListCellRenderer<Games> {
 	private JLabel lblIcon = new JLabel();
 	private JLabel lblName = new JLabel();
-	private JLabel lblTime = new JLabel();
-	
+	private JLabel lblInfo = new JLabel();
+
 	public GameRenderer() {
 		setLayout(new BorderLayout(10, 10));
 		JPanel text = new JPanel();
 		text.setLayout(new BoxLayout(text, BoxLayout.Y_AXIS));
 		lblName.setFont(new Font("Segoe UI", Font.BOLD, 15));
-		lblTime.setFont(new Font("Segoe UI", Font.PLAIN, 12));
+		lblInfo.setFont(new Font("Segoe UI", Font.PLAIN, 12));
 
 		text.add(lblName);
-		text.add(lblTime);
+		text.add(lblInfo);
 
-        add(lblIcon, BorderLayout.WEST);
-        add(text, BorderLayout.CENTER);
-        setOpaque(true);
-        text.setOpaque(false);
+		add(lblIcon, BorderLayout.WEST);
+		add(text, BorderLayout.CENTER);
+		setOpaque(true);
+		text.setOpaque(false);
 	}
 
 	@Override
-	public Component getListCellRendererComponent(JList<? extends Games> list, Games game, int index, boolean selected, boolean hasFocus) {
+	public Component getListCellRendererComponent(JList<? extends Games> list, Games game, int index, boolean selected,
+			boolean hasFocus) {
+		HistoryService historyService = new HistoryService();
 		lblName.setText(game.getName());
-		lblTime.setText(Utils.getTotalHoursFromSeconds((int)game.getTimePlayed(),false));
+		String lastSessionDate = Utils.formatDateFromString(game.getLastPlayed(), 2);
+		if (!lastSessionDate.equals("01/01/1900"))
+			lblInfo.setText(Utils.getTotalHoursFromSeconds((int) game.getTimePlayed(), false) + " | " + lastSessionDate
+					+ " | ("
+					+ Utils.getTotalHoursFromSeconds(historyService.getLastSessionTimeFromGame(game.getId()), false)
+					+ ")");
+		else
+			lblInfo.setText(Utils.getTotalHoursFromSeconds((int) game.getTimePlayed(), false));
 
-        if(selected) {
-            setBackground(new Color(35,92,180));
-        } else {
-            setBackground(list.getBackground());
-        }
-
-        return this;
-    }
+		if (selected) {
+			setBackground(new Color(35, 92, 180));
+		} else {
+			setBackground(list.getBackground());
+		}
+		
+		return this;
+	}
 }

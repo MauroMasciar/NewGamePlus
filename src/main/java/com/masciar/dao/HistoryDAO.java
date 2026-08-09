@@ -12,6 +12,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.xml.crypto.Data;
+
 public class HistoryDAO {
 	public List<History> getAll() {
 		List<History> history = new ArrayList<>();
@@ -81,4 +83,29 @@ public class HistoryDAO {
 		}
 		return 0;
 	}
+
+	public int getLastDays(int gameId, int days) {
+        String query;
+        if(gameId == 0) {
+            if(days == 1) query = "SELECT SUM(seconds) AS seconds FROM games_sessions_history WHERE `datetime_start` BETWEEN datetime('now', '-1 day') AND datetime('now');";
+            else if(days == 7) query = "SELECT SUM(seconds) AS seconds FROM games_sessions_history WHERE `datetime_start` BETWEEN datetime('now', '-7 day') AND datetime('now')";
+            else if(days == 14) query = "SELECT SUM(seconds) AS seconds FROM games_sessions_history WHERE `datetime_start` BETWEEN datetime('now', '-14 day') AND datetime('now')";
+            else if(days == 30) query = "SELECT SUM(seconds) AS seconds FROM games_sessions_history WHERE `datetime_start` BETWEEN datetime('now', '-30 day') AND datetime('now')";
+            else query = "SELECT SUM(seconds) AS seconds FROM games_sessions_history WHERE `datetime_start` BETWEEN datetime('now', '-365 day') AND datetime('now')";
+        } else {
+            if(days == 1) query = "SELECT SUM(seconds) AS seconds FROM games_sessions_history WHERE `datetime_start` BETWEEN datetime('now', '-1 day') AND datetime('now') AND game_id = " + gameId;
+            else if(days == 7) query = "SELECT SUM(seconds) AS seconds FROM games_sessions_history WHERE `datetime_start` BETWEEN datetime('now', '-7 day') AND datetime('now') AND game_id = " + gameId;
+            else if(days == 14) query = "SELECT SUM(seconds) AS seconds FROM games_sessions_history WHERE `datetime_start` BETWEEN datetime('now', '-14 day') AND datetime('now') AND game_id = " + gameId;
+            else if(days == 30) query = "SELECT SUM(seconds) AS seconds FROM games_sessions_history WHERE `datetime_start` BETWEEN datetime('now', '-30 day') AND datetime('now') AND game_id = " + gameId;
+            else query = "SELECT SUM(seconds) AS seconds FROM games_sessions_history WHERE `datetime_start` BETWEEN datetime('now', '-365 day') AND datetime('now') AND game_id = " + gameId;
+        }
+        try (Connection con = DriverManager.getConnection(Utils.DATABASE_URL);
+				PreparedStatement ps = con.prepareStatement(query)) {
+			ResultSet rs = ps.executeQuery();
+			return rs.getInt("seconds");
+		} catch (SQLException e) {
+			ErrorHandler.handle(e);
+		}
+		return 0;
+    }
 }

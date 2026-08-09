@@ -44,7 +44,11 @@ public class GamesList extends JInternalFrame implements ActionListener, ListSel
 	private Timer debounce, debounceTimer;
 	
 	public GamesList(JDesktopPane desktopPane) {
-		setLocation(Integer.parseInt(ConfigService.getProperty("GamesListX")), Integer.parseInt(ConfigService.getProperty("GamesListY")));
+		try {
+            setLocation(Integer.parseInt(ConfigService.getProperty("GamesListX")), Integer.parseInt(ConfigService.getProperty("GamesListY")));
+        } catch (NumberFormatException e) {
+            saveFramePosition();
+        }
 		this.desktopPane = desktopPane;
 		setSize(300, 600);
 		//GridBagConstraints gbcListGames = new GridBagConstraints();

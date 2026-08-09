@@ -11,7 +11,6 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.Timer;
-
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Font;
@@ -165,7 +164,11 @@ public class Chronometer extends JInternalFrame implements ComponentListener {
     }
 
     private void initComponents() {
-        setLocation(Integer.parseInt(ConfigService.getProperty("ChronometerX")), Integer.parseInt(ConfigService.getProperty("ChronometerY")));
+        try {
+            setLocation(Integer.parseInt(ConfigService.getProperty("ChronometerX")), Integer.parseInt(ConfigService.getProperty("ChronometerY")));
+        } catch (NumberFormatException e) {
+            saveFramePosition();
+        }
         setResizable(false);
         setLayout(new BorderLayout(10, 10));
         setBackground(Color.decode(Utils.COLOR_BACKGROUND_PANEL_2));

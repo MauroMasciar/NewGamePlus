@@ -113,8 +113,12 @@ public class GeneralSummary extends JInternalFrame implements ComponentListener 
         lblTitle.setIcon(icon);
     }
 
-    private void createLayout() {
-        setLocation(Integer.parseInt(ConfigService.getProperty("GeneralSummaryX")), Integer.parseInt(ConfigService.getProperty("GeneralSummaryY")));
+    private void createLayout() {        
+        try {
+            setLocation(Integer.parseInt(ConfigService.getProperty("GeneralSummaryX")), Integer.parseInt(ConfigService.getProperty("GeneralSummaryY")));
+        } catch (NumberFormatException e) {
+            saveFramePosition();
+        }
 
         setLayout(new GridBagLayout());
         panelTitle.setLayout(new GridBagLayout());

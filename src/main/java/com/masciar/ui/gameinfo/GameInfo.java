@@ -25,7 +25,11 @@ public class GameInfo extends JInternalFrame implements ComponentListener {
         summary = new Summary();
         session = new Session();
 
-        setLocation(Integer.parseInt(ConfigService.getProperty("GameInfoX")), Integer.parseInt(ConfigService.getProperty("GameInfoY")));
+        try {
+            setLocation(Integer.parseInt(ConfigService.getProperty("GameInfoX")), Integer.parseInt(ConfigService.getProperty("GameInfoY")));
+        } catch (NumberFormatException e) {
+            saveFramePosition();
+        }
         setLayout(new GridBagLayout());
         setTitle("Información del juego");
         getContentPane().setBackground(Color.decode(Utils.COLOR_BACKGROUND));

@@ -176,4 +176,9 @@ public class Summary extends JPanel {
     public void setPlatform(String platform) {
         lblPlatformValue.setText(platform);
     }
+
+    public void setCompleted(int completed) {
+        if(completed == 1) lblStateValue.setText("COMPLETADO");
+        else lblStateValue.setText("NO COMPLETADO");
+    }
 }

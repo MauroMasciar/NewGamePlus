@@ -33,7 +33,12 @@ public class SessionsHistory extends JInternalFrame implements ComponentListener
     }
 
     private void initComponents() {
-        setLocation(Integer.parseInt(ConfigService.getProperty("SessionsHistoryX")), Integer.parseInt(ConfigService.getProperty("SessionsHistoryY")));
+        try {
+            setLocation(Integer.parseInt(ConfigService.getProperty("SessionsHistoryX")), Integer.parseInt(ConfigService.getProperty("SessionsHistoryY")));
+        } catch (NumberFormatException e) {
+            saveFramePosition();
+        }
+        
         table = new JTable();
         updateTableModel();
 

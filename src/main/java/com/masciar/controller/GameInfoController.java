@@ -39,8 +39,14 @@ public class GameInfoController implements GameSelectedListener {
             view.getSessionPanel().setTotalTimeHoursValue(Utils.getTotalHoursFromSeconds(gameSelected.getTimePlayed(), true));
             view.getSessionPanel().setTotalDaysValue(Utils.getTotalDaysFromSeconds(gameSelected.getTimePlayed()));
             view.getSessionPanel().setTotalSessionsValue(String.valueOf(gameSelected.getPlayCount()));
-            view.getSessionPanel().setLastSessionDate(Utils.formatDateFromString(historyService.getLastSessionFromGame(gameSelected.getId()), 2));
-            view.getSessionPanel().setLastSessionTime(Utils.getTotalHoursFromSeconds(historyService.getLastSessionTimeFromGame(gameSelected.getId()), true));
+            if(gameSelected.getTimePlayed() > 0) {
+                view.getSessionPanel().setLastSessionDate(Utils.formatDateFromString(historyService.getLastSessionFromGame(gameSelected.getId()), 2));
+                view.getSessionPanel().setLastSessionTime(Utils.getTotalHoursFromSeconds(historyService.getLastSessionTimeFromGame(gameSelected.getId()), true));
+            } else {
+                view.getSessionPanel().setLastSessionDate("Nunca");
+                view.getSessionPanel().setLastSessionTime("");
+            }
+            view.getSummaryPanel().setCompleted(gameSelected.getCompleted());
             view.pack();
         } catch (NullPointerException e) {
             e.printStackTrace();

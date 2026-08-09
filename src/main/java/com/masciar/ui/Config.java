@@ -30,7 +30,12 @@ public class Config extends JInternalFrame implements ComponentListener {
     }
 
     private void initComponents() {
-        setLocation(Integer.parseInt(ConfigService.getProperty("ConfigX")), Integer.parseInt(ConfigService.getProperty("ConfigY")));
+        try {
+            setLocation(Integer.parseInt(ConfigService.getProperty("ConfigX")), Integer.parseInt(ConfigService.getProperty("ConfigY")));
+        } catch (NumberFormatException e) {
+            saveFramePosition();
+        }
+        
         setTitle("Configuración");
         setSize(800, 500);
         setDefaultCloseOperation(JInternalFrame.DISPOSE_ON_CLOSE);

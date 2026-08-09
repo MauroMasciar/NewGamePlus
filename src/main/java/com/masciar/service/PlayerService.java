@@ -3,11 +3,6 @@ package com.masciar.service;
 import com.masciar.app.Main;
 
 public class PlayerService {
-    /*public int getTotalTimePlayed() {
-        GamesDAO gamesDao = new GamesDAO();
-        return gamesDao.getTotalTimePlayed();
-    }*/
-
     public int getTotalTimePlayed() {
         return Main.playerRepository.players_list.get(0).getTotalTime();
     }
