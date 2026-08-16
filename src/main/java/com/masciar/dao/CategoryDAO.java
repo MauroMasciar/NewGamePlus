@@ -2,7 +2,7 @@ package com.masciar.dao;
 
 import com.masciar.app.Main;
 import com.masciar.logging.ErrorHandler;
-import com.masciar.model.Categories;
+import com.masciar.model.Category;
 import com.masciar.util.Utils;
 
 import java.sql.Connection;
@@ -14,8 +14,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class CategoryDAO {
-    public List<Categories> getAll() {
-        List<Categories> categories = new ArrayList<>();
+    public List<Category> getAll() {
+        List<Category> categories = new ArrayList<>();
         String query = "SELECT * FROM category ORDER BY id";
 
         try (Connection con = DriverManager.getConnection(Utils.DATABASE_URL);
@@ -23,7 +23,7 @@ public class CategoryDAO {
                 ResultSet rs = ps.executeQuery()) {
 
             while (rs.next()) {
-                Categories category = new Categories(rs.getInt("id"), rs.getString("name"), rs.getInt("time_played"),
+                Category category = new Category(rs.getInt("id"), rs.getString("name"), rs.getInt("time_played"),
                         rs.getInt("total_sessions"));
                 categories.add(category);
             }

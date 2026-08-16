@@ -1,7 +1,7 @@
 package com.masciar.controller;
 
 import com.masciar.app.Main;
-import com.masciar.model.Games;
+import com.masciar.model.Game;
 import com.masciar.service.AddSessionService;
 import com.masciar.ui.AddSessionManually;
 import com.masciar.ui.MainWindow;
@@ -38,8 +38,8 @@ public class AddSessionManuallyController {
     }
 
     public void fillComboBoxGames() {
-        Main.gameRepository.games_list.sort(Comparator.comparing(Games::getName, String.CASE_INSENSITIVE_ORDER));
-		for(Games game : Main.gameRepository.games_list) { 
+        Main.gameRepository.games_list.sort(Comparator.comparing(Game::getName, String.CASE_INSENSITIVE_ORDER));
+		for(Game game : Main.gameRepository.games_list) { 
 			view.cbGameAddItem(game.getName());
 		}
     }

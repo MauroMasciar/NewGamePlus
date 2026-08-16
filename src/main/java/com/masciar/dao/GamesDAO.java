@@ -1,7 +1,7 @@
 package com.masciar.dao;
 
 import com.masciar.logging.ErrorHandler;
-import com.masciar.model.Games;
+import com.masciar.model.Game;
 import com.masciar.util.Utils;
 
 import java.sql.Connection;
@@ -13,8 +13,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class GamesDAO {
-	public List<Games> getAll() {
-		List<Games> games = new ArrayList<>();
+	public List<Game> getAll() {
+		List<Game> games = new ArrayList<>();
 
 		String query = "SELECT * FROM games ORDER BY id";
 
@@ -23,7 +23,7 @@ public class GamesDAO {
 				ResultSet rs = ps.executeQuery()) {
 
 			while (rs.next()) {
-				Games game = new Games(rs.getInt("id"), rs.getString("name"), rs.getInt("category"),
+				Game game = new Game(rs.getInt("id"), rs.getString("name"), rs.getInt("category"),
 						rs.getInt("library"), rs.getInt("score"), rs.getInt("time_played"),
 						rs.getInt("play_count"), rs.getInt("completed"), rs.getString("completed_date"),
 						rs.getInt("hidden"), rs.getString("path"), rs.getString("release_date"),
@@ -55,7 +55,7 @@ public class GamesDAO {
 		return 0;
 	}
 
-	public boolean add(Games game) {
+	public boolean add(Game game) {
 		String query = "INSERT INTO games (name, category, library, score, time_played, play_count, completed, completed_date, hidden, path, release_date, developer, series, play_mode, status, last_played, rating, platform, publisher, region, version, added, modified, favorite, statistic, portable, image, notes, steam_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 		try (Connection con = DriverManager.getConnection(Utils.DATABASE_URL);
 				PreparedStatement ps = con.prepareStatement(query)) {
@@ -99,7 +99,7 @@ public class GamesDAO {
 		return false;
 	}
 
-	public void update(Games game) {
+	public void update(Game game) {
 		String query = "UPDATE games SET name = ?, category = ?, library = ?, score = ?, time_played = ?, play_count = ?, completed = ?, completed_date = ?, hidden = ?, path = ?, release_date = ?, developer = ?, series = ?, play_mode = ?, status = ?, last_played = ?, rating = ?, platform = ?, publisher = ?, region = ?, version = ?, added = ?, modified = ?, favorite = ?, statistic = ?, portable = ?, image = ?, notes = ?, steam_id = ? WHERE id = ?;";
 		try (Connection con = DriverManager.getConnection(Utils.DATABASE_URL);
 				PreparedStatement ps = con.prepareStatement(query)) {

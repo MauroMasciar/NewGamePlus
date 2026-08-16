@@ -1,6 +1,7 @@
 package com.masciar.ui;
 
-import com.masciar.model.Games;
+import com.masciar.model.Game;
+import com.masciar.util.DateUtils;
 import com.masciar.util.Utils;
 import com.masciar.util.Validations;
 
@@ -94,7 +95,7 @@ public class AddGame extends JDialog {
         load();
     }
 
-    public AddGame(MainWindow window, Games game, boolean modal) {
+    public AddGame(MainWindow window, Game game, boolean modal) {
         super(window, true);
         String title = "Editar juego: " + game.getName();
         setTitle(title);
@@ -159,8 +160,8 @@ public class AddGame extends JDialog {
         spinScore.setModel(spinnerNumberModelScore);
         spinGameTime.setModel(spinnerNumberModelGameTime);
         spinPlayCount.setModel(spinnerNumberModelSessions);
-        txtAdded.setText(Utils.getFormattedDate());
-        txtModified.setText(Utils.getFormattedDateTime());
+        txtAdded.setText(DateUtils.getFormattedDate());
+        txtModified.setText(DateUtils.getFormattedDateTime());
 
         /*
          * txtGenre.setEditable(false);

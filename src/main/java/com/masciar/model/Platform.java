@@ -1,12 +1,12 @@
 package com.masciar.model;
 
-public class Platforms {
+public class Platform {
     private int id;
     private String name;
     private int timePlayed;
     private int totalSessions;
     
-    public Platforms(int id, String name, int timePlayed, int totalSessions) {
+    public Platform(int id, String name, int timePlayed, int totalSessions) {
         this.id = id;
         this.name = name;
         this.timePlayed = timePlayed;

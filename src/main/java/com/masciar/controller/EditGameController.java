@@ -1,23 +1,25 @@
 package com.masciar.controller;
 
 import com.masciar.app.Main;
-import com.masciar.model.Categories;
-import com.masciar.model.Games;
-import com.masciar.model.Libraries;
-import com.masciar.model.Platforms;
+import com.masciar.model.Category;
+import com.masciar.model.Game;
+import com.masciar.model.Library;
+import com.masciar.model.Platform;
 import com.masciar.service.CategoryService;
 import com.masciar.service.GameService;
+import com.masciar.service.HistoryService;
 import com.masciar.service.LibraryService;
 import com.masciar.service.PlatformService;
 import com.masciar.ui.AddGame;
 import com.masciar.ui.MainWindow;
-import com.masciar.util.Utils;
+import com.masciar.util.DateUtils;
+import com.masciar.util.TimeUtils;
 
 public class EditGameController {
     private AddGame view;
-    private Games game;
+    private Game game;
 
-    public EditGameController(MainWindow window, Games game) {
+    public EditGameController(MainWindow window, Game game) {
         view = new AddGame(window, game, true);
         this.game = game;
         
@@ -37,19 +39,19 @@ public class EditGameController {
     }
 
     public void loadCategories() {
-        for(Categories category : Main.categoryRepository.categories_list) {
+        for(Category category : Main.categoryRepository.categories_list) {
             view.fillComboBoxCategory(category.getName());
         }
     }
 
     public void loadLibraries() {
-        for(Libraries library : Main.librariesRepository.library_list) {
+        for(Library library : Main.librariesRepository.library_list) {
             view.fillComboBoxLibrary(library.getName());
         }
     }
 
     public void loadPlatforms() {
-        for(Platforms platforms : Main.platformsRepository.platforms_list) {
+        for(Platform platforms : Main.platformsRepository.platforms_list) {
             view.filLComboBoxPlatform(platforms.getName());
         }
     }
@@ -63,20 +65,20 @@ public class EditGameController {
     }
 
     public void setSpinGameTimer() {
-        String string = "(" + Utils.getTotalHoursFromSeconds(view.getSpinGameTimeValue(), true) + ")";
+        String string = "(" + TimeUtils.getTotalHoursFromSeconds(view.getSpinGameTimeValue(), true) + ")";
         view.setLblConvertedSeconds(string);
     }
 
     private void loadGameData() {
-        for(Categories c : Main.categoryRepository.categories_list) {
+        for(Category c : Main.categoryRepository.categories_list) {
             if(c.getId() == game.getCategory()) view.setCbCategory(c.getName());
         }
 
-        for(Libraries l : Main.librariesRepository.library_list) {
+        for(Library l : Main.librariesRepository.library_list) {
             if(l.getId() == game.getLibrary()) view.setCbLibrary(l.getName());
         }
 
-        for(Platforms p : Main.platformsRepository.platforms_list) {
+        for(Platform p : Main.platformsRepository.platforms_list) {
             if(p.getId() == game.getPlatform()) view.setCbPlatform(p.getName());
         }
 
@@ -123,14 +125,14 @@ public class EditGameController {
         if(game.getCompleted() == 1) 
             view.setCompletedDate(game.getCompletedDate());
         else
-            view.setCompletedDate(Utils.getFormattedDate());
+            view.setCompletedDate(DateUtils.getFormattedDate());
 
         if(game.getHidden() == 1)
             view.setCheckHidden(true);
         else
             view.setCheckHidden(false);
         
-        String string = "(" + Utils.getTotalHoursFromSeconds(view.getSpinGameTimeValue(), true) + ")";
+        String string = "(" + TimeUtils.getTotalHoursFromSeconds(view.getSpinGameTimeValue(), true) + ")";
         view.setLblConvertedSeconds(string);
     }
 
@@ -189,11 +191,14 @@ public class EditGameController {
 
         view.setTxtaNotes(game.getNotes());
 
-        String string = "(" + Utils.getTotalHoursFromSeconds(view.getSpinGameTimeValue(), true) + ")";
+        String string = "(" + TimeUtils.getTotalHoursFromSeconds(view.getSpinGameTimeValue(), true) + ")";
         view.setLblConvertedSeconds(string);
 
         GameService gameService = new GameService();
         gameService.saveGame(game);
+
+        HistoryService historyService = new HistoryService();
+        historyService.changeName(game);
 
         MainWindow.refreshOpenViews();
         view.dispose();

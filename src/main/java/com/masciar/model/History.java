@@ -10,8 +10,9 @@ public class History {
     private String dateTimeStart;
     private String dateTimeEnd;
     private int seconds;
+    private String gameVersion;
 
-    public History(int id, String token, int gameId, String gameName, int libraryId, int platformId, String dateTimeStart, String dateTimeEnd, int seconds) {
+    public History(int id, String token, int gameId, String gameName, int libraryId, int platformId, String dateTimeStart, String dateTimeEnd, int seconds, String gameVersion) {
         this.id = id;
         this.token = token;
         this.gameId = gameId;
@@ -21,6 +22,7 @@ public class History {
         this.dateTimeStart = dateTimeStart;
         this.dateTimeEnd = dateTimeEnd;
         this.seconds = seconds;
+        this.gameVersion = gameVersion;
     }
 
     public int getId() {
@@ -89,5 +91,13 @@ public class History {
 
     public void setSeconds(int seconds) {
         this.seconds = seconds;
+    }
+
+    public String getGameVersion() {
+        return gameVersion;
+    }
+
+    public void setGameVersion(String gameVersion) {
+        this.gameVersion = gameVersion;
     }
 }

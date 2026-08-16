@@ -2,7 +2,7 @@ package com.masciar.controller;
 
 import com.masciar.service.HistoryService;
 import com.masciar.ui.PlayerStatistics;
-import com.masciar.util.Utils;
+import com.masciar.util.TimeUtils;
 
 import javax.swing.JDesktopPane;
 
@@ -16,11 +16,11 @@ public class PlayerStatisticsController {
     }
 
     public void update() {
-        String day = Utils.getTotalHoursFromSeconds(historyService.getTimeLastDay(), false);
-        String week = Utils.getTotalHoursFromSeconds(historyService.getTimeLastWeek(), false);
-        String twoWeek = Utils.getTotalHoursFromSeconds(historyService.getTimeLastTwoWeek(), false);
-        String month = Utils.getTotalHoursFromSeconds(historyService.getTimeLastMonth(), false);
-        String year = Utils.getTotalHoursFromSeconds(historyService.getTimeLastYear(), false);
+        String day = TimeUtils.getTotalHoursFromSeconds(historyService.getTimeLastDay(), false);
+        String week = TimeUtils.getTotalHoursFromSeconds(historyService.getTimeLastWeek(), false);
+        String twoWeek = TimeUtils.getTotalHoursFromSeconds(historyService.getTimeLastTwoWeek(), false);
+        String month = TimeUtils.getTotalHoursFromSeconds(historyService.getTimeLastMonth(), false);
+        String year = TimeUtils.getTotalHoursFromSeconds(historyService.getTimeLastYear(), false);
         playerStatistics.setInfo(day, week, twoWeek, month, year);
     }
 }

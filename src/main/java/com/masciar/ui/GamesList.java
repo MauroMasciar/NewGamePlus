@@ -3,7 +3,7 @@ package com.masciar.ui;
 import com.masciar.app.Main;
 import com.masciar.controller.PlayingController;
 import com.masciar.listener.GameSelectedListener;
-import com.masciar.model.Games;
+import com.masciar.model.Game;
 import com.masciar.service.ConfigService;
 import com.masciar.service.GameService;
 
@@ -37,9 +37,9 @@ public class GamesList extends JInternalFrame implements ActionListener, ListSel
 	private JTextField txtSearchGame = new JTextField();
 	private JLabel lblMyGames = new JLabel("MIS JUEGOS");
 	private JButton btnLaunch = new JButton("Lanzar");
-	private JList<Games> jlistGames = new JList<>();
+	private JList<Game> jlistGames = new JList<>();
 	private JScrollPane scrollPane = new JScrollPane(jlistGames);
-	private DefaultListModel<Games> model = new DefaultListModel<>();
+	private DefaultListModel<Game> model = new DefaultListModel<>();
 	private GameSelectedListener listener;
 	private Timer debounce, debounceTimer;
 	
@@ -56,8 +56,8 @@ public class GamesList extends JInternalFrame implements ActionListener, ListSel
 		jlistGames.setCellRenderer(new GameRenderer());
 		
 		// TODO: Esto no debe ir aca, enviar a Services
-		Main.gameRepository.games_list.sort(Comparator.comparing(Games::getName, String.CASE_INSENSITIVE_ORDER));
-		for(Games game : Main.gameRepository.games_list) { 
+		Main.gameRepository.games_list.sort(Comparator.comparing(Game::getName, String.CASE_INSENSITIVE_ORDER));
+		for(Game game : Main.gameRepository.games_list) { 
 			model.addElement(game); 
 		}
 
@@ -120,7 +120,7 @@ public class GamesList extends JInternalFrame implements ActionListener, ListSel
 	@Override
 	public void valueChanged(ListSelectionEvent e) {
 		if(listener != null) {
-			listener.selectionChanged((Games) jlistGames.getSelectedValue());
+			listener.selectionChanged((Game) jlistGames.getSelectedValue());
 		}
 	}
 

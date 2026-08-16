@@ -1,7 +1,7 @@
 package com.masciar.dao;
 
 import com.masciar.logging.ErrorHandler;
-import com.masciar.model.Achievements;
+import com.masciar.model.Achievement;
 import com.masciar.util.Utils;
 
 import java.sql.Connection;
@@ -13,8 +13,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class AchievementDAO {
-    public List<Achievements> getAll() {
-        List<Achievements> achievementsList = new ArrayList<>();
+    public List<Achievement> getAll() {
+        List<Achievement> achievementsList = new ArrayList<>();
         String query = "SELECT * FROM achievements ORDER BY id";
 
         try (Connection con = DriverManager.getConnection(Utils.DATABASE_URL);
@@ -22,7 +22,7 @@ public class AchievementDAO {
                 ResultSet rs = ps.executeQuery()) {
 
             while (rs.next()) {
-                Achievements a = new Achievements(rs.getInt("id"), rs.getString("game_name"), rs.getInt("game_id"),
+                Achievement a = new Achievement(rs.getInt("id"), rs.getString("game_name"), rs.getInt("game_id"),
                         rs.getString("description"), rs.getString("date"));
                 achievementsList.add(a);
             }
@@ -32,7 +32,7 @@ public class AchievementDAO {
         return achievementsList;
     }
 
-    public void add(Achievements achievements) {
+    public void add(Achievement achievements) {
         String query = "INSERT INTO achievements (game_name, game_id, description, date) VALUES (?, ?, ?, ?)";
         try (Connection con = DriverManager.getConnection(Utils.DATABASE_URL);
                 PreparedStatement ps = con.prepareStatement(query)) {

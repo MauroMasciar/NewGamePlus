@@ -1,13 +1,13 @@
 package com.masciar.model;
 
-public class Achievements {
+public class Achievement {
     private int id;
     private String gameName;
     private int gameId;
     private String description;
     private String date; 
 
-    public Achievements(int id, String gameName, int gameId, String description, String date) {
+    public Achievement(int id, String gameName, int gameId, String description, String date) {
         this.id = id;
         this.gameName = gameName;
         this.gameId = gameId;

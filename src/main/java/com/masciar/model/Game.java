@@ -1,6 +1,6 @@
 package com.masciar.model;
 
-public class Games {
+public class Game {
 	private int id;
 	private String name;
     private int category;
@@ -32,7 +32,7 @@ public class Games {
     private String notes;
 	private int appId;
 
-	public Games(int id, String name, int category, int library, int score, int timePlayed, int play_count,
+	public Game(int id, String name, int category, int library, int score, int timePlayed, int play_count,
 				int completed, String completed_date, int hidden, String path, String release_date,
 				String developer, String series, String play_mode, String status, String last_played,
 				String rating, int platform, String publisher, String region, String version, String added, String modified,

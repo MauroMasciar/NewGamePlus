@@ -1,7 +1,7 @@
 package com.masciar.listener;
 
-import com.masciar.model.Games;
+import com.masciar.model.Game;
 
 public interface GameSelectedListener {
-    void selectionChanged(Games game);
+    void selectionChanged(Game game);
 }

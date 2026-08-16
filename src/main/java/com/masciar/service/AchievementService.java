@@ -1,15 +1,17 @@
 package com.masciar.service;
 
 import com.masciar.dao.AchievementDAO;
-import com.masciar.model.Achievements;
-import com.masciar.model.Games;
+import com.masciar.model.Achievement;
+import com.masciar.model.Game;
+import com.masciar.util.DateUtils;
+import com.masciar.util.TimeUtils;
 import com.masciar.util.Utils;
 import com.masciar.app.Main;
 
 public class AchievementService {
     private PlayerService playerService;
     private LibraryService libraryService;
-    private Games game;
+    private Game game;
 
     public AchievementService() {
     }
@@ -18,7 +20,7 @@ public class AchievementService {
         this.libraryService = libraryService;
     }
 
-    public AchievementService(Games game) {
+    public AchievementService(Game game) {
         this.game = game;
         playerService = new PlayerService();
     }
@@ -28,7 +30,7 @@ public class AchievementService {
 
         if(game.getTimePlayed() + playedSeconds == 310) {
             achievement = "Has jugado a " + game.getName() + " por primera vez";
-            add(game.getName(), game.getId(), achievement, Utils.getFormattedDateTime());
+            add(game.getName(), game.getId(), achievement, DateUtils.getFormattedDateTime());
         }
 
         achievement = "";
@@ -48,7 +50,7 @@ public class AchievementService {
         else if(game.getTimePlayed() + playedSeconds == Utils.SECONDS_PER_HOUR * 10000) achievement = "Has alcanzado 10000 horas de juego en " + game.getName();
 
         if(!achievement.isEmpty()) {
-            add(game.getName(), game.getId(), achievement, Utils.getFormattedDateTime());
+            add(game.getName(), game.getId(), achievement, DateUtils.getFormattedDateTime());
         }
 
         achievement = "";
@@ -71,25 +73,25 @@ public class AchievementService {
             else if(totalSecondsPlayed == Utils.SECONDS_PER_HOUR * 10000) achievement = "Has alcanzado 10000 horas de juego en total";
 
             if(!achievement.isEmpty()) {
-                add(game.getName(), game.getId(), achievement, Utils.getFormattedDateTime());
+                add(game.getName(), game.getId(), achievement, DateUtils.getFormattedDateTime());
             }
         }
     }
 
-    public void createGameObtainedAchievement(Games game) {
+    public void createGameObtainedAchievement(Game game) {
         String text = "Obtuviste " + game.getName() + " en " + libraryService.findNameById(game.getLibrary());
-        add(game.getName(), game.getId(), text, Utils.getFormattedDateTime());
+        add(game.getName(), game.getId(), text, DateUtils.getFormattedDateTime());
     }
 
-    public void createCompletedGameAchievement(Games game) {
-        String text = "Has terminado el juego " + game.getName() + " en " + Utils.getTotalHoursFromSeconds(game.getTimePlayed(), false);
+    public void createCompletedGameAchievement(Game game) {
+        String text = "Has terminado el juego " + game.getName() + " en " + TimeUtils.getTotalHoursFromSeconds(game.getTimePlayed(), false);
         add(game.getName(), game.getId(), text, game.getCompletedDate());
     }
     
 
     public void add(String name, int gameId, String description, String date) {
         AchievementDAO achievementDAO = new AchievementDAO();
-        Achievements achievement = new Achievements(Main.achievementsRepository.getList().size() + 1, name, gameId, description, date);
+        Achievement achievement = new Achievement(Main.achievementsRepository.getList().size() + 1, name, gameId, description, date);
         Main.achievementsRepository.getList().add(achievement);
         achievementDAO.add(achievement);
     }

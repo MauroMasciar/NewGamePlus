@@ -1,8 +1,9 @@
 package com.masciar.ui;
 
-import com.masciar.model.Games;
+import com.masciar.model.Game;
 import com.masciar.service.HistoryService;
-import com.masciar.util.Utils;
+import com.masciar.util.DateUtils;
+import com.masciar.util.TimeUtils;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -14,7 +15,7 @@ import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.ListCellRenderer;
 
-public class GameRenderer extends JPanel implements ListCellRenderer<Games> {
+public class GameRenderer extends JPanel implements ListCellRenderer<Game> {
 	private JLabel lblIcon = new JLabel();
 	private JLabel lblName = new JLabel();
 	private JLabel lblInfo = new JLabel();
@@ -36,18 +37,18 @@ public class GameRenderer extends JPanel implements ListCellRenderer<Games> {
 	}
 
 	@Override
-	public Component getListCellRendererComponent(JList<? extends Games> list, Games game, int index, boolean selected,
+	public Component getListCellRendererComponent(JList<? extends Game> list, Game game, int index, boolean selected,
 			boolean hasFocus) {
 		HistoryService historyService = new HistoryService();
 		lblName.setText(game.getName());
-		String lastSessionDate = Utils.formatDateFromString(game.getLastPlayed(), 2);
+		String lastSessionDate = DateUtils.formatDateFromString(game.getLastPlayed(), 2);
 		if (!lastSessionDate.equals("01/01/1900"))
-			lblInfo.setText(Utils.getTotalHoursFromSeconds((int) game.getTimePlayed(), false) + " | " + lastSessionDate
+			lblInfo.setText(TimeUtils.getTotalHoursFromSeconds((int) game.getTimePlayed(), false) + " | " + lastSessionDate
 					+ " | ("
-					+ Utils.getTotalHoursFromSeconds(historyService.getLastSessionTimeFromGame(game.getId()), false)
+					+ TimeUtils.getTotalHoursFromSeconds(historyService.getLastSessionTimeFromGame(game.getId()), false)
 					+ ")");
 		else
-			lblInfo.setText(Utils.getTotalHoursFromSeconds((int) game.getTimePlayed(), false));
+			lblInfo.setText(TimeUtils.getTotalHoursFromSeconds((int) game.getTimePlayed(), false));
 
 		if (selected) {
 			setBackground(new Color(35, 92, 180));

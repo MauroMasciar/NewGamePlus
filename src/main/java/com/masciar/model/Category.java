@@ -1,12 +1,12 @@
 package com.masciar.model;
 
-public class Categories {
+public class Category {
     private int id;
     private String name;
     private int timePlayed;
     private int totalSessions;
 
-    public Categories(int id, String name, int timePlayed, int totalSessions) {
+    public Category(int id, String name, int timePlayed, int totalSessions) {
         this.id = id;
         this.name = name;
         this.timePlayed = timePlayed;

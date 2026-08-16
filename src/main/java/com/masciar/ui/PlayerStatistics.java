@@ -1,11 +1,10 @@
 package com.masciar.ui;
 
+import com.masciar.service.ConfigService;
+
 import javax.swing.JInternalFrame;
 import javax.swing.JLabel;
 import javax.swing.Timer;
-
-import com.masciar.service.ConfigService;
-
 import java.awt.event.ComponentEvent;
 import java.awt.event.ComponentListener;
 

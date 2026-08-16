@@ -1,12 +1,12 @@
 package com.masciar.model;
 
-public class Libraries {
+public class Library {
     private int id;
     private String name;
     private int timePlayed;
     private int totalSession;
 
-    public Libraries(int id, String name, int timePlayed, int totalSession) {
+    public Library(int id, String name, int timePlayed, int totalSession) {
         this.id = id;
         this.name = name;
         this.timePlayed = timePlayed;

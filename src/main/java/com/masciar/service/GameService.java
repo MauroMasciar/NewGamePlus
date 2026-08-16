@@ -2,15 +2,14 @@ package com.masciar.service;
 
 import com.masciar.app.Main;
 import com.masciar.dao.GamesDAO;
-import com.masciar.model.Games;
+import com.masciar.model.Game;
 import com.masciar.ui.AddGame;
-import com.masciar.util.Utils;
-
-import java.util.Comparator;
+import com.masciar.util.DateUtils;
 
 import javax.swing.DefaultListModel;
+import java.util.Comparator;
 
-public class GameService {
+public class GameService { // TODO: Desconectar servicio de la vista, hacerlo pasar por Controller
     private AddGame view;
     private AchievementService achievementService;
 
@@ -55,8 +54,8 @@ public class GameService {
         String lastPlayed = view.getTxtLastPlayed();
         String path = view.getTxtPath();
         String name = view.getTxtNameString();
-        String added = Utils.getFormattedDate();
-        String modified = Utils.getFormattedDateTime();
+        String added = DateUtils.getFormattedDate();
+        String modified = DateUtils.getFormattedDateTime();
         String completed_date = view.getTxtCompletedDateString();
         String notes = view.getTxtaNotes();
         int score = view.getSpinScoreValue();
@@ -101,7 +100,7 @@ public class GameService {
             return false;
         } else {
             int id = Main.gameRepository.getList().size() + 1;
-            Games game = new Games(id, name, category, library, score, gameTime, playCount, completed, completed_date,
+            Game game = new Game(id, name, category, library, score, gameTime, playCount, completed, completed_date,
                     hide, path, releasedate,
                     developer, series, playMode, status, lastPlayed, rating, platform, publisher, region, version,
                     added, modified, favorite, statistic,
@@ -117,33 +116,33 @@ public class GameService {
         }
     }
 
-    public void saveGame(Games game) {
+    public void saveGame(Game game) {
         if (game.getCompleted() == 1)
             achievementService.createCompletedGameAchievement(game);
         GamesDAO gamesDao = new GamesDAO();
         gamesDao.update(game);
     }
 
-    public Games findById(int id) {
-        for (Games game : Main.gameRepository.games_list) {
+    public Game findById(int id) {
+        for (Game game : Main.gameRepository.games_list) {
             if (game.getId() == id)
                 return game;
         }
         return null;
     }
 
-    public Games findByName(String name) {
-        for (Games game : Main.gameRepository.games_list) {
+    public Game findByName(String name) {
+        for (Game game : Main.gameRepository.games_list) {
             if (game.getName().equals(name))
                 return game;
         }
         return null;
     }
 
-    public DefaultListModel<Games> searchGameModel(String name) {
-        DefaultListModel<Games> model = new DefaultListModel<>();
-        Main.gameRepository.games_list.sort(Comparator.comparing(Games::getName, String.CASE_INSENSITIVE_ORDER));
-        for (Games game : Main.gameRepository.games_list) {
+    public DefaultListModel<Game> searchGameModel(String name) {
+        DefaultListModel<Game> model = new DefaultListModel<>();
+        Main.gameRepository.games_list.sort(Comparator.comparing(Game::getName, String.CASE_INSENSITIVE_ORDER));
+        for (Game game : Main.gameRepository.games_list) {
             if (game.getName().toLowerCase().contains(name)) {
                 model.addElement(game);
             }

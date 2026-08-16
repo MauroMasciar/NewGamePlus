@@ -1,25 +1,25 @@
 package com.masciar.controller;
 
 import com.masciar.app.Main;
-import com.masciar.model.Categories;
-import com.masciar.model.Libraries;
-import com.masciar.model.Platforms;
+import com.masciar.model.Category;
+import com.masciar.model.Library;
+import com.masciar.model.Platform;
 import com.masciar.service.AchievementService;
 import com.masciar.service.GameService;
 import com.masciar.service.LibraryService;
 import com.masciar.ui.AddGame;
 import com.masciar.ui.MainWindow;
-import com.masciar.util.Utils;
+import com.masciar.util.TimeUtils;
 
 public class AddGameController {
     private AddGame view;
-    private GameService GameService;
+    private GameService gameService;
     private AchievementService achievementService;
 
     public AddGameController(MainWindow window) {
         view = new AddGame(window, true);
         achievementService = new AchievementService(new LibraryService());
-        GameService = new GameService(view, achievementService);
+        gameService = new GameService(view, achievementService);
 
         loadCategories();
         loadLibraries();
@@ -30,7 +30,7 @@ public class AddGameController {
         view.showPopupCompletedDateListener(e -> showPopupCompletedDate());
         view.showPopupReleaseDateListener(e -> showPopupReleaseDate());
         view.setBtnSaveListener(e -> {
-            boolean saved = GameService.addGame();
+            boolean saved = gameService.addGame();
             if (saved)
                 view.showInfo("El juego ha sido añadido a tu biblioteca");
             else
@@ -42,19 +42,19 @@ public class AddGameController {
     }
 
     public void loadCategories() {
-        for (Categories category : Main.categoryRepository.categories_list) {
+        for (Category category : Main.categoryRepository.categories_list) {
             view.fillComboBoxCategory(category.getName());
         }
     }
 
     public void loadLibraries() {
-        for (Libraries library : Main.librariesRepository.library_list) {
+        for (Library library : Main.librariesRepository.library_list) {
             view.fillComboBoxLibrary(library.getName());
         }
     }
 
     public void loadPlatforms() {
-        for (Platforms platforms : Main.platformsRepository.platforms_list) {
+        for (Platform platforms : Main.platformsRepository.platforms_list) {
             view.filLComboBoxPlatform(platforms.getName());
         }
     }
@@ -68,7 +68,7 @@ public class AddGameController {
     }
 
     public void setSpinGameTimer() {
-        String string = "(" + Utils.getTotalHoursFromSeconds(view.getSpinGameTimeValue(), true) + ")";
+        String string = "(" + TimeUtils.getTotalHoursFromSeconds(view.getSpinGameTimeValue(), true) + ")";
         view.setLblConvertedSeconds(string);
     }
 }

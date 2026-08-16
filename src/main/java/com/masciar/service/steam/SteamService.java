@@ -23,7 +23,7 @@ import java.util.List;
 
 public class SteamService {
     private ApiSteamKey apiSteamKey = new ApiSteamKey();
-    private String API_KEY = apiSteamKey.GetApiSteamKey();
+    private String API_KEY = apiSteamKey.getApiSteamKey();
     private String steamId64 = ConfigService.getProperty("steam.id");
 
     public String getSteamID64(String name) {

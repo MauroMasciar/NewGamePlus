@@ -3,6 +3,8 @@ package com.masciar.ui;
 
 import com.masciar.model.History;
 import com.masciar.service.ConfigService;
+import com.masciar.util.DateUtils;
+import com.masciar.util.TimeUtils;
 import com.masciar.util.Utils;
 import com.masciar.app.Main;
 
@@ -108,9 +110,9 @@ class HistoryTableModel extends AbstractTableModel {
             case 0:
                 return list.get(rowIndex).getGameName();
             case 1:
-                return Utils.getTotalHoursFromSeconds(list.get(rowIndex).getSeconds(), true);
+                return TimeUtils.getTotalHoursFromSeconds(list.get(rowIndex).getSeconds(), true);
             case 2:
-                return Utils.formatDateFromString(list.get(rowIndex).getDateTimeStart(), 1);
+                return DateUtils.formatDateFromString(list.get(rowIndex).getDateTimeStart(), 1);
         }
         return "";
     }

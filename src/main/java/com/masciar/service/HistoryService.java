@@ -1,9 +1,14 @@
 package com.masciar.service;
 
 import com.masciar.dao.HistoryDAO;
+import com.masciar.model.Game;
 
 public class HistoryService {
     HistoryDAO historyDAO = new HistoryDAO();
+
+    public void changeName(Game game) {
+        historyDAO.changeName(game);
+    }
 
     public String getLastSessionFromGame(int gameId) {
         return historyDAO.getLastSessionFromGame(gameId);
@@ -26,10 +31,14 @@ public class HistoryService {
     }
 
     public int getTimeLastMonth() {
-        return historyDAO.getLastDays(0, 31);
+        return historyDAO.getLastDays(0, 30);
     }
 
     public int getTimeLastYear() {
         return historyDAO.getLastDays(0, 365);
+    }
+
+    public int getCountSessionsLastMonth(int gameId) {
+        return historyDAO.getCountSessionsLastMonth(gameId);
     }
 }

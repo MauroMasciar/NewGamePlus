@@ -1,6 +1,6 @@
 package com.masciar.model;
 
-public class SteamGames {
+public class SteamGame {
     private int id;
     private String name;
     private String imgIconUrl;
@@ -12,7 +12,7 @@ public class SteamGames {
     private int contentDescriptorIds;
     private int playtimeDisconnected;
 
-    public SteamGames(int id, String name, String imgIconUrl, int appId, int playtimeWindowsForever,
+    public SteamGame(int id, String name, String imgIconUrl, int appId, int playtimeWindowsForever,
             int playtimeLinuxForever, int playtimeDeckForever, int rtimeLastPlayed,
             int contentDescriptorIds, int playtimeDisconnected) {
         this.id = id;

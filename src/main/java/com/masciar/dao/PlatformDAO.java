@@ -2,7 +2,7 @@ package com.masciar.dao;
 
 import com.masciar.app.Main;
 import com.masciar.logging.ErrorHandler;
-import com.masciar.model.Platforms;
+import com.masciar.model.Platform;
 import com.masciar.util.Utils;
 
 import java.sql.Connection;
@@ -14,8 +14,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class PlatformDAO {
-    public List<Platforms> getAll() {
-        List<Platforms> Platforms = new ArrayList<>();
+    public List<Platform> getAll() {
+        List<Platform> Platforms = new ArrayList<>();
         String query = "SELECT * FROM platforms ORDER BY id";
 
         try (Connection con = DriverManager.getConnection(Utils.DATABASE_URL);
@@ -23,7 +23,7 @@ public class PlatformDAO {
                 ResultSet rs = ps.executeQuery()) {
 
             while (rs.next()) {
-                Platforms platforms = new Platforms(rs.getInt("id"), rs.getString("name"), rs.getInt("time_played"),
+                Platform platforms = new Platform(rs.getInt("id"), rs.getString("name"), rs.getInt("time_played"),
                         rs.getInt("total_sessions"));
                 Platforms.add(platforms);
             }

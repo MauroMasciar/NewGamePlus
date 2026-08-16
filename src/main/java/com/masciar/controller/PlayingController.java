@@ -9,9 +9,10 @@ import com.masciar.service.AchievementService;
 import com.masciar.service.AddSessionService;
 import com.masciar.listener.ChronometerListener;
 import com.masciar.logging.ErrorHandler;
-import com.masciar.model.Games;
+import com.masciar.model.Game;
 import com.masciar.ui.Chronometer;
 import com.masciar.ui.MainWindow;
+import com.masciar.util.TimeUtils;
 import com.masciar.util.Utils;
 
 import java.io.IOException;
@@ -21,7 +22,7 @@ import javax.swing.JDesktopPane;
 import javax.swing.Timer;
 
 public class PlayingController implements ChronometerListener {
-    private Games game;
+    private Game game;
     private Chronometer view;
     private ChronometerService chronometerService;
     private AchievementService achievementService;
@@ -33,7 +34,7 @@ public class PlayingController implements ChronometerListener {
     private Timer timerStrobe;
     private JDesktopPane desktopPane;
 
-    public PlayingController(Games game, JDesktopPane desktopPane) {
+    public PlayingController(Game game, JDesktopPane desktopPane) {
         this.game = game;
         this.desktopPane = desktopPane;
 
@@ -56,12 +57,12 @@ public class PlayingController implements ChronometerListener {
         // Cargamos datos a la vista
         view.setGameName(game.getName());
         view.setPlayCount(String.valueOf(game.getPlayCount()));
-        view.setTotalPlayed(Utils.getTotalHoursFromSeconds(game.getTimePlayed(), true));
-        view.setTotalPlayedAfterSession(Utils.getTotalHoursFromSeconds(game.getTimePlayed(), false));
+        view.setTotalPlayed(TimeUtils.getTotalHoursFromSeconds(game.getTimePlayed(), true));
+        view.setTotalPlayedAfterSession(TimeUtils.getTotalHoursFromSeconds(game.getTimePlayed(), false));
         view.setAgeSession("Iniciado a las " + startTime.format(format_time) + " hace "
-                + Utils.getTotalHoursFromSeconds(0, false));
+                + TimeUtils.getTotalHoursFromSeconds(0, false));
         try {
-            view.setAvgTimePlayed(Utils.getTotalHoursFromSeconds(game.getTimePlayed() / game.getPlayCount(), false));
+            view.setAvgTimePlayed(TimeUtils.getTotalHoursFromSeconds(game.getTimePlayed() / game.getPlayCount(), false));
         } catch (Exception e) {
             view.setAvgTimePlayed("00h 00m");
         }
@@ -88,7 +89,7 @@ public class PlayingController implements ChronometerListener {
                     e.printStackTrace();
                 }
             }).start();
-        } else if (!"N/A".equals(game.getPath()) && !"Steam".equals(libraryService.findNameById(game.getLibrary()))) {
+        } else if (!game.getPath().isEmpty() && !"N/A".equals(game.getPath()) && !"Steam".equals(libraryService.findNameById(game.getLibrary()))) {
             new Thread(() -> {
                 try {
                     ProcessBuilder pb = new ProcessBuilder(game.getPath());
@@ -139,17 +140,17 @@ public class PlayingController implements ChronometerListener {
     public void timeUpdate(int playedSeconds, int pausedSeconds) {
         this.playedSeconds = playedSeconds;
         this.pausedSeconds = pausedSeconds;
-        view.setTime(Utils.getTotalHoursFromSeconds(playedSeconds, true));
-        view.setTimePaused(Utils.getTotalHoursFromSeconds(pausedSeconds, true));
-        view.setTimeTotal(Utils.getTotalHoursFromSeconds(pausedSeconds + playedSeconds, true));
+        view.setTime(TimeUtils.getTotalHoursFromSeconds(playedSeconds, true));
+        view.setTimePaused(TimeUtils.getTotalHoursFromSeconds(pausedSeconds, true));
+        view.setTimeTotal(TimeUtils.getTotalHoursFromSeconds(pausedSeconds + playedSeconds, true));
         achievementService.checkInGame(playedSeconds);
     }
 
     @Override
     public void notifyMinuteElapsed(int playedSeconds, int pausedSeconds) {
-        view.setTotalFutureTime(Utils.getTotalHoursFromSeconds(game.getTimePlayed() + playedSeconds, false));
+        view.setTotalFutureTime(TimeUtils.getTotalHoursFromSeconds(game.getTimePlayed() + playedSeconds, false));
         view.setAgeSession("Iniciado a las " + startTime.format(format_time) + " hace "
-                + Utils.getTotalHoursFromSeconds(pausedSeconds + playedSeconds, false));
+                + TimeUtils.getTotalHoursFromSeconds(pausedSeconds + playedSeconds, false));
         playingService.saveBackup(game.getId(), startTime.toString(), playedSeconds);
     }
 }

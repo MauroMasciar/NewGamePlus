@@ -1,13 +1,13 @@
 package com.masciar.model;
 
-public class PlayerActivities {
+public class PlayerActivity {
     private int id;
     private String gameName;
     private int gameId;
     private String description;
     private String date;
 
-    public PlayerActivities(int id, String gameName, int gameId, String description, String date) {
+    public PlayerActivity(int id, String gameName, int gameId, String description, String date) {
         this.id = id;
         this.gameName = gameName;
         this.gameId = gameId;

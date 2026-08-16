@@ -6,10 +6,10 @@ import com.masciar.dao.CategoryDAO;
 import com.masciar.dao.GamesDAO;
 import com.masciar.dao.LibraryDAO;
 import com.masciar.dao.PlatformDAO;
-import com.masciar.model.Games;
+import com.masciar.model.Game;
 import com.masciar.model.History;
 import com.masciar.ui.SessionsHistory;
-import com.masciar.util.Utils;
+import com.masciar.util.DateUtils;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -18,7 +18,7 @@ public class AddSessionService {
     public void AddSessionManually(String gameName, String time, String date_start, String hour_start) {
         GameService gameService = new GameService();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-        Games game = gameService.findByName(gameName);
+        Game game = gameService.findByName(gameName);
 
         int seconds = Integer.parseInt(time);
         LocalDateTime dateTimeStart = LocalDateTime.parse(date_start + " " + hour_start + ":00", formatter);
@@ -27,7 +27,7 @@ public class AddSessionService {
         saveAll(game, dateTimeStart.toString(), dateTimeEnd.toString(), seconds);
     }
 
-    public void addSession(Games game, LocalDateTime dateTimeStart, int seconds, int pausedSeconds) {
+    public void addSession(Game game, LocalDateTime dateTimeStart, int seconds, int pausedSeconds) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
         LocalDateTime dateTimeEnd = dateTimeStart.plusSeconds(seconds + pausedSeconds);
         String dateTimeStartFormatted = dateTimeStart.format(formatter);
@@ -36,8 +36,8 @@ public class AddSessionService {
         saveAll(game, dateTimeStartFormatted, dateTimeEndFormatted, seconds);
     }
 
-    private void saveAll(Games game, String dateTimeStart, String dateTimeEnd, int seconds) {
-        History history = new History(Main.achievementsRepository.getList().size() + 1, "NO",  game.getId(), game.getName(), game.getLibrary(), game.getPlatform(), dateTimeStart, dateTimeEnd, seconds);
+    private void saveAll(Game game, String dateTimeStart, String dateTimeEnd, int seconds) {
+        History history = new History(Main.achievementsRepository.getList().size() + 1, "NO",  game.getId(), game.getName(), game.getLibrary(), game.getPlatform(), dateTimeStart, dateTimeEnd, seconds, game.getVersion());
         saveHistory(history);
 
         saveGameTime(game, seconds);
@@ -47,10 +47,10 @@ public class AddSessionService {
         plusPlayerTime(seconds);
     }
 
-    private void saveGameTime(Games game, int seconds) {
+    private void saveGameTime(Game game, int seconds) {
         game.setTimePlayed(game.getTimePlayed() + seconds);
         game.setPlayCount(game.getPlayCount() + 1);
-        game.setLastPlayed(Utils.getFormattedDateTime());
+        game.setLastPlayed(DateUtils.getFormattedDateTime());
         GamesDAO gamesDao = new GamesDAO();
         gamesDao.update(game);
     }
@@ -62,7 +62,7 @@ public class AddSessionService {
         SessionsHistory.updateTableModel();
     }
 
-    private void plusLibrary(Games game, int seconds) {
+    private void plusLibrary(Game game, int seconds) {
         for(int i=0; i<Main.librariesRepository.library_list.size(); i++) {
             if(i == game.getLibrary()) {
                 int secondsPlayed = Main.librariesRepository.library_list.get(i).getTimePlayed();
@@ -75,7 +75,7 @@ public class AddSessionService {
         }
     }
 
-    private void plusPlatform(Games game, int seconds) {
+    private void plusPlatform(Game game, int seconds) {
         for(int i=0; i<Main.platformsRepository.platforms_list.size(); i++) {
             if(i == game.getPlatform()) {
                 int secondsPlayed = Main.platformsRepository.platforms_list.get(i).getTimePlayed();
@@ -88,7 +88,7 @@ public class AddSessionService {
         }
     }
 
-    private void plusCategory(Games game, int seconds) {
+    private void plusCategory(Game game, int seconds) {
         for(int i=0; i<Main.categoryRepository.categories_list.size(); i++) {
             if(i == game.getCategory()) {
                 int secondsPlayed = Main.categoryRepository.categories_list.get(i).getTimePlayed();

@@ -1,6 +1,7 @@
 package com.masciar.service;
 
 import com.masciar.logging.ErrorHandler;
+import com.masciar.util.DateUtils;
 import com.masciar.util.Utils;
 
 import java.io.IOException;
@@ -18,7 +19,7 @@ public class ScreenshotService {
             MSG msg = new MSG();
             while (User32.INSTANCE.GetMessage(msg, null, 0, 0) != 0) {
                 if (msg.message == WinUser.WM_HOTKEY) {
-                    String name = String.valueOf("NewGamePlus - " + Utils.getFormattedDateTime() + ".png");
+                    String name = String.valueOf("NewGamePlus - " + DateUtils.getFormattedDateTime() + ".png");
                     ProcessBuilder pb = new ProcessBuilder(
                             "ffmpeg.exe",
                             "-f", "gdigrab",
