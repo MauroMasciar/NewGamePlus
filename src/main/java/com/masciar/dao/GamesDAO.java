@@ -142,4 +142,47 @@ public class GamesDAO {
 			ErrorHandler.handle(e);
 		}
 	}
+
+	public void save(Game game) {
+		String query = "UPDATE games SET category = ?, library = ?, score = ?, time_played = ?, play_count = ?, completed = ?, completed_date = ?, hidden = ?, path = ?, release_date = ?, developer = ?, series = ?, play_mode = ?, status = ?, last_played = ?, rating = ?, platform = ?, publisher = ?, region = ?, version = ?, added = ?, modified = ?, favorite = ?, statistic = ?, portable = ?, image = ?, notes = ?, steam_id = ? WHERE id = ?;";
+		try (Connection con = DriverManager.getConnection(Utils.DATABASE_URL);
+				PreparedStatement ps = con.prepareStatement(query)) {
+
+			ps.setInt(1, game.getCategory());
+			ps.setInt(2, game.getLibrary());
+			ps.setInt(3, game.getScore());
+			ps.setInt(4, game.getTimePlayed());
+			ps.setInt(5, game.getPlayCount());
+			ps.setInt(6, game.getCompleted());
+			ps.setString(7, game.getCompletedDate());
+			ps.setInt(8, game.getHidden());
+			ps.setString(9, game.getPath());
+			ps.setString(10, game.getReleaseDate());
+			ps.setString(11, game.getDeveloper());
+			ps.setString(12, game.getSeries());
+			ps.setString(13, game.getPlayMode());
+			ps.setString(14, game.getStatus());
+			ps.setString(15, game.getLastPlayed());
+			ps.setString(16, game.getRating());
+			ps.setInt(17, game.getPlatform());
+			ps.setString(18, game.getPublisher());
+			ps.setString(19, game.getRegion());
+			ps.setString(20, game.getVersion());
+			ps.setString(21, game.getAdded());
+			ps.setString(22, game.getModified());
+			ps.setInt(23, game.getFavorite());
+			ps.setInt(24, game.getStatistic());
+			ps.setInt(25, game.getPortable());
+			ps.setString(26, game.getImage());
+			ps.setString(27, game.getNotes());
+			ps.setInt(28, game.getAppId());
+			ps.setInt(29, game.getId());
+
+			int rowsAffected = ps.executeUpdate();
+			if (rowsAffected != 0)
+				System.out.println("Juego actualizado");
+		} catch (SQLException e) {
+			ErrorHandler.handle(e);
+		}
+	}
 }

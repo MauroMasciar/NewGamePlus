@@ -20,7 +20,12 @@ public class EditGameController {
     private Game game;
 
     public EditGameController(MainWindow window, Game game) {
-        view = new AddGame(window, game, true);
+        try {
+            view = new AddGame(window, game, true);
+        } catch (NullPointerException e) {
+            // TODO: Controlar excepcion
+        }
+
         this.game = game;
         
         loadCategories();

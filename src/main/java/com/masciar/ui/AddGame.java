@@ -2,7 +2,6 @@ package com.masciar.ui;
 
 import com.masciar.model.Game;
 import com.masciar.util.DateUtils;
-import com.masciar.util.Utils;
 import com.masciar.util.Validations;
 
 import java.awt.GridBagConstraints;

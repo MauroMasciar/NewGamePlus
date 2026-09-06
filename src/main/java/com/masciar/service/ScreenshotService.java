@@ -2,7 +2,6 @@ package com.masciar.service;
 
 import com.masciar.logging.ErrorHandler;
 import com.masciar.util.DateUtils;
-import com.masciar.util.Utils;
 
 import java.io.IOException;
 import com.sun.jna.platform.win32.User32;

@@ -8,6 +8,7 @@ import com.masciar.dao.LibraryDAO;
 import com.masciar.dao.PlatformDAO;
 import com.masciar.model.Game;
 import com.masciar.model.History;
+import com.masciar.ui.MainWindow;
 import com.masciar.ui.SessionsHistory;
 import com.masciar.util.DateUtils;
 
@@ -17,14 +18,14 @@ import java.time.format.DateTimeFormatter;
 public class AddSessionService {
     public void AddSessionManually(String gameName, String time, String date_start, String hour_start) {
         GameService gameService = new GameService();
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
         Game game = gameService.findByName(gameName);
+        int seconds = Integer.parseInt(time) * 60;
 
-        int seconds = Integer.parseInt(time);
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
         LocalDateTime dateTimeStart = LocalDateTime.parse(date_start + " " + hour_start + ":00", formatter);
-        LocalDateTime dateTimeEnd = dateTimeStart.plusSeconds(Integer.parseInt(time));
-        
-        saveAll(game, dateTimeStart.toString(), dateTimeEnd.toString(), seconds);
+        LocalDateTime dateTimeEnd = dateTimeStart.plusSeconds(seconds);
+
+        saveAll(game, DateUtils.formatDateFromString(dateTimeStart.toString(), 3), DateUtils.formatDateFromString(dateTimeEnd.toString(), 3), seconds);
     }
 
     public void addSession(Game game, LocalDateTime dateTimeStart, int seconds, int pausedSeconds) {
@@ -45,6 +46,7 @@ public class AddSessionService {
         plusCategory(game, seconds);
         plusPlatform(game, seconds);
         plusPlayerTime(seconds);
+        MainWindow.refreshOpenViews();
     }
 
     private void saveGameTime(Game game, int seconds) {
@@ -52,7 +54,7 @@ public class AddSessionService {
         game.setPlayCount(game.getPlayCount() + 1);
         game.setLastPlayed(DateUtils.getFormattedDateTime());
         GamesDAO gamesDao = new GamesDAO();
-        gamesDao.update(game);
+        gamesDao.save(game);
     }
 
     private void saveHistory(History history) {

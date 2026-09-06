@@ -49,6 +49,8 @@ public class DateUtils {
             formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
         else if(opt == 2)
             formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        else if(opt == 3)
+            formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
         else
             formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
         
