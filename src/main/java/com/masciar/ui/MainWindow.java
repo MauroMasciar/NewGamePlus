@@ -72,7 +72,7 @@ public class MainWindow extends JFrame implements ActionListener, WindowStateLis
     private static GeneralSummaryController generalSummaryController;
     private static GameInfoController gameInfoController;
     private static PlayerStatisticsController playerStatisticsController;
-    private static AchievementHistoryController activityHistoryController;
+    private static AchievementHistoryController achievementHistoryController;
 
     public MainWindow() {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -111,7 +111,7 @@ public class MainWindow extends JFrame implements ActionListener, WindowStateLis
 
         generalSummaryController = new GeneralSummaryController(desktopPane);
         playerStatisticsController = new PlayerStatisticsController(desktopPane);
-        activityHistoryController = new AchievementHistoryController(desktopPane);
+        achievementHistoryController = new AchievementHistoryController(desktopPane);
 
         setVisible(true);
     }
@@ -128,6 +128,9 @@ public class MainWindow extends JFrame implements ActionListener, WindowStateLis
 
         if (gamesList != null)
             gamesList.refreshList();
+
+        if(achievementHistoryController != null) 
+            achievementHistoryController.update();
     }
 
     @Override
