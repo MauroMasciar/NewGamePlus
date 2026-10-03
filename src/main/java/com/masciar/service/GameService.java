@@ -99,14 +99,15 @@ public class GameService { // TODO: Desconectar servicio de la vista, hacerlo pa
         if (name.isEmpty()) {
             return false;
         } else {
-            int id = Main.gameRepository.getList().size() + 1;
-            Game game = new Game(id, name, category, library, score, gameTime, playCount, completed, completed_date,
+            Game game = new Game(999999999, name, category, library, score, gameTime, playCount, completed, completed_date,
                     hide, path, releasedate,
                     developer, series, playMode, status, lastPlayed, rating, platform, publisher, region, version,
                     added, modified, favorite, statistic,
                     portable, image, notes, appId);
             GamesDAO gamesDao = new GamesDAO();
-            if (gamesDao.add(game)) {
+            int id = gamesDao.add(game);
+            if (id != 0) {
+                game.setId(id);
                 Main.gameRepository.games_list.add(game);
                 achievementService.createGameObtainedAchievement(game);
                 view.dispose();

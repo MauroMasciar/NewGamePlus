@@ -13,7 +13,7 @@ public class AchievementRepository {
 
     public AchievementRepository() {
         AchievementDAO achievementsDao = new AchievementDAO();
-        achievementsDao.getAll();
+        achievementsList = achievementsDao.getAll();
     }
 
     public List<Achievement> getList() {

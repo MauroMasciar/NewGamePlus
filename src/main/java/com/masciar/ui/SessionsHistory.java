@@ -58,10 +58,7 @@ public class SessionsHistory extends JInternalFrame implements ComponentListener
     }
 
     public static void updateTableModel() {
-        List<History> history = Main.historyRepository.history_list.stream()
-                .sorted(Comparator.comparing(History::getDateTimeStart).reversed()).toList();
-        historyTableModel = new HistoryTableModel(history);
-
+        historyTableModel = new HistoryTableModel(Main.historyRepository.history_list.stream().sorted(Comparator.comparing(History::getDateTimeStart).reversed()).toList());
         table.setModel(historyTableModel);
     }
 

@@ -1,6 +1,7 @@
 package com.masciar.ui;
 
 import com.masciar.app.Main;
+import com.masciar.controller.AchievementHistoryController;
 import com.masciar.controller.AddGameController;
 import com.masciar.controller.AddSessionManuallyController;
 import com.masciar.controller.GameInfoController;
@@ -71,6 +72,7 @@ public class MainWindow extends JFrame implements ActionListener, WindowStateLis
     private static GeneralSummaryController generalSummaryController;
     private static GameInfoController gameInfoController;
     private static PlayerStatisticsController playerStatisticsController;
+    private static AchievementHistoryController activityHistoryController;
 
     public MainWindow() {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -109,6 +111,7 @@ public class MainWindow extends JFrame implements ActionListener, WindowStateLis
 
         generalSummaryController = new GeneralSummaryController(desktopPane);
         playerStatisticsController = new PlayerStatisticsController(desktopPane);
+        activityHistoryController = new AchievementHistoryController(desktopPane);
 
         setVisible(true);
     }

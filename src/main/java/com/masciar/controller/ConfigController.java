@@ -16,5 +16,6 @@ public class ConfigController {
 
     public void saveConfig() {
         ConfigService.setProperty("steam.id", view.getTxtSteamId());
+        view.dispose();
     }
 }

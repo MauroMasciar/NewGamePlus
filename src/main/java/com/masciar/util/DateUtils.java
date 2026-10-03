@@ -38,7 +38,7 @@ public class DateUtils {
     public static String formatDateFromString(String dateString, int opt) {
         List<String> dateArray = Arrays.asList(dateString);
         DateTimeFormatter formatterFlex = new DateTimeFormatterBuilder()
-                .appendOptional(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"))
+                .appendOptional(DateTimeFormatter.ofPattern("yyyy-M-d HH:mm:ss"))
                 .appendOptional(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm"))
                 .appendOptional(DateTimeFormatter.ofPattern("yyyy/MM/dd'T'HH:mm:ss"))
                 .appendOptional(DateTimeFormatter.ISO_DATE_TIME)
@@ -58,7 +58,7 @@ public class DateUtils {
         for (String fechaTexto : dateArray) {
             try {
                 LocalDateTime fecha = LocalDateTime.parse(fechaTexto, formatterFlex);
-                result = fecha.format(formatter);                
+                result = fecha.format(formatter);
             } catch (Exception e) {
                 System.out.println("Error: No se pudo procesar el formato de: " + fechaTexto);
                 //ErrorHandler.handle(e);

@@ -55,7 +55,7 @@ public class GamesDAO {
 		return 0;
 	}
 
-	public boolean add(Game game) {
+	public int add(Game game) {
 		String query = "INSERT INTO games (name, category, library, score, time_played, play_count, completed, completed_date, hidden, path, release_date, developer, series, play_mode, status, last_played, rating, platform, publisher, region, version, added, modified, favorite, statistic, portable, image, notes, steam_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 		try (Connection con = DriverManager.getConnection(Utils.DATABASE_URL);
 				PreparedStatement ps = con.prepareStatement(query)) {
@@ -91,12 +91,18 @@ public class GamesDAO {
 			ps.setInt(29, game.getAppId());
 
 			int rowsAffected = ps.executeUpdate();
-			if (rowsAffected != 0)
-				return true;
+			if (rowsAffected != 0) {
+				query = "SELECT id FROM games WHERE name = " + game.getName();
+				try (Connection conn = DriverManager.getConnection(Utils.DATABASE_URL);
+						PreparedStatement pss = con.prepareStatement(query);
+						ResultSet rs = pss.executeQuery()) {
+					return rs.getInt(1);
+				}
+			}
 		} catch (SQLException e) {
 			ErrorHandler.handle(e);
 		}
-		return false;
+		return 0;
 	}
 
 	public void update(Game game) {
