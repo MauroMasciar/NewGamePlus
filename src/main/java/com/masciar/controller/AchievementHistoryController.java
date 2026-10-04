@@ -3,6 +3,7 @@ package com.masciar.controller;
 import com.masciar.app.Main;
 import com.masciar.model.Achievement;
 import com.masciar.ui.AchievementsHistory;
+import com.masciar.util.DateUtils;
 import com.masciar.util.Utils;
 
 import javax.swing.JDesktopPane;
@@ -33,7 +34,7 @@ public class AchievementHistoryController {
 class AchievementTableModel extends AbstractTableModel {
     private List<Achievement> list;
     private String[] columns = {
-            "Juego", "Logro"
+            ""
     };
 
     public AchievementTableModel(List<Achievement> list) {
@@ -47,16 +48,14 @@ class AchievementTableModel extends AbstractTableModel {
 
     @Override
     public int getColumnCount() {
-        return 2;
+        return 1;
     }
 
     @Override
     public Object getValueAt(int rowIndex, int columnIndex) {
         switch (columnIndex) {
             case 0:
-                return list.get(rowIndex).getGameName();
-            case 1:
-                return list.get(rowIndex).getDescription();
+                return list.get(rowIndex).getDescription() + " el " + DateUtils.formatDateFromString(list.get(rowIndex).getDate(), 4) + " a las " + DateUtils.formatDateFromString(list.get(rowIndex).getDate(), 5);
         }
         return "";
     }

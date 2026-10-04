@@ -85,7 +85,7 @@ public class AchievementService {
 
     public void createCompletedGameAchievement(Game game) {
         String text = "Has terminado el juego " + game.getName() + " en " + TimeUtils.getTotalHoursFromSeconds(game.getTimePlayed(), false);
-        add(game.getName(), game.getId(), text, game.getCompletedDate());
+        add(game.getName(), game.getId(), text, game.getCompletedDate() + " 00:00:00");
     }
     
 

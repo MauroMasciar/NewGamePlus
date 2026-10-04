@@ -1,7 +1,6 @@
 package com.masciar.ui;
 
 import com.masciar.service.ConfigService;
-import com.masciar.util.Utils;
 
 import javax.swing.JInternalFrame;
 import javax.swing.JScrollPane;

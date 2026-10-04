@@ -84,7 +84,7 @@ public class SessionsHistory extends JInternalFrame implements ComponentListener
 class HistoryTableModel extends AbstractTableModel {
     private List<History> list;
     private String[] columns = {
-            "Juego", "Horas", "Ultima sesión"
+            "Juego", "Tiempo", "Fecha"
     };
 
     public HistoryTableModel(List<History> list) {

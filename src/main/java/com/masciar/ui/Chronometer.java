@@ -31,7 +31,8 @@ public class Chronometer extends JInternalFrame implements ComponentListener {
     private JLabel lblInfoTime = new JLabel("Tiempo jugado efectivo");
     private JLabel lblInitDate = new JLabel("Iniciado a las 00:00 hace 0h 0m");
     private JButton btnPause = new JButton("Pausar");
-    private JButton btnStop = new JButton("Finalizar sesión");
+    private JButton btnStop = new JButton("Finalizar");
+    private JButton btnCancel = new JButton("Cancelar");
     private JLabel lblStats = new JLabel("ESTADÍSTICAS DE LA SESIÓN");
     private JLabel lblPauses = new JLabel("Pausas");
     private JLabel lblPausesValue = new JLabel("0");
@@ -110,6 +111,8 @@ public class Chronometer extends JInternalFrame implements ComponentListener {
         btnStop.setBackground(Color.RED);
         btnPause.setFont(new Font("Arial", Font.BOLD, 24));
         btnStop.setFont(new Font("Arial", Font.BOLD, 24));
+        btnCancel.setBackground(Color.RED);
+        btnCancel.setFont(new Font("Arial", Font.BOLD, 24));
 
         lblStats.setFont(new Font("Arial", Font.BOLD, 16));
         lblPauses.setFont(new Font("Arial", Font.BOLD, 14));
@@ -161,6 +164,10 @@ public class Chronometer extends JInternalFrame implements ComponentListener {
         icon = new FlatSVGIcon("resources/icons/player-stop.svg", 32, 32);
         icon.setColorFilter(new FlatSVGIcon.ColorFilter(color -> Color.WHITE));
         btnStop.setIcon(icon);
+
+        icon = new FlatSVGIcon("resources/icons/player-cancel.svg", 32, 32);
+        icon.setColorFilter(new FlatSVGIcon.ColorFilter(color -> Color.WHITE));
+        btnCancel.setIcon(icon);
     }
 
     private void initComponents() {
@@ -216,6 +223,8 @@ public class Chronometer extends JInternalFrame implements ComponentListener {
         pnlLeft.add(btnPause, left);
         left.gridy++;
         pnlLeft.add(btnStop, left);
+        left.gridy++;
+        pnlLeft.add(btnCancel, left);
 
         // Panel derecho
         right.gridheight = 1;
@@ -350,6 +359,10 @@ public class Chronometer extends JInternalFrame implements ComponentListener {
 
     public void setBtnStopListener(ActionListener listener) {
         btnStop.addActionListener(listener);
+    }
+
+    public void setCancelListener(ActionListener listener) {
+        btnCancel.addActionListener(listener);
     }
 
     @Override

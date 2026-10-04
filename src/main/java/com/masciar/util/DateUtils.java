@@ -1,5 +1,7 @@
 package com.masciar.util;
 
+import com.masciar.logging.ErrorHandler;
+
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
@@ -39,6 +41,7 @@ public class DateUtils {
         List<String> dateArray = Arrays.asList(dateString);
         DateTimeFormatter formatterFlex = new DateTimeFormatterBuilder()
                 .appendOptional(DateTimeFormatter.ofPattern("yyyy-M-d HH:mm:ss"))
+                .appendOptional(DateTimeFormatter.ofPattern("yyyy-M-d"))
                 .appendOptional(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm"))
                 .appendOptional(DateTimeFormatter.ofPattern("yyyy/MM/dd'T'HH:mm:ss"))
                 .appendOptional(DateTimeFormatter.ISO_DATE_TIME)
@@ -51,6 +54,10 @@ public class DateUtils {
             formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         else if(opt == 3)
             formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        else if(opt == 4)
+            formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        else if(opt == 5)
+            formatter = DateTimeFormatter.ofPattern("HH:mm");
         else
             formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
         

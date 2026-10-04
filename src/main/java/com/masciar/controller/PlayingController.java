@@ -40,38 +40,34 @@ public class PlayingController implements ChronometerListener {
 
         launchGame();
 
-        // Iniciamos vista
         view = new Chronometer();
         desktopPane.add(view);
         view.toFront();
 
-        // Iniciamos listener del cronometro
         chronometerService = new ChronometerService();
         chronometerService.setListener(this);
         chronometerService.start();
 
-        // Instanciamos services
         achievementService = new AchievementService(game);
         playingService = new PlayingService();
 
-        // Cargamos datos a la vista
         view.setGameName(game.getName());
         view.setPlayCount(String.valueOf(game.getPlayCount()));
         view.setTotalPlayed(TimeUtils.getTotalHoursFromSeconds(game.getTimePlayed(), true));
         view.setTotalPlayedAfterSession(TimeUtils.getTotalHoursFromSeconds(game.getTimePlayed(), false));
-        view.setAgeSession("Iniciado a las " + startTime.format(format_time) + " hace "
-                + TimeUtils.getTotalHoursFromSeconds(0, false));
+        view.setAgeSession("Iniciado a las " + startTime.format(format_time) + " hace " + TimeUtils.getTotalHoursFromSeconds(0, false));
         try {
-            view.setAvgTimePlayed(TimeUtils.getTotalHoursFromSeconds(game.getTimePlayed() / game.getPlayCount(), false));
+            view.setAvgTimePlayed(
+                    TimeUtils.getTotalHoursFromSeconds(game.getTimePlayed() / game.getPlayCount(), false));
         } catch (Exception e) {
             view.setAvgTimePlayed("00h 00m");
         }
 
         timerStrobe = new Timer(500, e -> view.strobe(chronometerService.isPaused()));
 
-        // Asignamos listener a los componentes
         view.setBtnPauseListener(e -> pauseSession());
         view.setBtnStopListener(e -> endSession());
+        view.setCancelListener(e -> end());
 
         Toast.showToast(desktopPane, "Juego lanzado");
     }
@@ -81,7 +77,8 @@ public class PlayingController implements ChronometerListener {
         if ("Steam".equals(libraryService.findNameById(game.getLibrary()))) {
             new Thread(() -> {
                 try {
-                    ProcessBuilder pb = new ProcessBuilder(ConfigService.getProperty("steam.dir"), "steam://run/" + game.getAppId());
+                    ProcessBuilder pb = new ProcessBuilder(ConfigService.getProperty("steam.dir"),
+                            "steam://run/" + game.getAppId());
                     pb.start();
                 } catch (IOException e) {
                     ErrorHandler.handle(e);
@@ -89,7 +86,8 @@ public class PlayingController implements ChronometerListener {
                     e.printStackTrace();
                 }
             }).start();
-        } else if (!game.getPath().isEmpty() && !"N/A".equals(game.getPath()) && !"Steam".equals(libraryService.findNameById(game.getLibrary()))) {
+        } else if (!game.getPath().isEmpty() && !"N/A".equals(game.getPath())
+                && !"Steam".equals(libraryService.findNameById(game.getLibrary()))) {
             new Thread(() -> {
                 try {
                     ProcessBuilder pb = new ProcessBuilder(game.getPath());
@@ -123,9 +121,6 @@ public class PlayingController implements ChronometerListener {
     }
 
     private void endSession() {
-        chronometerService.stop();
-        if (timerStrobe != null)
-            timerStrobe.stop();
         if (playedSeconds > Utils.MINIMUN_SESSION_SECONDS) {
             AddSessionService addSessionService = new AddSessionService();
             addSessionService.addSession(game, startTime, playedSeconds, pausedSeconds);
@@ -133,7 +128,16 @@ public class PlayingController implements ChronometerListener {
         } else {
             view.showError("El tiempo de juego ha sido muy corto y no se ha guardado");
         }
+        end();
+    }
+
+    private void end() {
+        chronometerService.stop();
+        if (timerStrobe != null)
+            timerStrobe.stop();
+
         view.dispose();
+        Toast.showToast(desktopPane, "Juego terminado");
     }
 
     @Override
