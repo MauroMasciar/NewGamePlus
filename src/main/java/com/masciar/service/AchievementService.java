@@ -8,10 +8,13 @@ import com.masciar.util.TimeUtils;
 import com.masciar.util.Utils;
 import com.masciar.app.Main;
 
+import java.util.List;
+
 public class AchievementService {
     private PlayerService playerService;
     private LibraryService libraryService;
     private Game game;
+    private AchievementDAO achievementDAO = new AchievementDAO();
 
     public AchievementService() {
     }
@@ -23,6 +26,10 @@ public class AchievementService {
     public AchievementService(Game game) {
         this.game = game;
         playerService = new PlayerService();
+    }
+
+    public void changeName(Game game) {
+        achievementDAO.changeName(game);
     }
 
     public void checkInGame(int playedSeconds) {
@@ -84,8 +91,20 @@ public class AchievementService {
     }
 
     public void createCompletedGameAchievement(Game game) {
-        String text = "Has terminado el juego " + game.getName() + " en " + TimeUtils.getTotalHoursFromSeconds(game.getTimePlayed(), false);
-        add(game.getName(), game.getId(), text, game.getCompletedDate() + " 00:00:00");
+        List<Achievement> list = Main.achievementsRepository.achievementsList;
+        boolean completed = false;
+        for(int i = 0; i < list.size(); i++) {
+            if(list.get(i).getGameId() == game.getId()) {
+                if(list.get(i).getDescription().contains("Has terminado el juego")) {
+                    completed = true;
+                    break;
+                }
+            }
+        }
+        if(!completed) {
+            String text = "Has terminado el juego " + game.getName() + " en " + TimeUtils.getTotalHoursFromSeconds(game.getTimePlayed(), false);
+            add(game.getName(), game.getId(), text, game.getCompletedDate() + " " + TimeUtils.getFormattedTime());
+        }        
     }
     
 

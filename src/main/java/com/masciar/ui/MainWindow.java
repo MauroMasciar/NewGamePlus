@@ -134,14 +134,6 @@ public class MainWindow extends JFrame implements ActionListener, WindowStateLis
             achievementHistoryController.update();
     }
 
-    public static void showViews(int view) {
-        switch (view) {
-            case 1:
-                gameInfoController.hide();
-                break;
-        }
-    }
-
     public static void hideViews(int view) {
         switch (view) {
             case 1:

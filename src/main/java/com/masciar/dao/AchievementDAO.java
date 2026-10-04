@@ -2,6 +2,7 @@ package com.masciar.dao;
 
 import com.masciar.logging.ErrorHandler;
 import com.masciar.model.Achievement;
+import com.masciar.model.Game;
 import com.masciar.util.Utils;
 
 import java.sql.Connection;
@@ -22,8 +23,7 @@ public class AchievementDAO {
                 ResultSet rs = ps.executeQuery()) {
 
             while (rs.next()) {
-                Achievement a = new Achievement(rs.getInt("id"), rs.getString("game_name"), rs.getInt("game_id"),
-                        rs.getString("description"), rs.getString("date"));
+                Achievement a = new Achievement(rs.getInt("id"), rs.getString("game_name"), rs.getInt("game_id"), rs.getString("description"), rs.getString("date"));
                 achievementsList.add(a);
             }
         } catch (SQLException e) {
@@ -50,4 +50,16 @@ public class AchievementDAO {
             //ErrorHandler.handle(e);
         }
     }
+
+    public void changeName(Game game) {
+		String query = "UPDATE achievements SET game_name = ? WHERE game_id = ?";
+		try (Connection con = DriverManager.getConnection(Utils.DATABASE_URL);
+				PreparedStatement ps = con.prepareStatement(query)) {
+					ps.setString(1, game.getName());
+					ps.setInt(2, game.getId());
+					ps.executeUpdate();
+		} catch (SQLException e) {
+			ErrorHandler.handle(e);
+		}
+	}
 }

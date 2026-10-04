@@ -5,6 +5,7 @@ import com.masciar.model.Category;
 import com.masciar.model.Game;
 import com.masciar.model.Library;
 import com.masciar.model.Platform;
+import com.masciar.service.AchievementService;
 import com.masciar.service.CategoryService;
 import com.masciar.service.GameService;
 import com.masciar.service.HistoryService;
@@ -207,7 +208,12 @@ public class EditGameController {
         HistoryService historyService = new HistoryService();
         historyService.changeName(game);
 
+        AchievementService achievementService = new AchievementService();
+        achievementService.changeName(game);
+
         MainWindow.refreshOpenViews();
+        MainWindow.hideViews(1);
+        
         view.dispose();
     }
 }

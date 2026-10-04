@@ -92,7 +92,7 @@ public class GamesDAO {
 
 			int rowsAffected = ps.executeUpdate();
 			if (rowsAffected != 0) {
-				query = "SELECT id FROM games WHERE name = " + game.getName();
+				query = "SELECT id FROM games WHERE name = '" + game.getName() + "'";
 				try (Connection conn = DriverManager.getConnection(Utils.DATABASE_URL);
 						PreparedStatement pss = con.prepareStatement(query);
 						ResultSet rs = pss.executeQuery()) {

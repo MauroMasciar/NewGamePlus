@@ -1,27 +1,34 @@
 package com.masciar.util;
 
+import java.time.LocalTime;
+
 public class TimeUtils {
-    /*
-     * public static String getFormattedTime() {
-     * String time, sHour, sMinute, sSecond;
-     * int hour, minute, second;
-     * hour = LocalTime.now().getHour();
-     * minute = LocalTime.now().getMinute();
-     * second = LocalTime.now().getSecond();
-     * 
-     * if(second < 10) sSecond = "0" + second;
-     * else sSecond = String.valueOf(second);
-     * 
-     * if(minute < 10) sMinute = "0" + minute;
-     * else sMinute = String.valueOf(minute);
-     * 
-     * if(hour < 10) sHour = "0" + hour;
-     * else sHour = String.valueOf(hour);
-     * 
-     * time = sHour + ":" + sMinute + ":" + sSecond;
-     * return time;
-     * }
-     */
+
+    public static String getFormattedTime() {
+        String time, sHour, sMinute, sSecond;
+        int hour, minute, second;
+        hour = LocalTime.now().getHour();
+        minute = LocalTime.now().getMinute();
+        second = LocalTime.now().getSecond();
+
+        if (second < 10)
+            sSecond = "0" + second;
+        else
+            sSecond = String.valueOf(second);
+
+        if (minute < 10)
+            sMinute = "0" + minute;
+        else
+            sMinute = String.valueOf(minute);
+
+        if (hour < 10)
+            sHour = "0" + hour;
+        else
+            sHour = String.valueOf(hour);
+
+        time = sHour + ":" + sMinute + ":" + sSecond;
+        return time;
+    }
 
     public static String getTotalHoursFromSeconds(int seconds, boolean withSeconds) {
         String sHour, sMinute, sSecond;
