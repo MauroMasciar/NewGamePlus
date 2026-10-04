@@ -20,6 +20,7 @@ public class Utils {
     public static final String DATABASE_URL = "jdbc:sqlite:database.db?busy_timeout=5000";
     public static final int MINIMUN_SESSION_SECONDS = 300;
     public static final int SECONDS_PER_HOUR = 3600;
+    public static final int INTERNAL_FRAME_GAME_LIST = 1;
     
     /*public static void logExceptions(Exception ex) {
         ex.printStackTrace();

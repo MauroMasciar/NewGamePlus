@@ -66,9 +66,11 @@ public class DateUtils {
             try {
                 LocalDateTime fecha = LocalDateTime.parse(fechaTexto, formatterFlex);
                 result = fecha.format(formatter);
+            } catch (NullPointerException e) {
+                //System.out.println("Error: No se pudo procesar el formato de: " + fechaTexto);
+                return "No registrado";
             } catch (Exception e) {
-                System.out.println("Error: No se pudo procesar el formato de: " + fechaTexto);
-                //ErrorHandler.handle(e);
+                ErrorHandler.handle(e);
             }
         }
         return result;

@@ -8,6 +8,7 @@ import com.masciar.controller.GameInfoController;
 import com.masciar.controller.GeneralSummaryController;
 import com.masciar.controller.PlayerStatisticsController;
 import com.masciar.service.ConfigService;
+import com.masciar.util.Utils;
 import com.masciar.controller.ConfigController;
 import com.masciar.controller.EditGameController;
 
@@ -133,12 +134,30 @@ public class MainWindow extends JFrame implements ActionListener, WindowStateLis
             achievementHistoryController.update();
     }
 
+    public static void showViews(int view) {
+        switch (view) {
+            case 1:
+                gameInfoController.hide();
+                break;
+        }
+    }
+
+    public static void hideViews(int view) {
+        switch (view) {
+            case 1:
+                gameInfoController.hide();
+                break;
+        }
+    }
+
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == mnuiGamesAdd) {
+            hideViews(Utils.INTERNAL_FRAME_GAME_LIST);
             @SuppressWarnings("unused")
             AddGameController addGameController = new AddGameController(this);
         } else if (e.getSource() == mnuiGamesEdit) {
+            hideViews(Utils.INTERNAL_FRAME_GAME_LIST);
             @SuppressWarnings("unused")
             EditGameController editGameController = new EditGameController(this, gameInfoController.getGameSelected());
         } else if (e.getSource() == mnuiPlayerAddSession) {

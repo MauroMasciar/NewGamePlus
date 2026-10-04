@@ -56,6 +56,10 @@ public class GameInfoController implements GameSelectedListener {
         }
     }
 
+    public void hide() {
+        view.setVisible(false);
+    }
+
     @Override
     public void selectionChanged(Game game) {
         gameSelected = game;

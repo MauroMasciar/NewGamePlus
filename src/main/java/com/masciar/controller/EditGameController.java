@@ -14,6 +14,7 @@ import com.masciar.ui.AddGame;
 import com.masciar.ui.MainWindow;
 import com.masciar.util.DateUtils;
 import com.masciar.util.TimeUtils;
+import com.masciar.util.Utils;
 
 public class EditGameController {
     private AddGame view;
@@ -22,6 +23,7 @@ public class EditGameController {
     public EditGameController(MainWindow window, Game game) {
         try {
             view = new AddGame(window, game, true);
+            MainWindow.hideViews(Utils.INTERNAL_FRAME_GAME_LIST);
         } catch (NullPointerException e) {
             // TODO: Controlar excepcion
         }
