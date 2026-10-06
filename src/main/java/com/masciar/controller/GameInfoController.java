@@ -52,7 +52,7 @@ public class GameInfoController implements GameSelectedListener {
             view.getSummaryPanel().setCompleted(gameSelected.getCompleted());
             view.pack();
         } catch (NullPointerException e) {
-            e.printStackTrace();
+            System.out.println("Solucionar nullpointerexception"); // BUG: Tira NullPointerException al terminar una sesion
         }
     }
 

@@ -36,20 +36,60 @@ public class CategoryDAO {
         String query = "UPDATE category SET time_played = ?, total_sessions = ? WHERE id = ?";
         try (Connection con = DriverManager.getConnection(Utils.DATABASE_URL);
                 PreparedStatement ps = con.prepareStatement(query)) {
-            for(int i=0; i<Main.categoryRepository.categories_list.size(); i++) {
-                if(Main.categoryRepository.categories_list.get(i).getId() == id) {
+            for (int i = 0; i < Main.categoryRepository.categories_list.size(); i++) {
+                if (Main.categoryRepository.categories_list.get(i).getId() == id) {
                     ps.setInt(1, Main.categoryRepository.categories_list.get(i).getTimePlayed());
                     ps.setInt(2, Main.categoryRepository.categories_list.get(i).getTotalSessions());
                     ps.setInt(3, id);
                     break;
                 }
             }
-            
+
             int rowsAffected = ps.executeUpdate();
             if (rowsAffected != 0)
                 System.out.println("Categoria actualizada");
         } catch (SQLException e) {
             ErrorHandler.handle(e);
+        }
+    }
+
+    public void updateAll() {
+        for (int i = 0; i < Main.categoryRepository.categories_list.size(); i++) {
+            String query = "SELECT SUM(time_played) AS total FROM games WHERE category = " + Main.categoryRepository.categories_list.get(i).getId();
+            try (Connection con = DriverManager.getConnection(Utils.DATABASE_URL);
+                    PreparedStatement ps = con.prepareStatement(query);
+                    ResultSet rs = ps.executeQuery()) {
+                while (rs.next()) {
+                    int timePlayed = rs.getInt("total");
+                    query = "UPDATE category SET time_played = ? WHERE id = ?";
+                    PreparedStatement psu = con.prepareStatement(query);
+                    psu.setInt(1, timePlayed);
+                    psu.setInt(2, Main.categoryRepository.categories_list.get(i).getId());
+                    psu.executeUpdate();
+
+                    Main.categoryRepository.categories_list.get(i).setTimePlayed(timePlayed);
+                }
+            } catch (SQLException e) {
+                ErrorHandler.handle(e);
+            }
+
+            query = "SELECT SUM(play_count) AS total FROM games WHERE category = " + Main.categoryRepository.categories_list.get(i).getId();
+            try (Connection con = DriverManager.getConnection(Utils.DATABASE_URL);
+                    PreparedStatement ps = con.prepareStatement(query);
+                    ResultSet rs = ps.executeQuery()) {
+                while (rs.next()) {
+                    int totalSessions = rs.getInt("total");
+                    query = "UPDATE category SET total_sessions = ? WHERE id = ?";
+                    PreparedStatement psu = con.prepareStatement(query);
+                    psu.setInt(1, totalSessions);
+                    psu.setInt(2, Main.categoryRepository.categories_list.get(i).getId());
+                    psu.executeUpdate();
+
+                    Main.categoryRepository.categories_list.get(i).setTotalSessions(totalSessions);
+                }
+            } catch (SQLException e) {
+                ErrorHandler.handle(e);
+            }
         }
     }
 }

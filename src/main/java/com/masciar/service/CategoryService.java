@@ -9,7 +9,6 @@ public class CategoryService {
         }
         return 0;
     }
-        
 
     public String findNameById(int id) {
         for(int i=0; i<Main.categoryRepository.categories_list.size(); i++) {

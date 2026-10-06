@@ -17,4 +17,9 @@ public class CategoryRepository {
     public List<Category> getList() {
         return categories_list;
     }
+
+    public void updateAll() {
+        CategoryDAO categoryDao = new CategoryDAO();
+        categoryDao.updateAll();
+    }
 }
