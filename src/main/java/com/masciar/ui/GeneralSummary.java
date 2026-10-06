@@ -1,5 +1,9 @@
 package com.masciar.ui;
 
+import com.masciar.service.ConfigService;
+import com.masciar.util.RoundedBorder;
+import com.masciar.util.Utils;
+
 import javax.swing.JInternalFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -13,9 +17,6 @@ import java.awt.Insets;
 import java.awt.event.ComponentEvent;
 import java.awt.event.ComponentListener;
 import com.formdev.flatlaf.extras.FlatSVGIcon;
-import com.masciar.service.ConfigService;
-import com.masciar.util.RoundedBorder;
-import com.masciar.util.Utils;
 
 public class GeneralSummary extends JInternalFrame implements ComponentListener {
     private JPanel panelTitle = new JPanel();

@@ -23,8 +23,7 @@ public class PlatformDAO {
                 ResultSet rs = ps.executeQuery()) {
 
             while (rs.next()) {
-                Platform platforms = new Platform(rs.getInt("id"), rs.getString("name"), rs.getInt("time_played"),
-                        rs.getInt("total_sessions"));
+                Platform platforms = new Platform(rs.getInt("id"), rs.getString("name"), rs.getInt("time_played"), rs.getInt("total_sessions"));
                 Platforms.add(platforms);
             }
         } catch (SQLException e) {
@@ -33,14 +32,19 @@ public class PlatformDAO {
         return Platforms;
     }
 
-    public void update(int i) {
+    public void update(int id) {
         String query = "UPDATE platforms SET time_played = ?, total_sessions = ? WHERE id = ?";
         try (Connection con = DriverManager.getConnection(Utils.DATABASE_URL);
                 PreparedStatement ps = con.prepareStatement(query)) {
+            for(int i=0; i<Main.platformsRepository.platforms_list.size(); i++) {
+                if(Main.platformsRepository.platforms_list.get(i).getId() == id) {
+                    ps.setInt(1, Main.platformsRepository.platforms_list.get(i).getTimePlayed());
+                    ps.setInt(2, Main.platformsRepository.platforms_list.get(i).getTotalSessions());
+                    ps.setInt(3, id);
+                    break;
+                }
+            }
 
-            ps.setInt(1, Main.platformsRepository.platforms_list.get(i).getTimePlayed());
-            ps.setInt(2, Main.platformsRepository.platforms_list.get(i).getTotalSessions());
-            ps.setInt(3, i);
             int rowsAffected = ps.executeUpdate();
             if (rowsAffected != 0)
                 System.out.println("Plataforma actualizada");

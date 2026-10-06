@@ -38,7 +38,7 @@ public class AddSessionService {
     }
 
     private void saveAll(Game game, String dateTimeStart, String dateTimeEnd, int seconds) {
-        History history = new History(Main.achievementsRepository.getList().size() + 1, "NO",  game.getId(), game.getName(), game.getLibrary(), game.getPlatform(), dateTimeStart, dateTimeEnd, seconds, game.getVersion());
+        History history = new History(Main.achievementsRepository.getList().size() + 1, "NO",  game.getId(), game.getName(), game.getLibrary(), game.getPlatform(), dateTimeStart, dateTimeEnd, seconds, game.getVersion()); // TODO: Obtener ID real
         saveHistory(history);
 
         saveGameTime(game, seconds);
@@ -66,39 +66,40 @@ public class AddSessionService {
 
     private void plusLibrary(Game game, int seconds) {
         for(int i=0; i<Main.librariesRepository.library_list.size(); i++) {
-            if(i == game.getLibrary()) {
+            if(Main.librariesRepository.library_list.get(i).getId() == game.getLibrary()) {
                 int secondsPlayed = Main.librariesRepository.library_list.get(i).getTimePlayed();
                 int sessions = Main.librariesRepository.library_list.get(i).getTotalSession();
                 Main.librariesRepository.library_list.get(i).setTimePlayed(secondsPlayed + seconds);
                 Main.librariesRepository.library_list.get(i).setTotalSession(sessions + 1);
                 LibraryDAO libraryDAO = new LibraryDAO();
-                libraryDAO.update(i);
+                libraryDAO.update(game.getLibrary());
+                break;
             }
         }
     }
 
     private void plusPlatform(Game game, int seconds) {
         for(int i=0; i<Main.platformsRepository.platforms_list.size(); i++) {
-            if(i == game.getPlatform()) {
+            if(Main.platformsRepository.platforms_list.get(i).getId() == game.getPlatform()) {
                 int secondsPlayed = Main.platformsRepository.platforms_list.get(i).getTimePlayed();
                 int sessions = Main.platformsRepository.platforms_list.get(i).getTotalSessions();
                 Main.platformsRepository.platforms_list.get(i).setTimePlayed(secondsPlayed + seconds);
                 Main.platformsRepository.platforms_list.get(i).setTotalSessions(sessions + 1);
                 PlatformDAO platformDao = new PlatformDAO();
-                platformDao.update(i);
+                platformDao.update(game.getPlatform());
             }
         }
     }
 
     private void plusCategory(Game game, int seconds) {
         for(int i=0; i<Main.categoryRepository.categories_list.size(); i++) {
-            if(i == game.getCategory()) {
+            if(Main.categoryRepository.categories_list.get(i).getId() == game.getCategory()) {
                 int secondsPlayed = Main.categoryRepository.categories_list.get(i).getTimePlayed();
                 int sessions = Main.categoryRepository.categories_list.get(i).getTotalSessions();
                 Main.categoryRepository.categories_list.get(i).setTimePlayed(secondsPlayed + seconds);
                 Main.categoryRepository.categories_list.get(i).setTotalSessions(sessions + 1);
                 CategoryDAO categoryDao = new CategoryDAO();
-                categoryDao.update(i);
+                categoryDao.update(game.getCategory());
             }
         }
     }

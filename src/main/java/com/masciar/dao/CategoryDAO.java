@@ -23,8 +23,7 @@ public class CategoryDAO {
                 ResultSet rs = ps.executeQuery()) {
 
             while (rs.next()) {
-                Category category = new Category(rs.getInt("id"), rs.getString("name"), rs.getInt("time_played"),
-                        rs.getInt("total_sessions"));
+                Category category = new Category(rs.getInt("id"), rs.getString("name"), rs.getInt("time_played"), rs.getInt("total_sessions"));
                 categories.add(category);
             }
         } catch (SQLException e) {
@@ -33,14 +32,19 @@ public class CategoryDAO {
         return categories;
     }
 
-    public void update(int i) {
+    public void update(int id) {
         String query = "UPDATE category SET time_played = ?, total_sessions = ? WHERE id = ?";
         try (Connection con = DriverManager.getConnection(Utils.DATABASE_URL);
                 PreparedStatement ps = con.prepareStatement(query)) {
-
-            ps.setInt(1, Main.categoryRepository.categories_list.get(i).getTimePlayed());
-            ps.setInt(2, Main.categoryRepository.categories_list.get(i).getTotalSessions());
-            ps.setInt(3, i);
+            for(int i=0; i<Main.categoryRepository.categories_list.size(); i++) {
+                if(Main.categoryRepository.categories_list.get(i).getId() == id) {
+                    ps.setInt(1, Main.categoryRepository.categories_list.get(i).getTimePlayed());
+                    ps.setInt(2, Main.categoryRepository.categories_list.get(i).getTotalSessions());
+                    ps.setInt(3, id);
+                    break;
+                }
+            }
+            
             int rowsAffected = ps.executeUpdate();
             if (rowsAffected != 0)
                 System.out.println("Categoria actualizada");

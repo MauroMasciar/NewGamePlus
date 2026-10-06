@@ -137,7 +137,7 @@ public class MainWindow extends JFrame implements ActionListener, WindowStateLis
     public static void hideViews(int view) {
         switch (view) {
             case 1:
-                gameInfoController.hide();
+                //gameInfoController.hide();
                 break;
         }
     }
