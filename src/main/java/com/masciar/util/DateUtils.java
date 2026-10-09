@@ -67,8 +67,9 @@ public class DateUtils {
                 LocalDateTime fecha = LocalDateTime.parse(fechaTexto, formatterFlex);
                 result = fecha.format(formatter);
             } catch (NullPointerException e) {
-                //System.out.println("Error: No se pudo procesar el formato de: " + fechaTexto);
                 return "No registrado";
+            } catch (java.time.format.DateTimeParseException e) { // TODO: gestionar exception
+                // Text '0000-00-00 19:04:57' could not be parsed: Invalid value for YearOfEra (valid values 1 - 999999999/1000000000): 0
             } catch (Exception e) {
                 ErrorHandler.handle(e);
             }

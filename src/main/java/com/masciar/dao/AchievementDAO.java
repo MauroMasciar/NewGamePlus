@@ -23,7 +23,8 @@ public class AchievementDAO {
                 ResultSet rs = ps.executeQuery()) {
 
             while (rs.next()) {
-                Achievement a = new Achievement(rs.getInt("id"), rs.getString("game_name"), rs.getInt("game_id"), rs.getString("description"), rs.getString("date"));
+                Achievement a = new Achievement(rs.getInt("id"), rs.getString("game_name"), rs.getInt("game_id"),
+                        rs.getString("description"), rs.getString("date"));
                 achievementsList.add(a);
             }
         } catch (SQLException e) {
@@ -32,34 +33,42 @@ public class AchievementDAO {
         return achievementsList;
     }
 
-    public void add(Achievement achievements) {
+    public int add(Achievement achievement) {
         String query = "INSERT INTO achievements (game_name, game_id, description, date) VALUES (?, ?, ?, ?)";
         try (Connection con = DriverManager.getConnection(Utils.DATABASE_URL);
                 PreparedStatement ps = con.prepareStatement(query)) {
-            ps.setString(1, achievements.getGameName());
-            ps.setInt(2, achievements.getGameId());
-            ps.setString(3, achievements.getDescription());
-            ps.setString(4, achievements.getDate());
+            ps.setString(1, achievement.getGameName());
+            ps.setInt(2, achievement.getGameId());
+            ps.setString(3, achievement.getDescription());
+            ps.setString(4, achievement.getDate());
 
             int rowsAffected = ps.executeUpdate();
-            if (rowsAffected != 0)
-                System.out.println("Logro añadido");
-            else
+            if (rowsAffected != 0) {
+                query = "SELECT id FROM achievements WHERE description = '" + achievement.getDescription() + "'";
+                try (Connection conn = DriverManager.getConnection(Utils.DATABASE_URL);
+                        PreparedStatement pss = con.prepareStatement(query);
+                        ResultSet rs = pss.executeQuery()) {
+                    return rs.getInt(1);
+                } catch (SQLException e) {
+                    ErrorHandler.handle(e);
+                }
+            } else
                 System.out.println("Error al añadir logro");
         } catch (SQLException e) {
-            //ErrorHandler.handle(e);
+            ErrorHandler.handle(e);
         }
+        return 0;
     }
 
     public void changeName(Game game) {
-		String query = "UPDATE achievements SET game_name = ? WHERE game_id = ?";
-		try (Connection con = DriverManager.getConnection(Utils.DATABASE_URL);
-				PreparedStatement ps = con.prepareStatement(query)) {
-					ps.setString(1, game.getName());
-					ps.setInt(2, game.getId());
-					ps.executeUpdate();
-		} catch (SQLException e) {
-			ErrorHandler.handle(e);
-		}
-	}
+        String query = "UPDATE achievements SET game_name = ? WHERE game_id = ?";
+        try (Connection con = DriverManager.getConnection(Utils.DATABASE_URL);
+                PreparedStatement ps = con.prepareStatement(query)) {
+            ps.setString(1, game.getName());
+            ps.setInt(2, game.getId());
+            ps.executeUpdate();
+        } catch (SQLException e) {
+            ErrorHandler.handle(e);
+        }
+    }
 }

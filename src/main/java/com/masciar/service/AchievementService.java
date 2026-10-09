@@ -110,8 +110,9 @@ public class AchievementService {
 
     public void add(String name, int gameId, String description, String date) {
         AchievementDAO achievementDAO = new AchievementDAO();
-        Achievement achievement = new Achievement(Main.achievementsRepository.getList().size() + 1, name, gameId, description, date); // TODO: Obtener ID real
+        Achievement achievement = new Achievement(Main.achievementsRepository.getList().size() + 1, name, gameId, description, date);
         Main.achievementsRepository.getList().add(achievement);
-        achievementDAO.add(achievement);
+        int id = achievementDAO.add(achievement);
+        achievement.setId(id);
     }
 }

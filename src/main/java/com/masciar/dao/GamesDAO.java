@@ -100,7 +100,7 @@ public class GamesDAO {
 				}
 			}
 		} catch (SQLException e) {
-			ErrorHandler.handle(e);
+			ErrorHandler.handle(e); // TODO: Crear mensaje para el usuario
 		}
 		return 0;
 	}
