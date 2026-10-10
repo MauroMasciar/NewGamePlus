@@ -1,6 +1,7 @@
 package com.masciar.service;
 
 import com.masciar.logging.ErrorHandler;
+import com.masciar.repository.CategoryRepository;
 
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -36,5 +37,10 @@ public class ConfigService {
 		}
         
         return prop.getProperty(key);
+	}
+
+	public void updateDataCategories() {
+		CategoryRepository categoryRepository = new CategoryRepository();
+		categoryRepository.updateAll();
 	}
 }

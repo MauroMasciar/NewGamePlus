@@ -3,6 +3,7 @@ package com.masciar.service;
 import com.masciar.dao.AchievementDAO;
 import com.masciar.model.Achievement;
 import com.masciar.model.Game;
+import com.masciar.ui.MainWindow;
 import com.masciar.util.DateUtils;
 import com.masciar.util.TimeUtils;
 import com.masciar.util.Utils;
@@ -114,5 +115,6 @@ public class AchievementService {
         Main.achievementsRepository.getList().add(achievement);
         int id = achievementDAO.add(achievement);
         achievement.setId(id);
+        MainWindow.refreshOpenViews();
     }
 }

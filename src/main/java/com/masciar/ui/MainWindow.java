@@ -142,6 +142,14 @@ public class MainWindow extends JFrame implements ActionListener, WindowStateLis
         }
     }
 
+    public void showError(String message) {
+        JOptionPane.showMessageDialog(this, message, "Error", JOptionPane.ERROR_MESSAGE);
+    }
+
+    public void showInfo(String message) {
+        JOptionPane.showMessageDialog(this, message, "Información", JOptionPane.INFORMATION_MESSAGE);
+    }
+
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == mnuiGamesAdd) {
@@ -150,8 +158,13 @@ public class MainWindow extends JFrame implements ActionListener, WindowStateLis
             AddGameController addGameController = new AddGameController(this);
         } else if (e.getSource() == mnuiGamesEdit) {
             hideViews(Utils.INTERNAL_FRAME_GAME_LIST);
-            @SuppressWarnings("unused")
-            EditGameController editGameController = new EditGameController(this, gameInfoController.getGameSelected());
+            try {
+                @SuppressWarnings("unused")
+                EditGameController editGameController = new EditGameController(this, gameInfoController.getGameSelected());
+            } catch (NullPointerException ex) {
+                showError("Primero debes seleccionar un juego de la lista");
+            }
+            
         } else if (e.getSource() == mnuiPlayerAddSession) {
             @SuppressWarnings("unused")
             AddSessionManuallyController addSessionController = new AddSessionManuallyController(this);
@@ -161,6 +174,8 @@ public class MainWindow extends JFrame implements ActionListener, WindowStateLis
         } else if (e.getSource() == mnuiHelpConfig) {
             @SuppressWarnings("unused")
             ConfigController configController = new ConfigController(desktopPane);
+        } else if (e.getSource() == mnuiGamesExit) {
+            System.exit(0);
         }
     }
 

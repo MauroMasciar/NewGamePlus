@@ -33,7 +33,7 @@ public class AchievementDAO {
         return achievementsList;
     }
 
-    public int add(Achievement achievement) {
+    public int add(Achievement achievement) { // TODO: Mostrar mensaje al usuario si no logra añadir el logro
         String query = "INSERT INTO achievements (game_name, game_id, description, date) VALUES (?, ?, ?, ?)";
         try (Connection con = DriverManager.getConnection(Utils.DATABASE_URL);
                 PreparedStatement ps = con.prepareStatement(query)) {
@@ -48,12 +48,12 @@ public class AchievementDAO {
                 try (Connection conn = DriverManager.getConnection(Utils.DATABASE_URL);
                         PreparedStatement pss = con.prepareStatement(query);
                         ResultSet rs = pss.executeQuery()) {
+                            conn.close();
                     return rs.getInt(1);
                 } catch (SQLException e) {
                     ErrorHandler.handle(e);
                 }
-            } else
-                System.out.println("Error al añadir logro");
+            }
         } catch (SQLException e) {
             ErrorHandler.handle(e);
         }

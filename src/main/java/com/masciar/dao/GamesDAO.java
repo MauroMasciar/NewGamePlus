@@ -96,6 +96,7 @@ public class GamesDAO {
 				try (Connection conn = DriverManager.getConnection(Utils.DATABASE_URL);
 						PreparedStatement pss = con.prepareStatement(query);
 						ResultSet rs = pss.executeQuery()) {
+							conn.close();
 					return rs.getInt(1);
 				}
 			}

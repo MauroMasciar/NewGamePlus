@@ -18,6 +18,7 @@ public class Config extends JInternalFrame implements ComponentListener {
     private JLabel lblSteamId = new JLabel("Steam ID");
     private JTextField txtSteamId = new JTextField();
     private JButton btnSave = new JButton("Guardar");
+    private JButton btnUpdateDataCategories = new JButton("Actualizar categorias");
     private Timer debounceTimer;
 
     public Config() {
@@ -41,9 +42,12 @@ public class Config extends JInternalFrame implements ComponentListener {
         setDefaultCloseOperation(JInternalFrame.DISPOSE_ON_CLOSE);
         setLayout(new FlowLayout());
 
+        add(lblName);
+        add(txtName);
         add(lblSteamId);
         add(txtSteamId);
         add(btnSave);
+        add(btnUpdateDataCategories);
 
         setVisible(true);
     }
@@ -55,6 +59,10 @@ public class Config extends JInternalFrame implements ComponentListener {
 
     public void setBtnSaveListener(ActionListener listener) {
         btnSave.addActionListener(listener);
+    }
+
+    public void setBtnUpdateDataCategories(ActionListener listener) {
+        btnUpdateDataCategories.addActionListener(listener);
     }
 
     public String getTxtSteamId() {
