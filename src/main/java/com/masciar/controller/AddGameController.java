@@ -5,7 +5,7 @@ import com.masciar.model.Category;
 import com.masciar.model.Library;
 import com.masciar.model.Platform;
 import com.masciar.service.AchievementService;
-import com.masciar.service.GameService;
+import com.masciar.service.GamesService;
 import com.masciar.service.LibraryService;
 import com.masciar.ui.AddGame;
 import com.masciar.ui.MainWindow;
@@ -13,13 +13,13 @@ import com.masciar.util.TimeUtils;
 
 public class AddGameController {
     private AddGame view;
-    private GameService gameService;
+    private GamesService gameService;
     private AchievementService achievementService;
 
     public AddGameController(MainWindow window) {
         view = new AddGame(window, true);
         achievementService = new AchievementService(new LibraryService());
-        gameService = new GameService(view, achievementService);
+        gameService = new GamesService(view, achievementService);
 
         loadCategories();
         loadLibraries();

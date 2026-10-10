@@ -5,7 +5,7 @@ import com.masciar.controller.PlayingController;
 import com.masciar.listener.GameSelectedListener;
 import com.masciar.model.Game;
 import com.masciar.service.ConfigService;
-import com.masciar.service.GameService;
+import com.masciar.service.GamesService;
 
 import javax.swing.JInternalFrame;
 import javax.swing.JList;
@@ -91,7 +91,7 @@ public class GamesList extends JInternalFrame implements ActionListener, ListSel
 
 	public void refreshList() {
 		model.clear();
-		GameService gameService = new GameService();
+		GamesService gameService = new GamesService();
 		model = gameService.searchGameModel(txtSearchGame.getText().toLowerCase());
     	jlistGames.setModel(model);
 	}

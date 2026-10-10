@@ -9,15 +9,15 @@ import com.masciar.util.DateUtils;
 import javax.swing.DefaultListModel;
 import java.util.Comparator;
 
-public class GameService { // TODO: Desconectar servicio de la vista, hacerlo pasar por Controller
+public class GamesService { // TODO: Desconectar servicio de la vista, hacerlo pasar por Controller
     private AddGame view;
     private AchievementService achievementService;
 
-    public GameService() {
+    public GamesService() {
         this.achievementService = new AchievementService();
     }
 
-    public GameService(AddGame view, AchievementService achievementService) {
+    public GamesService(AddGame view, AchievementService achievementService) {
         this.achievementService = achievementService;
         this.view = view;
     }
@@ -149,5 +149,9 @@ public class GameService { // TODO: Desconectar servicio de la vista, hacerlo pa
             }
         }
         return model;
+    }
+
+    public int getTotal() {
+        return Main.gameRepository.games_list.size();
     }
 }

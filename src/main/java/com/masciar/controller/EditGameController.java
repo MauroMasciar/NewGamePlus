@@ -7,7 +7,7 @@ import com.masciar.model.Library;
 import com.masciar.model.Platform;
 import com.masciar.service.AchievementService;
 import com.masciar.service.CategoryService;
-import com.masciar.service.GameService;
+import com.masciar.service.GamesService;
 import com.masciar.service.HistoryService;
 import com.masciar.service.LibraryService;
 import com.masciar.service.PlatformService;
@@ -47,19 +47,19 @@ public class EditGameController {
     }
 
     public void loadCategories() {
-        for(Category category : Main.categoryRepository.categories_list) {
+        for (Category category : Main.categoryRepository.categories_list) {
             view.fillComboBoxCategory(category.getName());
         }
     }
 
     public void loadLibraries() {
-        for(Library library : Main.librariesRepository.library_list) {
+        for (Library library : Main.librariesRepository.library_list) {
             view.fillComboBoxLibrary(library.getName());
         }
     }
 
     public void loadPlatforms() {
-        for(Platform platforms : Main.platformsRepository.platforms_list) {
+        for (Platform platforms : Main.platformsRepository.platforms_list) {
             view.filLComboBoxPlatform(platforms.getName());
         }
     }
@@ -78,16 +78,19 @@ public class EditGameController {
     }
 
     private void loadGameData() {
-        for(Category c : Main.categoryRepository.categories_list) {
-            if(c.getId() == game.getCategory()) view.setCbCategory(c.getName());
+        for (Category c : Main.categoryRepository.categories_list) {
+            if (c.getId() == game.getCategory())
+                view.setCbCategory(c.getName());
         }
 
-        for(Library l : Main.librariesRepository.library_list) {
-            if(l.getId() == game.getLibrary()) view.setCbLibrary(l.getName());
+        for (Library l : Main.librariesRepository.library_list) {
+            if (l.getId() == game.getLibrary())
+                view.setCbLibrary(l.getName());
         }
 
-        for(Platform p : Main.platformsRepository.platforms_list) {
-            if(p.getId() == game.getPlatform()) view.setCbPlatform(p.getName());
+        for (Platform p : Main.platformsRepository.platforms_list) {
+            if (p.getId() == game.getPlatform())
+                view.setCbPlatform(p.getName());
         }
 
         view.setCbRating(game.getRating());
@@ -110,36 +113,36 @@ public class EditGameController {
         view.setDateModified(game.getModified());
         view.setTxtaNotes(game.getNotes());
 
-        if(game.getFavorite() == 1)
+        if (game.getFavorite() == 1)
             view.setCheckFavorite(true);
         else
             view.setCheckFavorite(false);
 
-        if(game.getStatistic() == 1)
+        if (game.getStatistic() == 1)
             view.setCheckStatistic(true);
         else
             view.setCheckStatistic(false);
 
-        if(game.getPortable() == 1)
+        if (game.getPortable() == 1)
             view.setCheckPortable(true);
         else
             view.setCheckPortable(false);
 
-        if(game.getCompleted() == 1)
+        if (game.getCompleted() == 1)
             view.setCheckCompleted(true);
         else
             view.setCheckCompleted(false);
 
-        if(game.getCompleted() == 1) 
+        if (game.getCompleted() == 1)
             view.setCompletedDate(game.getCompletedDate());
         else
             view.setCompletedDate(DateUtils.getFormattedDate());
 
-        if(game.getHidden() == 1)
+        if (game.getHidden() == 1)
             view.setCheckHidden(true);
         else
             view.setCheckHidden(false);
-        
+
         String string = "(" + TimeUtils.getTotalHoursFromSeconds(view.getSpinGameTimeValue(), true) + ")";
         view.setLblConvertedSeconds(string);
     }
@@ -172,27 +175,27 @@ public class EditGameController {
         game.setTimePlayed(view.getSpinGameTimeValue());
         game.setNotes(view.getTxtaNotes());
 
-        if(view.getCompletedState()) 
+        if (view.getCompletedState())
             game.setCompleted(1);
-        else 
+        else
             game.setCompleted((0));
 
-        if(view.getHidden()) 
+        if (view.getHidden())
             game.setHidden(1);
-        else 
+        else
             game.setHidden((0));
 
-        if(view.getFavoriteState())
+        if (view.getFavoriteState())
             game.setFavorite(1);
         else
             game.setFavorite(0);
 
-        if(view.getStatisticState()) 
+        if (view.getStatisticState())
             game.setStatistic(1);
         else
             game.setStatistic(0);
 
-        if(view.getPortableState())
+        if (view.getPortableState())
             game.setPortable(1);
         else
             game.setPortable(0);
@@ -202,8 +205,8 @@ public class EditGameController {
         String string = "(" + TimeUtils.getTotalHoursFromSeconds(view.getSpinGameTimeValue(), true) + ")";
         view.setLblConvertedSeconds(string);
 
-        GameService gameService = new GameService();
-        gameService.saveGame(game);
+        GamesService gamesService = new GamesService();
+        gamesService.saveGame(game);
 
         HistoryService historyService = new HistoryService();
         historyService.changeName(game);

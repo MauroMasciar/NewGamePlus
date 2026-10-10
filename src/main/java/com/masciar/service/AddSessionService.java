@@ -17,7 +17,7 @@ import java.time.format.DateTimeFormatter;
 
 public class AddSessionService {
     public void AddSessionManually(String gameName, String time, String date_start, String hour_start) {
-        GameService gameService = new GameService();
+        GamesService gameService = new GamesService();
         Game game = gameService.findByName(gameName);
         int seconds = Integer.parseInt(time) * 60;
 
@@ -38,7 +38,9 @@ public class AddSessionService {
     }
 
     private void saveAll(Game game, String dateTimeStart, String dateTimeEnd, int seconds) {
-        History history = new History(Main.achievementsRepository.getList().size() + 1, "NO",  game.getId(), game.getName(), game.getLibrary(), game.getPlatform(), dateTimeStart, dateTimeEnd, seconds, game.getVersion()); // TODO: Obtener ID real
+        History history = new History(Main.achievementsRepository.getList().size() + 1, "NO", game.getId(),
+                game.getName(), game.getLibrary(), game.getPlatform(), dateTimeStart, dateTimeEnd, seconds,
+                game.getVersion()); // TODO: Obtener ID real
         saveHistory(history);
 
         saveGameTime(game, seconds);
@@ -65,8 +67,8 @@ public class AddSessionService {
     }
 
     private void plusLibrary(Game game, int seconds) {
-        for(int i=0; i<Main.librariesRepository.library_list.size(); i++) {
-            if(Main.librariesRepository.library_list.get(i).getId() == game.getLibrary()) {
+        for (int i = 0; i < Main.librariesRepository.library_list.size(); i++) {
+            if (Main.librariesRepository.library_list.get(i).getId() == game.getLibrary()) {
                 int secondsPlayed = Main.librariesRepository.library_list.get(i).getTimePlayed();
                 int sessions = Main.librariesRepository.library_list.get(i).getTotalSession();
                 Main.librariesRepository.library_list.get(i).setTimePlayed(secondsPlayed + seconds);
@@ -79,8 +81,8 @@ public class AddSessionService {
     }
 
     private void plusPlatform(Game game, int seconds) {
-        for(int i=0; i<Main.platformsRepository.platforms_list.size(); i++) {
-            if(Main.platformsRepository.platforms_list.get(i).getId() == game.getPlatform()) {
+        for (int i = 0; i < Main.platformsRepository.platforms_list.size(); i++) {
+            if (Main.platformsRepository.platforms_list.get(i).getId() == game.getPlatform()) {
                 int secondsPlayed = Main.platformsRepository.platforms_list.get(i).getTimePlayed();
                 int sessions = Main.platformsRepository.platforms_list.get(i).getTotalSessions();
                 Main.platformsRepository.platforms_list.get(i).setTimePlayed(secondsPlayed + seconds);
@@ -92,8 +94,8 @@ public class AddSessionService {
     }
 
     private void plusCategory(Game game, int seconds) {
-        for(int i=0; i<Main.categoryRepository.categories_list.size(); i++) {
-            if(Main.categoryRepository.categories_list.get(i).getId() == game.getCategory()) {
+        for (int i = 0; i < Main.categoryRepository.categories_list.size(); i++) {
+            if (Main.categoryRepository.categories_list.get(i).getId() == game.getCategory()) {
                 int secondsPlayed = Main.categoryRepository.categories_list.get(i).getTimePlayed();
                 int sessions = Main.categoryRepository.categories_list.get(i).getTotalSessions();
                 Main.categoryRepository.categories_list.get(i).setTimePlayed(secondsPlayed + seconds);

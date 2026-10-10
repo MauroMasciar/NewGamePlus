@@ -36,7 +36,7 @@ public class AchievementService {
     public void checkInGame(int playedSeconds) {
         String achievement = "";
 
-        if(game.getTimePlayed() + playedSeconds == 310) {
+        if (game.getTimePlayed() + playedSeconds == 310) {
             achievement = "Has jugado a " + game.getName() + " por primera vez";
             add(game.getName(), game.getId(), achievement, DateUtils.getFormattedDateTime());
         }
@@ -57,7 +57,7 @@ public class AchievementService {
         else if(game.getTimePlayed() + playedSeconds == Utils.SECONDS_PER_HOUR * 7500) achievement = "Has alcanzado 7500 horas de juego en " + game.getName();
         else if(game.getTimePlayed() + playedSeconds == Utils.SECONDS_PER_HOUR * 10000) achievement = "Has alcanzado 10000 horas de juego en " + game.getName();
 
-        if(!achievement.isEmpty()) {
+        if (!achievement.isEmpty()) {
             add(game.getName(), game.getId(), achievement, DateUtils.getFormattedDateTime());
         }
 
@@ -94,18 +94,18 @@ public class AchievementService {
     public void createCompletedGameAchievement(Game game) {
         List<Achievement> list = Main.achievementsRepository.achievementsList;
         boolean completed = false;
-        for(int i = 0; i < list.size(); i++) {
-            if(list.get(i).getGameId() == game.getId()) {
-                if(list.get(i).getDescription().contains("Has terminado el juego")) {
+        for (int i = 0; i < list.size(); i++) {
+            if (list.get(i).getGameId() == game.getId()) {
+                if (list.get(i).getDescription().contains("Has terminado el juego")) {
                     completed = true;
                     break;
                 }
             }
         }
-        if(!completed) {
+        if (!completed) {
             String text = "Has terminado el juego " + game.getName() + " en " + TimeUtils.getTotalHoursFromSeconds(game.getTimePlayed(), false);
             add(game.getName(), game.getId(), text, game.getCompletedDate() + " " + TimeUtils.getFormattedTime());
-        }        
+        }
     }
     
 
@@ -116,5 +116,9 @@ public class AchievementService {
         int id = achievementDAO.add(achievement);
         achievement.setId(id);
         MainWindow.refreshOpenViews();
+    }
+
+    public String getLastAchievement() {
+        return Main.achievementsRepository.getList().getLast().getDescription();
     }
 }
