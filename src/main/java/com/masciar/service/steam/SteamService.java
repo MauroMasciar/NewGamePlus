@@ -6,6 +6,10 @@ import com.masciar.app.Main;
 import com.masciar.logging.ErrorHandler;
 import com.masciar.model.steam.GetOwnedGames.GameModel;
 import com.masciar.model.steam.GetOwnedGames.GetOwnedGamesResponse;
+import com.masciar.model.steam.GetPlayerAchievements.GetPlayerAchievementsResponse;
+import com.masciar.model.steam.GetPlayerAchievements.PlayerAchievementsModel;
+import com.masciar.model.steam.GetSchemaForGame.Achievements;
+import com.masciar.model.steam.GetSchemaForGame.GetSchemaForGameResponse;
 import com.masciar.model.steam.vanity.ResolveVanityResponse;
 import com.masciar.model.steam.vanity.VanityModel;
 import com.masciar.service.ConfigService;
@@ -65,32 +69,39 @@ public class SteamService {
         return null;
     }
 
-    public void getPlayerGameAchievements(int appId) {
+    public List<PlayerAchievementsModel> getPlayerGameAchievements(int appId) {
         String url = String.format("https://api.steampowered.com/ISteamUserStats/GetPlayerAchievements/v1/?key=%s&steamid=%s&appid=%d", API_KEY, steamId64, appId);
 
+        ObjectMapper mapper = new ObjectMapper();
         HttpClient client = HttpClient.newHttpClient();
         HttpRequest request = HttpRequest.newBuilder().uri(URI.create(url)).GET().build();
 
-        try {
+         try {
             HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
-            System.out.println(response.body());
+            GetPlayerAchievementsResponse steamResponse = mapper.readValue(response.body(), GetPlayerAchievementsResponse.class);
+
+            return steamResponse.getPlayerstats().getAchievements();
         } catch (IOException | InterruptedException e) {
             ErrorHandler.handle(e);
         }
+        return null;
     }
 
-    public void getAchievementsGame(int appId) {
+    public List<Achievements> getAchievementsGame(int appId) {
         String url = String.format("https://api.steampowered.com/ISteamUserStats/GetSchemaForGame/v2/?key=%s&appid=%d&l=spanish", API_KEY, appId);
 
+        ObjectMapper mapper = new ObjectMapper();
         HttpClient client = HttpClient.newHttpClient();
         HttpRequest request = HttpRequest.newBuilder().uri(URI.create(url)).GET().build();
 
-        try {
+         try {
             HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
-            System.out.println(response.body());
+            GetSchemaForGameResponse steamResponse = mapper.readValue(response.body(), GetSchemaForGameResponse.class);
+            return steamResponse.getGame().getAvailableGameStats().getAchievements();
         } catch (IOException | InterruptedException e) {
             ErrorHandler.handle(e);
         }
+        return null;
     }
 
     public void assignAppIdToGame() {

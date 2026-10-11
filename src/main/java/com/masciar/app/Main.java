@@ -30,6 +30,7 @@ import com.masciar.repository.LibraryRepository;
 import com.masciar.repository.PlatformsRepository;
 import com.masciar.repository.PlayerRepository;
 import com.masciar.repository.SteamGamesRepository;
+import com.masciar.service.steam.UpdateAchievementsListSteam;
 //import com.masciar.service.ScreenshotService;
 import com.masciar.ui.MainWindow;
 
@@ -38,7 +39,7 @@ import javax.swing.UnsupportedLookAndFeelException;
 import com.formdev.flatlaf.themes.FlatMacDarkLaf;
 
 public class Main {
-    public static final String VERSION_APP = "2.1.16";
+    public static final String VERSION_APP = "2.1.17";
     public static PlayerRepository playerRepository;
     public static GameRepository gameRepository;
     public static CategoryRepository categoryRepository;
@@ -72,8 +73,17 @@ public class Main {
         // Se inicia la ventana principal
         MainWindow mw = new MainWindow();
 
-        // UpdateGamesListSteam u = new UpdateGamesListSteam();
-        // u.update();
-        // ss.getAchievementsGame(377160);
+         //UpdateGamesListSteam u = new UpdateGamesListSteam();
+         //u.update();
+
+         //UpdateAchievementsListSteam updateAchievementsListSteam = new UpdateAchievementsListSteam();
+         //updateAchievementsListSteam.update();
+
+         
+
+        //SteamService ss = new SteamService();
+         //ss.getAchievementsGame(377160);
+
+         //System.exit(0);
     }
 }

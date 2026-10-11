@@ -119,6 +119,8 @@ public class AchievementService {
     }
 
     public String getLastAchievement() {
-        return Main.achievementsRepository.getList().getLast().getDescription();
+        return Main.achievementsRepository.getList().getLast().getDescription() + " el " + 
+            DateUtils.formatDateFromString(Main.achievementsRepository.getList().getLast().getDate(), 2) + " a las " +
+            DateUtils.formatDateFromString(Main.achievementsRepository.getList().getLast().getDate(), 5);
     }
 }
