@@ -201,6 +201,9 @@ public class EditGameController {
             game.setPortable(0);
 
         view.setTxtaNotes(game.getNotes());
+        if (Utils.isNumeric(view.getTxtPath())) {
+            game.setAppId(Integer.parseInt(view.getTxtPath()));
+        }
 
         String string = "(" + TimeUtils.getTotalHoursFromSeconds(view.getSpinGameTimeValue(), true) + ")";
         view.setLblConvertedSeconds(string);

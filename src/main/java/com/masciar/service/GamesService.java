@@ -5,6 +5,7 @@ import com.masciar.dao.GamesDAO;
 import com.masciar.model.Game;
 import com.masciar.ui.AddGame;
 import com.masciar.util.DateUtils;
+import com.masciar.util.Utils;
 
 import javax.swing.DefaultListModel;
 import java.util.Comparator;
@@ -95,6 +96,9 @@ public class GamesService { // TODO: Desconectar servicio de la vista, hacerlo p
             notes = "";
 
         int appId = 0;
+        if (Utils.isNumeric(path)) {
+            appId = Integer.parseInt(path);
+        }
 
         if (name.isEmpty()) {
             return false;

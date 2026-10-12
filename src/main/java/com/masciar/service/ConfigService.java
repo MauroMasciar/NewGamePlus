@@ -2,6 +2,8 @@ package com.masciar.service;
 
 import com.masciar.logging.ErrorHandler;
 import com.masciar.repository.CategoryRepository;
+import com.masciar.service.steam.SteamService;
+import com.masciar.service.steam.UpdateAchievementsListSteam;
 
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -43,4 +45,11 @@ public class ConfigService {
 		CategoryRepository categoryRepository = new CategoryRepository();
 		categoryRepository.updateAll();
 	}
+
+    public void updateSteamAchievements() {
+        SteamService steamService = new SteamService();
+		steamService.assignAppIdToGame();
+		UpdateAchievementsListSteam u = new UpdateAchievementsListSteam();
+		u.update();
+    }
 }

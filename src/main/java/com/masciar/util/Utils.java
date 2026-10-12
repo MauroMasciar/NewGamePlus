@@ -84,4 +84,13 @@ public class Utils {
             tableColumn.setPreferredWidth(anchoMaximo + 10);
         }
     }
+
+    public static boolean isNumeric(String str) {
+        try {
+            Double.parseDouble(str);
+            return true;
+        } catch (NumberFormatException e) {
+            return false;
+        }
+    }
 }

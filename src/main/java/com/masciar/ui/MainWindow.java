@@ -164,7 +164,6 @@ public class MainWindow extends JFrame implements ActionListener, WindowStateLis
             } catch (NullPointerException ex) {
                 showError("Primero debes seleccionar un juego de la lista");
             }
-            
         } else if (e.getSource() == mnuiPlayerAddSession) {
             @SuppressWarnings("unused")
             AddSessionManuallyController addSessionController = new AddSessionManuallyController(this);

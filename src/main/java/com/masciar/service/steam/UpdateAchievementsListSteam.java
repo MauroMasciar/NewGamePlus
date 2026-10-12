@@ -51,7 +51,6 @@ public class UpdateAchievementsListSteam {
                 } catch (NullPointerException e) {
                     continue;
                 }
-
             }
         }
     }

@@ -25,7 +25,7 @@ public class AchievementHistoryController {
     }
 
     public void update() {
-        achievementTableModel = new AchievementTableModel(Main.achievementsRepository.getList().stream().sorted(Comparator.comparing(Achievement::getId).reversed()).toList());
+        achievementTableModel = new AchievementTableModel(Main.achievementsRepository.getList().stream().sorted(Comparator.comparing(Achievement::getDate).reversed()).toList());
         view.getTable().setModel(achievementTableModel);
         Utils.autoSizeTable(view.getTable());
     }

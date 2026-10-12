@@ -9,6 +9,7 @@ import com.masciar.util.TimeUtils;
 import com.masciar.util.Utils;
 import com.masciar.app.Main;
 
+import java.util.Comparator;
 import java.util.List;
 
 public class AchievementService {
@@ -109,7 +110,7 @@ public class AchievementService {
     }
     
 
-    public void add(String name, int gameId, String description, String date) {
+    public void add(String name, int gameId, String description, String date) { // TODO: Verificar si ya existe antes de agregar
         AchievementDAO achievementDAO = new AchievementDAO();
         Achievement achievement = new Achievement(Main.achievementsRepository.getList().size() + 1, name, gameId, description, date);
         Main.achievementsRepository.getList().add(achievement);
@@ -119,10 +120,11 @@ public class AchievementService {
     }
 
     public String getLastAchievement() {
+        List<Achievement> list = Main.achievementsRepository.getList().stream().sorted(Comparator.comparing(Achievement::getDate).reversed()).toList();
         try {
-            return Main.achievementsRepository.getList().getLast().getDescription() + " (" +
-                    DateUtils.formatDateFromString(Main.achievementsRepository.getList().getLast().getDate(), 2) + " " +
-                    DateUtils.formatDateFromString(Main.achievementsRepository.getList().getLast().getDate(), 5) + ")";
+            return list.getFirst().getDescription() + " (" +
+                    DateUtils.formatDateFromString(list.getFirst().getDate(), 2) + " " +
+                    DateUtils.formatDateFromString(list.getFirst().getDate(), 5) + ")";
         } catch (java.util.NoSuchElementException ex) {
             return "";
         }

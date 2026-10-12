@@ -19,6 +19,7 @@ public class Config extends JInternalFrame implements ComponentListener {
     private JTextField txtSteamId = new JTextField();
     private JButton btnSave = new JButton("Guardar");
     private JButton btnUpdateDataCategories = new JButton("Actualizar categorias");
+    private JButton btnUpdateSteamAchievements = new JButton("Actualizar lista de logros de Steam");
     private Timer debounceTimer;
 
     public Config() {
@@ -48,6 +49,7 @@ public class Config extends JInternalFrame implements ComponentListener {
         add(txtSteamId);
         add(btnSave);
         add(btnUpdateDataCategories);
+        add(btnUpdateSteamAchievements);
 
         setVisible(true);
     }
@@ -63,6 +65,10 @@ public class Config extends JInternalFrame implements ComponentListener {
 
     public void setBtnUpdateDataCategories(ActionListener listener) {
         btnUpdateDataCategories.addActionListener(listener);
+    }
+
+    public void setBtnUpdateSteamAchievements(ActionListener listener) {
+        btnUpdateSteamAchievements.addActionListener(listener);
     }
 
     public String getTxtSteamId() {
