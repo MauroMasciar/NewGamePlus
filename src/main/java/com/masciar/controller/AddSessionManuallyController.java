@@ -27,16 +27,19 @@ public class AddSessionManuallyController {
         String time = view.getTimeString();
         String date = view.getDateString();
         String hour = view.getHourString();
-
-        System.out.println(date);
-        System.out.println(hour);
+        boolean success;
 
         if(Integer.parseInt(time) <= 0) {
             view.showError("El tiempo de juego debe ser mayor a 0");
         } else {
-            addSessionService.AddSessionManually(gameName, time, date, hour);
-            view.showInfo("Sesión de juego añadida");
-            view.dispose();
+            success = addSessionService.AddSessionManually(gameName, time, date, hour);
+            
+            if (success) {
+                view.showInfo("Sesión de juego añadida");
+                view.dispose();
+            }
+            else
+                view.showError("No se ha podido añadir la sesión");
         }
     }
 

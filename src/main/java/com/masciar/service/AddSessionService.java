@@ -16,16 +16,22 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 public class AddSessionService {
-    public void AddSessionManually(String gameName, String time, String date_start, String hour_start) {
+    // BUG: Esto tira FECHA INVALIDA
+    public boolean AddSessionManually(String gameName, String time, String date_start, String hour_start) {
         GamesService gameService = new GamesService();
         Game game = gameService.findByName(gameName);
         int seconds = Integer.parseInt(time) * 60;
 
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-        LocalDateTime dateTimeStart = LocalDateTime.parse(date_start + " " + hour_start + ":00", formatter);
-        LocalDateTime dateTimeEnd = dateTimeStart.plusSeconds(seconds);
+        try {
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+            LocalDateTime dateTimeStart = LocalDateTime.parse(date_start + " " + hour_start + ":00", formatter);
+            LocalDateTime dateTimeEnd = dateTimeStart.plusSeconds(seconds);
 
-        saveAll(game, DateUtils.formatDateFromString(dateTimeStart.toString(), 3), DateUtils.formatDateFromString(dateTimeEnd.toString(), 3), seconds);
+            saveAll(game, DateUtils.formatDateFromString(dateTimeStart.toString(), 3), DateUtils.formatDateFromString(dateTimeEnd.toString(), 3), seconds);
+        } catch (java.time.format.DateTimeParseException e) {
+            return false;
+        }
+        return true;
     }
 
     public void addSession(Game game, LocalDateTime dateTimeStart, int seconds, int pausedSeconds) {
@@ -55,7 +61,10 @@ public class AddSessionService {
         game.setPlayCount(game.getPlayCount() + 1);
         game.setLastPlayed(DateUtils.getFormattedDateTime());
         GamesDAO gamesDao = new GamesDAO();
-        gamesDao.save(game);
+        int success = gamesDao.save(game);
+        if (success == 0) {
+            // TODO: Gestionar error
+        }
     }
 
     private void saveHistory(History history) {

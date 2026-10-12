@@ -15,7 +15,6 @@ import java.util.List;
 public class GamesDAO {
 	public List<Game> getAll() {
 		List<Game> games = new ArrayList<>();
-
 		String query = "SELECT * FROM games ORDER BY id";
 
 		try (Connection con = DriverManager.getConnection(Utils.DATABASE_URL);
@@ -144,8 +143,9 @@ public class GamesDAO {
 		}
 	}
 
-	public void save(Game game) {
+	public int save(Game game) {
 		String query = "UPDATE games SET category = ?, library = ?, score = ?, time_played = ?, play_count = ?, completed = ?, completed_date = ?, hidden = ?, path = ?, release_date = ?, developer = ?, series = ?, play_mode = ?, status = ?, last_played = ?, rating = ?, platform = ?, publisher = ?, region = ?, version = ?, added = ?, modified = ?, favorite = ?, statistic = ?, portable = ?, image = ?, notes = ?, steam_id = ? WHERE id = ?;";
+		int rowsAffected = 0;
 		try (Connection con = DriverManager.getConnection(Utils.DATABASE_URL);
 				PreparedStatement ps = con.prepareStatement(query)) {
 
@@ -179,11 +179,11 @@ public class GamesDAO {
 			ps.setInt(28, game.getAppId());
 			ps.setInt(29, game.getId());
 
-			int rowsAffected = ps.executeUpdate();
-			if (rowsAffected != 0)
-				System.out.println("Juego actualizado");
+			rowsAffected = ps.executeUpdate();
 		} catch (SQLException e) {
-			ErrorHandler.handle(e);
+			return 0;
 		}
+
+		return rowsAffected;
 	}
 }
