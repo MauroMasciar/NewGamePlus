@@ -1,13 +1,14 @@
 package com.masciar.controller;
 
 import com.masciar.app.Main;
+import com.masciar.ui.MainWindow;
 import com.masciar.model.Achievement;
 import com.masciar.ui.AchievementsHistory;
 import com.masciar.util.DateUtils;
 import com.masciar.util.Utils;
 
-import javax.swing.JDesktopPane;
 import javax.swing.table.AbstractTableModel;
+import java.awt.event.MouseAdapter;
 import java.util.Comparator;
 import java.util.List;
 
@@ -15,9 +16,16 @@ public class AchievementHistoryController {
     private AchievementsHistory view;
     private AchievementTableModel achievementTableModel;
 
-    public AchievementHistoryController(JDesktopPane desktopPane) {
-        view = new AchievementsHistory();
-        desktopPane.add(view);
+    public AchievementHistoryController(MainWindow window) {
+        view = new AchievementsHistory(window);
+        window.add(view);
+
+        view.setTableListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(java.awt.event.MouseEvent e) {
+                if(e.getClickCount() == 2) showDetails();
+            }
+        });
 
         update();
 
@@ -29,6 +37,10 @@ public class AchievementHistoryController {
         view.getTable().setModel(achievementTableModel);
         Utils.autoSizeTable(view.getTable());
     }
+
+    private void showDetails() {
+        view.showAchievementsDetails(achievementTableModel.getAchievementSelected(view.getTable().getSelectedRow()));
+    }
 }
 
 class AchievementTableModel extends AbstractTableModel {
@@ -39,6 +51,10 @@ class AchievementTableModel extends AbstractTableModel {
 
     public AchievementTableModel(List<Achievement> list) {
         this.list = list;
+    }
+
+    public Achievement getAchievementSelected(int rowIndex) {
+        return list.get(rowIndex);
     }
 
     @Override

@@ -112,7 +112,7 @@ public class MainWindow extends JFrame implements ActionListener, WindowStateLis
 
         generalSummaryController = new GeneralSummaryController(desktopPane);
         playerStatisticsController = new PlayerStatisticsController(desktopPane);
-        achievementHistoryController = new AchievementHistoryController(desktopPane);
+        achievementHistoryController = new AchievementHistoryController(this);
 
         setVisible(true);
     }
