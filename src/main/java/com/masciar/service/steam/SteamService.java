@@ -112,8 +112,8 @@ public class SteamService {
     public void assignAppIdToGame() {
         for (int i = 0; i < Main.steamGamesRepository.game_list.size(); i++) {
             for (int g = 0; g < Main.gameRepository.games_list.size(); g++) {
-                System.out.println(g);
                 if (Main.gameRepository.games_list.get(g).getName().equals(Main.steamGamesRepository.game_list.get(i).getName())) {
+                    Main.gameRepository.games_list.get(g).setAppId(Main.steamGamesRepository.getList().get(i).getAppId());
                     String query = "UPDATE games SET steam_id = ? WHERE name = ?";
                     try (Connection con = DriverManager.getConnection(Utils.DATABASE_URL);
                             PreparedStatement ps = con.prepareStatement(query)) {
