@@ -105,7 +105,7 @@ public class MainWindow extends JFrame implements ActionListener, WindowStateLis
 
         gamesList = new GamesList(desktopPane);
         desktopPane.add(gamesList);
-        desktopPane.add(new SessionsHistory());
+        desktopPane.add(new SessionsHistory(this));
 
         gameInfoController = new GameInfoController(this);
         gamesList.setListener(gameInfoController);

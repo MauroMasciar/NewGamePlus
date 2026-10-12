@@ -4,7 +4,6 @@ import com.masciar.model.Achievement;
 import com.masciar.service.ConfigService;
 import com.masciar.util.DateUtils;
 
-import javax.swing.JDesktopPane;
 import javax.swing.JInternalFrame;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
