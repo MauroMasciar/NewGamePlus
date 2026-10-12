@@ -28,6 +28,9 @@ public class AddSessionManuallyController {
         String date = view.getDateString();
         String hour = view.getHourString();
 
+        System.out.println(date);
+        System.out.println(hour);
+
         if(Integer.parseInt(time) <= 0) {
             view.showError("El tiempo de juego debe ser mayor a 0");
         } else {

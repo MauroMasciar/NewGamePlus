@@ -45,9 +45,7 @@ public class CategoryDAO {
                 }
             }
 
-            int rowsAffected = ps.executeUpdate();
-            if (rowsAffected != 0)
-                System.out.println("Categoria actualizada");
+            ps.executeUpdate();
         } catch (SQLException e) {
             ErrorHandler.handle(e);
         }

@@ -91,17 +91,13 @@ public class GamesDAO {
 			ps.setInt(29, game.getAppId());
 
 			int rowsAffected = ps.executeUpdate();
-			if (rowsAffected != 0) {
-				query = "SELECT id FROM games WHERE name = '" + game.getName() + "'";
-				try (Connection conn = DriverManager.getConnection(Utils.DATABASE_URL);
-						PreparedStatement pss = con.prepareStatement(query);
-						ResultSet rs = pss.executeQuery()) {
-							conn.close();
-					return rs.getInt(1);
+			if (rowsAffected > 0) {
+				try (ResultSet rs = ps.getGeneratedKeys()) {
+					if(rs.next()) return rs.getInt(1);
 				}
 			}
 		} catch (SQLException e) {
-			ErrorHandler.handle(e); // TODO: Crear mensaje para el usuario
+			return 0;
 		}
 		return 0;
 	}
@@ -142,9 +138,7 @@ public class GamesDAO {
 			ps.setInt(29, game.getAppId());
 			ps.setInt(30, game.getId());
 
-			int rowsAffected = ps.executeUpdate();
-			if (rowsAffected != 0)
-				System.out.println("Juego actualizado");
+			ps.executeUpdate();
 		} catch (SQLException e) {
 			ErrorHandler.handle(e);
 		}

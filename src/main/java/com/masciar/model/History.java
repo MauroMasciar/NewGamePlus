@@ -29,6 +29,10 @@ public class History {
         return id;
     }
 
+    public void setId(int id) {
+        this.id = id;
+    }
+
     public String getToken() {
         return token;
     }

@@ -111,20 +111,22 @@ public class AchievementService {
     
 
     public void add(String name, int gameId, String description, String date) {
-        boolean exist = false;
-        for (int i = 0; i < Main.achievementsRepository.achievementsList.size(); i++) {
-            if (Main.achievementsRepository.achievementsList.get(i).getDescription().equals(description)) {
-                exist = true;
-                break;
-            }
-        }
-        if (!exist) {
+        if (!achievementExists(description)) {
+            Achievement achievement = new Achievement(0, name, gameId, description, date);
             AchievementDAO achievementDAO = new AchievementDAO();
-            Achievement achievement = new Achievement(Main.achievementsRepository.getList().size() + 1, name, gameId, description, date);
-            Main.achievementsRepository.getList().add(achievement);
             int id = achievementDAO.add(achievement);
-            achievement.setId(id);
-            MainWindow.refreshOpenViews();
+            if (id != 0) {
+                achievement.setId(id);
+                Main.achievementsRepository.getList().add(achievement);
+                MainWindow.refreshOpenViews();
+            } else {
+                for (int i = 0; i < Main.achievementsRepository.achievementsList.size(); i++) {
+                    if (Main.achievementsRepository.achievementsList.get(i).getDescription().equals(description)) {
+                        Main.achievementsRepository.achievementsList.remove(i);
+                        break;
+                    }
+                }
+            }
         }
     }
 
@@ -137,5 +139,14 @@ public class AchievementService {
         } catch (java.util.NoSuchElementException ex) {
             return "";
         }
+    }
+
+    private boolean achievementExists(String description) {
+        for (int i = 0; i < Main.achievementsRepository.achievementsList.size(); i++) {
+            if (Main.achievementsRepository.achievementsList.get(i).getDescription().equals(description)) {
+                return true;
+            }
+        }
+        return false;
     }
 }

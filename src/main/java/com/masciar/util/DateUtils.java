@@ -70,8 +70,8 @@ public class DateUtils {
                 result = fecha.format(formatter);
             } catch (NullPointerException e) {
                 return "No registrado";
-            } catch (java.time.format.DateTimeParseException e) { // TODO: gestionar exception
-                // Text '0000-00-00 19:04:57' could not be parsed: Invalid value for YearOfEra (valid values 1 - 999999999/1000000000): 0
+            } catch (java.time.format.DateTimeParseException e) {
+                return "Fecha inválida";
             } catch (Exception e) {
                 ErrorHandler.handle(e);
             }

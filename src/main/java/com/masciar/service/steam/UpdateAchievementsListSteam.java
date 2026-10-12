@@ -10,7 +10,7 @@ import com.masciar.util.DateUtils;
 import java.util.List;
 
 public class UpdateAchievementsListSteam {
-    public void update() { // TODO: Que no agregue los logros ya existentes al modelo
+    public void update() {
         SteamService ss = new SteamService();
         GamesService gamesService = new GamesService();
 
@@ -43,8 +43,7 @@ public class UpdateAchievementsListSteam {
                                     description = description.substring(0, description.length() - 1);
                                 }
                                 description = description + " en " + name;
-                                achievementService.add(name, gamesService.findByName(name).getId(), description,
-                                        DateUtils.formatUnixDate(unlockTime));
+                                achievementService.add(name, gamesService.findByName(name).getId(), description, DateUtils.formatUnixDate(unlockTime));
                             }
                         }
                     }

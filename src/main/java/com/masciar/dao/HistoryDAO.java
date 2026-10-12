@@ -36,10 +36,10 @@ public class HistoryDAO {
 		return history;
 	}
 
-	public void add(History history) {
+	public int add(History history) {
 		String query = "INSERT INTO games_sessions_history (token, game_id, game_name, library_id, platform_id, datetime_start, datetime_end, seconds, game_version) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
 		try (Connection con = DriverManager.getConnection(Utils.DATABASE_URL);
-				PreparedStatement ps = con.prepareStatement(query)) {
+				PreparedStatement ps = con.prepareStatement(query, java.sql.Statement.RETURN_GENERATED_KEYS)) {
 			ps.setString(1, history.getToken());
 			ps.setInt(2, history.getGameId());
 			ps.setString(3, history.getGameName());
@@ -51,13 +51,15 @@ public class HistoryDAO {
 			ps.setString(9, history.getGameVersion());
 
 			int rowsAffected = ps.executeUpdate();
-			if (rowsAffected != 0)
-				System.out.println("Juego añadido al historial");
-			else
-				System.out.println("Error al añadir sesion al historial");
+			if (rowsAffected > 0) {
+				try (ResultSet rs = ps.getGeneratedKeys()) {
+					if(rs.next()) return rs.getInt(1);
+				}
+			}
 		} catch (SQLException e) {
-			ErrorHandler.handle(e);
+			return 0;
 		}
+		return 0;
 	}
 
 	public void changeName(Game game) {

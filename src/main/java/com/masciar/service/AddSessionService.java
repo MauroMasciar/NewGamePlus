@@ -1,9 +1,9 @@
 package com.masciar.service;
 
 import com.masciar.app.Main;
-import com.masciar.controller.HistoryController;
 import com.masciar.dao.CategoryDAO;
 import com.masciar.dao.GamesDAO;
+import com.masciar.dao.HistoryDAO;
 import com.masciar.dao.LibraryDAO;
 import com.masciar.dao.PlatformDAO;
 import com.masciar.model.Game;
@@ -38,9 +38,8 @@ public class AddSessionService {
     }
 
     private void saveAll(Game game, String dateTimeStart, String dateTimeEnd, int seconds) {
-        History history = new History(Main.achievementsRepository.getList().size() + 1, "NO", game.getId(),
-                game.getName(), game.getLibrary(), game.getPlatform(), dateTimeStart, dateTimeEnd, seconds,
-                game.getVersion()); // TODO: Obtener ID real
+        History history = new History(0, "NO", game.getId(), game.getName(), game.getLibrary(), game.getPlatform(),
+                dateTimeStart, dateTimeEnd, seconds, game.getVersion());
         saveHistory(history);
 
         saveGameTime(game, seconds);
@@ -60,9 +59,10 @@ public class AddSessionService {
     }
 
     private void saveHistory(History history) {
+        HistoryDAO historyDao = new HistoryDAO();
+        int id = historyDao.add(history);
+        history.setId(id);
         Main.historyRepository.getList().add(history);
-        HistoryController historyController = new HistoryController();
-        historyController.add(history);
         SessionsHistory.updateTableModel();
     }
 

@@ -25,25 +25,25 @@ public class EditGameController {
         try {
             view = new AddGame(window, game, true);
             MainWindow.hideViews(Utils.INTERNAL_FRAME_GAME_LIST);
-        } catch (NullPointerException e) {
-            // TODO: Controlar excepcion
-        }
 
-        this.game = game;
+            this.game = game;
         
-        loadCategories();
-        loadLibraries();
-        loadPlatforms();
-        loadGameData();
+            loadCategories();
+            loadLibraries();
+            loadPlatforms();
+            loadGameData();
 
-        view.pack();
+            view.pack();
 
-        view.showPopupCompletedDateListener(e -> showPopupCompletedDate());
-        view.showPopupReleaseDateListener(e -> showPopupReleaseDate());
-        view.setBtnSaveListener(e -> saveGame());
-        view.setSpinGameTimeListener(e -> setSpinGameTimer());
+            view.showPopupCompletedDateListener(e -> showPopupCompletedDate());
+            view.showPopupReleaseDateListener(e -> showPopupReleaseDate());
+            view.setBtnSaveListener(e -> saveGame());
+            view.setSpinGameTimeListener(e -> setSpinGameTimer());
 
-        view.setVisible(true);
+            view.setVisible(true);
+        } catch (NullPointerException e) {
+            window.showError("Primero debes seleccionar un juego de la lista");
+        }
     }
 
     public void loadCategories() {

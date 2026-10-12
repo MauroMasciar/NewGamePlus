@@ -47,7 +47,7 @@ public class AddGame extends JDialog {
     private final JLabel lblCompletedDate = new JLabel(" Fecha de completado:");
     private final JLabel lblPlayCount = new JLabel(" Veces jugado:");
     private final JLabel lblConvertedSeconds = new JLabel(" (00h 00m 00s)");
-    private final JLabel lblPath = new JLabel("Ejecutable:");
+    private final JLabel lblPath = new JLabel("Ejecutable o AppId:");
     private final JLabel lblScore = new JLabel(" Puntaje:");
     private final JLabel lblCategory = new JLabel("Categoria:");
     private final JTextField txtGameName = new JTextField(20);
@@ -149,7 +149,7 @@ public class AddGame extends JDialog {
         initPanelDetails();
         initPanelNotes();
 
-        txtPath.setToolTipText("Especifica la ruta completa al ejecutable");
+        txtPath.setToolTipText("Especifica la ruta completa al ejecutable o el AppId de Steam");
         chStatistic.setToolTipText("Especifica si quieres que este juego aparezca en las estadísticas");
 
         spinnerNumberModelScore.setMinimum(0);

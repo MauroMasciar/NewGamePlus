@@ -158,12 +158,8 @@ public class MainWindow extends JFrame implements ActionListener, WindowStateLis
             AddGameController addGameController = new AddGameController(this);
         } else if (e.getSource() == mnuiGamesEdit) {
             hideViews(Utils.INTERNAL_FRAME_GAME_LIST);
-            try {
-                @SuppressWarnings("unused")
-                EditGameController editGameController = new EditGameController(this, gameInfoController.getGameSelected());
-            } catch (NullPointerException ex) {
-                showError("Primero debes seleccionar un juego de la lista");
-            }
+            @SuppressWarnings("unused")
+            EditGameController editGameController = new EditGameController(this, gameInfoController.getGameSelected());
         } else if (e.getSource() == mnuiPlayerAddSession) {
             @SuppressWarnings("unused")
             AddSessionManuallyController addSessionController = new AddSessionManuallyController(this);

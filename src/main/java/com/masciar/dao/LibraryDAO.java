@@ -45,9 +45,7 @@ public class LibraryDAO {
                 }
             }
             
-            int rowsAffected = ps.executeUpdate();
-            if (rowsAffected != 0)
-                System.out.println("Libreria actualizada");
+            ps.executeUpdate();
         } catch (SQLException e) {
             ErrorHandler.handle(e);
         }

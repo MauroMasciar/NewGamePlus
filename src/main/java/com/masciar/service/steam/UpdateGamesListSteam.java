@@ -1,6 +1,5 @@
 package com.masciar.service.steam;
 
-import com.masciar.logging.ErrorHandler;
 import com.masciar.util.Utils;
 
 import java.sql.Connection;
@@ -29,7 +28,7 @@ public class UpdateGamesListSteam {
                 if (rowsAffected != 0)
                     System.out.println(i + " agregado");
             } catch (SQLException e) {
-                ErrorHandler.handle(e);
+                continue;
             }
         }
     }

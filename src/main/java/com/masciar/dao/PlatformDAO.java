@@ -45,9 +45,7 @@ public class PlatformDAO {
                 }
             }
 
-            int rowsAffected = ps.executeUpdate();
-            if (rowsAffected != 0)
-                System.out.println("Plataforma actualizada");
+            ps.executeUpdate();
         } catch (SQLException e) {
             ErrorHandler.handle(e);
         }

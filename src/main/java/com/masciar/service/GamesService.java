@@ -103,7 +103,7 @@ public class GamesService { // TODO: Desconectar servicio de la vista, hacerlo p
         if (name.isEmpty()) {
             return false;
         } else {
-            Game game = new Game(999999999, name, category, library, score, gameTime, playCount, completed, completed_date,
+            Game game = new Game(0, name, category, library, score, gameTime, playCount, completed, completed_date,
                     hide, path, releasedate,
                     developer, series, playMode, status, lastPlayed, rating, platform, publisher, region, version,
                     added, modified, favorite, statistic,
@@ -116,8 +116,9 @@ public class GamesService { // TODO: Desconectar servicio de la vista, hacerlo p
                 achievementService.createGameObtainedAchievement(game);
                 view.dispose();
                 return true;
-            } else
+            } else {
                 return false;
+            }
         }
     }
 
