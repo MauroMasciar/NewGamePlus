@@ -55,7 +55,7 @@ class AchievementTableModel extends AbstractTableModel {
     public Object getValueAt(int rowIndex, int columnIndex) {
         switch (columnIndex) {
             case 0:
-                return list.get(rowIndex).getDescription() + " el " + DateUtils.formatDateFromString(list.get(rowIndex).getDate(), 4) + " a las " + DateUtils.formatDateFromString(list.get(rowIndex).getDate(), 5);
+                return list.get(rowIndex).getDescription() + " (" + DateUtils.formatDateFromString(list.get(rowIndex).getDate(), 4) + " " + DateUtils.formatDateFromString(list.get(rowIndex).getDate(), 5) + ")";
         }
         return "";
     }

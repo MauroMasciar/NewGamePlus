@@ -16,7 +16,7 @@ import java.util.List;
 public class AchievementDAO {
     public List<Achievement> getAll() {
         List<Achievement> achievementsList = new ArrayList<>();
-        String query = "SELECT * FROM achievements ORDER BY id";
+        String query = "SELECT * FROM achievements ORDER BY date";
 
         try (Connection con = DriverManager.getConnection(Utils.DATABASE_URL);
                 PreparedStatement ps = con.prepareStatement(query);
@@ -44,18 +44,20 @@ public class AchievementDAO {
 
             int rowsAffected = ps.executeUpdate();
             if (rowsAffected != 0) {
-                query = "SELECT id FROM achievements WHERE description = '" + achievement.getDescription() + "'";
+                query = "SELECT id FROM achievements WHERE description = ?";
                 try (Connection conn = DriverManager.getConnection(Utils.DATABASE_URL);
                         PreparedStatement pss = con.prepareStatement(query);
-                        ResultSet rs = pss.executeQuery()) {
+                        ) {
+                            pss.setString(1, achievement.getDescription());
+                            ResultSet rs = pss.executeQuery();
                             conn.close();
                     return rs.getInt(1);
                 } catch (SQLException e) {
-                    ErrorHandler.handle(e);
+                    //ErrorHandler.handle(e);
                 }
             }
         } catch (SQLException e) {
-            ErrorHandler.handle(e);
+            //ErrorHandler.handle(e);
         }
         return 0;
     }

@@ -119,8 +119,12 @@ public class AchievementService {
     }
 
     public String getLastAchievement() {
-        return Main.achievementsRepository.getList().getLast().getDescription() + " el " + 
-            DateUtils.formatDateFromString(Main.achievementsRepository.getList().getLast().getDate(), 2) + " a las " +
-            DateUtils.formatDateFromString(Main.achievementsRepository.getList().getLast().getDate(), 5);
+        try {
+            return Main.achievementsRepository.getList().getLast().getDescription() + " (" +
+                    DateUtils.formatDateFromString(Main.achievementsRepository.getList().getLast().getDate(), 2) + " " +
+                    DateUtils.formatDateFromString(Main.achievementsRepository.getList().getLast().getDate(), 5) + ")";
+        } catch (java.util.NoSuchElementException ex) {
+            return "";
+        }
     }
 }

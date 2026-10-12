@@ -2,9 +2,11 @@ package com.masciar.util;
 
 import com.masciar.logging.ErrorHandler;
 
+import java.time.Instant;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeFormatterBuilder;
 import java.util.Arrays;
@@ -75,5 +77,9 @@ public class DateUtils {
             }
         }
         return result;
+    }
+
+    public static String formatUnixDate(int date) {
+        return Instant.ofEpochSecond(date).atZone(ZoneId.systemDefault()).format(DateTimeFormatter.ofPattern("YYYY-MM-dd HH:mm:ss"));
     }
 }

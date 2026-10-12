@@ -1,5 +1,6 @@
 package com.masciar.service.steam;
 
+import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.masciar.app.ApiSteamKey;
 import com.masciar.app.Main;
@@ -76,6 +77,8 @@ public class SteamService {
         HttpClient client = HttpClient.newHttpClient();
         HttpRequest request = HttpRequest.newBuilder().uri(URI.create(url)).GET().build();
 
+        mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+
          try {
             HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
             GetPlayerAchievementsResponse steamResponse = mapper.readValue(response.body(), GetPlayerAchievementsResponse.class);
@@ -94,6 +97,8 @@ public class SteamService {
         HttpClient client = HttpClient.newHttpClient();
         HttpRequest request = HttpRequest.newBuilder().uri(URI.create(url)).GET().build();
 
+        mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+
          try {
             HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
             GetSchemaForGameResponse steamResponse = mapper.readValue(response.body(), GetSchemaForGameResponse.class);
@@ -107,6 +112,7 @@ public class SteamService {
     public void assignAppIdToGame() {
         for (int i = 0; i < Main.steamGamesRepository.game_list.size(); i++) {
             for (int g = 0; g < Main.gameRepository.games_list.size(); g++) {
+                System.out.println(g);
                 if (Main.gameRepository.games_list.get(g).getName().equals(Main.steamGamesRepository.game_list.get(i).getName())) {
                     String query = "UPDATE games SET steam_id = ? WHERE name = ?";
                     try (Connection con = DriverManager.getConnection(Utils.DATABASE_URL);
