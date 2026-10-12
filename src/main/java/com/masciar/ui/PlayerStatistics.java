@@ -33,13 +33,13 @@ public class PlayerStatistics extends JInternalFrame implements ComponentListene
     }
 
     public void setInfo(String day, String sevenDays, String twoWeeks, String month, String year, int totalGames,
-            String lastAchiev) {
+            String lastAchiev, int totalAchievements) {
         String text = "Último dia: " + day + " | Semana: " + sevenDays + " | 2 semanas: " + twoWeeks + " | Mes: "
                 + month + " | Año " + year;
         lblInfo.setText(text);
         add(lblInfo);
 
-        text = "Juegos: " + totalGames;
+        text = "Juegos: " + totalGames + " | Logros: " + totalAchievements;
         lblInfoTwo.setText(text);
         add(lblInfoTwo);
 

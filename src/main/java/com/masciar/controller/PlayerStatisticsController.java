@@ -1,5 +1,6 @@
 package com.masciar.controller;
 
+import com.masciar.app.Main;
 import com.masciar.service.AchievementService;
 import com.masciar.service.GamesService;
 import com.masciar.service.HistoryService;
@@ -28,6 +29,7 @@ public class PlayerStatisticsController {
         String year = TimeUtils.getTotalHoursFromSeconds(historyService.getTimeLastYear(), false);
         int totalGames = gamesService.getTotal();
         String lastAchiev = achievementService.getLastAchievement();
-        playerStatistics.setInfo(day, week, twoWeek, month, year, totalGames, lastAchiev);
+        int totalAchievements = Main.achievementsRepository.achievementsList.size();
+        playerStatistics.setInfo(day, week, twoWeek, month, year, totalGames, lastAchiev, totalAchievements);
     }
 }

@@ -47,9 +47,10 @@ public class Config extends JInternalFrame implements ComponentListener {
         add(txtName);
         add(lblSteamId);
         add(txtSteamId);
-        add(btnSave);
         add(btnUpdateDataCategories);
         add(btnUpdateSteamAchievements);
+
+        add(btnSave);
 
         setVisible(true);
     }
