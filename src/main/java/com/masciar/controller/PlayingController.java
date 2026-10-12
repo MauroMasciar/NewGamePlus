@@ -5,6 +5,7 @@ import com.masciar.service.ConfigService;
 import com.masciar.service.LibraryService;
 import com.masciar.service.PlayingService;
 import com.masciar.service.Toast;
+import com.masciar.service.steam.SteamService;
 import com.masciar.service.AchievementService;
 import com.masciar.service.AddSessionService;
 import com.masciar.listener.ChronometerListener;
@@ -18,6 +19,9 @@ import com.masciar.util.Utils;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+
 import javax.swing.JDesktopPane;
 import javax.swing.Timer;
 
@@ -128,6 +132,14 @@ public class PlayingController implements ChronometerListener {
         } else {
             view.showError("El tiempo de juego ha sido muy corto y no se ha guardado");
         }
+
+        ExecutorService executor = Executors.newSingleThreadExecutor();
+        executor.submit(() -> {
+            SteamService steamService = new SteamService();
+            steamService.SessionAchievementChecker(game);
+        });
+        executor.shutdown();
+        
         end();
     }
 

@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.masciar.app.ApiSteamKey;
 import com.masciar.app.Main;
 import com.masciar.logging.ErrorHandler;
+import com.masciar.model.Game;
 import com.masciar.model.steam.GetOwnedGames.GameModel;
 import com.masciar.model.steam.GetOwnedGames.GetOwnedGamesResponse;
 import com.masciar.model.steam.GetPlayerAchievements.GetPlayerAchievementsResponse;
@@ -13,7 +14,10 @@ import com.masciar.model.steam.GetSchemaForGame.Achievements;
 import com.masciar.model.steam.GetSchemaForGame.GetSchemaForGameResponse;
 import com.masciar.model.steam.vanity.ResolveVanityResponse;
 import com.masciar.model.steam.vanity.VanityModel;
+import com.masciar.service.AchievementService;
 import com.masciar.service.ConfigService;
+import com.masciar.service.GamesService;
+import com.masciar.util.DateUtils;
 import com.masciar.util.Utils;
 
 import java.io.IOException;
@@ -126,5 +130,41 @@ public class SteamService {
                 }
             }
         }
+    }
+
+    public boolean SessionAchievementChecker(Game game) {
+        boolean achievObtained = false;
+        if (game.getAppId() != 0) {
+            AchievementService achievementService = new AchievementService();
+            List<Achievements> gameAchievementsList = getAchievementsGame(game.getAppId());
+            List<PlayerAchievementsModel> playerAchievementList = getPlayerGameAchievements(game.getAppId());
+
+            for (int b = 0; b < playerAchievementList.size(); b++) {
+                if (playerAchievementList.get(b).getAchieved() == 1) {
+                    String apiName = playerAchievementList.get(b).getApiName();
+                    int unlockTime = playerAchievementList.get(b).getUnlocktime();
+
+                    Achievements matchedAchievement = null;
+                    for (int c = 0; c < gameAchievementsList.size(); c++) {
+                        if (apiName.equals(gameAchievementsList.get(c).getName())) {
+                            matchedAchievement = gameAchievementsList.get(c);
+                            break;
+                        }
+                    }
+
+                    if (matchedAchievement != null) {
+                        achievObtained = true;
+                        String description = matchedAchievement.getDescription();
+                        if (description.endsWith(".")) 
+                            description = description.substring(0, description.length() - 1);
+                        description = description + " en " + game.getName();
+                        GamesService gamesService = new GamesService();
+                        achievementService.add(game.getName(), gamesService.findByName(game.getName()).getId(), description, DateUtils.formatUnixDate(unlockTime));
+                    }
+
+                }
+            }
+        }
+        return achievObtained;
     }
 }
