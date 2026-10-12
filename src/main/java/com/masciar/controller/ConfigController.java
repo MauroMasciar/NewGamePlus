@@ -4,6 +4,9 @@ import com.masciar.service.ConfigService;
 import com.masciar.service.Toast;
 import com.masciar.ui.Config;
 
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+
 import javax.swing.JDesktopPane;
 
 public class ConfigController {
@@ -24,13 +27,23 @@ public class ConfigController {
     }
 
     public void updateDataCategories() {
-        ConfigService configService = new ConfigService();
-        configService.updateDataCategories();
+        ExecutorService executor = Executors.newSingleThreadExecutor();
+        executor.submit(() -> {
+            ConfigService configService = new ConfigService();
+            configService.updateDataCategories();
+        });
+
+        executor.shutdown();
     }
 
     public void updateSteamAchievements() {
-        ConfigService configService = new ConfigService();
-        configService.updateSteamAchievements();
-        Toast.showToast(view, "Lista de logros actualizada");
+        ExecutorService executor = Executors.newSingleThreadExecutor();
+        executor.submit(() -> {
+            ConfigService configService = new ConfigService();
+            configService.updateSteamAchievements();
+            Toast.showToast(view, "Lista de logros actualizada");
+        });
+
+        executor.shutdown();
     }
 }

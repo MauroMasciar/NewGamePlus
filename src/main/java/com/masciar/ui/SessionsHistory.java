@@ -71,7 +71,6 @@ public class SessionsHistory extends JInternalFrame implements ComponentListener
 
     private void showDetails() {
         showInfo(historyTableModel.getHistorySelected(table.getSelectedRow()));
-        
     }
 
     private void showInfo(History history) {

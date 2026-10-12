@@ -38,7 +38,7 @@ import javax.swing.UnsupportedLookAndFeelException;
 import com.formdev.flatlaf.themes.FlatMacDarkLaf;
 
 public class Main {
-    public static final String VERSION_APP = "2.1.26";
+    public static final String VERSION_APP = "2.1.27";
     public static PlayerRepository playerRepository;
     public static GameRepository gameRepository;
     public static CategoryRepository categoryRepository;
@@ -73,8 +73,6 @@ public class Main {
         MainWindow mw = new MainWindow();
 
         
-
-         
 
         /*SteamService ss = new SteamService();
         //ss.getAchievementsGame(377160);

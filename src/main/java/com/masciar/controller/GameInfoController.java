@@ -32,7 +32,7 @@ public class GameInfoController implements GameSelectedListener {
     }
 
     public void update() {
-        try {
+        if(gameSelected != null) {
             view.getSummaryPanel().setGameName(gameSelected.getName());
             view.getSummaryPanel().setLibrary(libraryService.findNameById(gameSelected.getLibrary()));
             view.getSummaryPanel().setCategory(categoryService.findNameById(gameSelected.getCategory()));
@@ -51,8 +51,6 @@ public class GameInfoController implements GameSelectedListener {
             }
             view.getSummaryPanel().setCompleted(gameSelected.getCompleted());
             view.pack();
-        } catch (NullPointerException e) {
-            // BUG: Tira NullPointerException al terminar una sesion
         }
     }
 
