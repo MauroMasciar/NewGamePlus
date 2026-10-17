@@ -44,44 +44,36 @@ public class AchievementService {
 
         achievement = "";
         
-        if(game.getTimePlayed() + playedSeconds == Utils.SECONDS_PER_HOUR) achievement = "Has alcanzado tu primera hora de juego en " + game.getName();
-        else if(game.getTimePlayed() + playedSeconds == Utils.SECONDS_PER_HOUR * 5) achievement = "Has alcanzado 5 horas de juego en " + game.getName();
-        else if(game.getTimePlayed() + playedSeconds == Utils.SECONDS_PER_HOUR * 10) achievement = "Has alcanzado 10 horas de juego en " + game.getName();
-        else if(game.getTimePlayed() + playedSeconds == Utils.SECONDS_PER_HOUR * 25) achievement = "Has alcanzado 25 horas de juego en " + game.getName();
-        else if(game.getTimePlayed() + playedSeconds == Utils.SECONDS_PER_HOUR * 50) achievement = "Has alcanzado 50 horas de juego en " + game.getName();
-        else if(game.getTimePlayed() + playedSeconds == Utils.SECONDS_PER_HOUR * 100) achievement = "Has alcanzado 100 horas de juego en " + game.getName();
-        else if(game.getTimePlayed() + playedSeconds == Utils.SECONDS_PER_HOUR * 250) achievement = "Has alcanzado 250 horas de juego en " + game.getName();
-        else if(game.getTimePlayed() + playedSeconds == Utils.SECONDS_PER_HOUR * 500) achievement = "Has alcanzado 500 horas de juego en " + game.getName();
-        else if(game.getTimePlayed() + playedSeconds == Utils.SECONDS_PER_HOUR * 1000) achievement = "Has alcanzado 1000 horas de juego en " + game.getName();
-        else if(game.getTimePlayed() + playedSeconds == Utils.SECONDS_PER_HOUR * 2000) achievement = "Has alcanzado 2000 horas de juego en " + game.getName();
-        else if(game.getTimePlayed() + playedSeconds == Utils.SECONDS_PER_HOUR * 5000) achievement = "Has alcanzado 5000 horas de juego en " + game.getName();
-        else if(game.getTimePlayed() + playedSeconds == Utils.SECONDS_PER_HOUR * 7500) achievement = "Has alcanzado 7500 horas de juego en " + game.getName();
-        else if(game.getTimePlayed() + playedSeconds == Utils.SECONDS_PER_HOUR * 10000) achievement = "Has alcanzado 10000 horas de juego en " + game.getName();
+        int totalPlayedSeconds = game.getTimePlayed() + playedSeconds;
 
-        if (!achievement.isEmpty()) {
-            add(game.getName(), game.getId(), achievement, DateUtils.getFormattedDateTime());
+        int[] milestones = {
+                1, 5, 10, 25, 50, 100, 250, 500,
+                1000, 2000, 5000, 7500, 10000
+        };
+
+        for (int hours : milestones) {
+            if (totalPlayedSeconds == Utils.SECONDS_PER_HOUR * hours) {
+                achievement = "Has alcanzado " + (hours == 1 ? "tu primera hora" : hours + " horas") + " de juego en " + game.getName();
+                add(game.getName(), game.getId(), achievement, DateUtils.getFormattedDateTime());
+                break;
+            }
         }
 
         achievement = "";
 
-        int totalSecondsPlayed = (playedSeconds + playerService.getTotalTimePlayed());
+        int totalSecondsPlayed = playedSeconds + playerService.getTotalTimePlayed();
 
-        if(totalSecondsPlayed % 60 == 0) {
-            if(totalSecondsPlayed == Utils.SECONDS_PER_HOUR) achievement = "Has alcanzado tu primera hora de juego en total";
-            else if(totalSecondsPlayed == Utils.SECONDS_PER_HOUR * 5) achievement = "Has alcanzado 5 horas de juego en total";
-            else if(totalSecondsPlayed == Utils.SECONDS_PER_HOUR * 10) achievement = "Has alcanzado 10 horas de juego en total";
-            else if(totalSecondsPlayed == Utils.SECONDS_PER_HOUR * 25) achievement = "Has alcanzado 25 horas de juego en total";
-            else if(totalSecondsPlayed == Utils.SECONDS_PER_HOUR * 50) achievement = "Has alcanzado 50 horas de juego en total";
-            else if(totalSecondsPlayed == Utils.SECONDS_PER_HOUR * 100) achievement = "Has alcanzado 100 horas de juego en total";
-            else if(totalSecondsPlayed == Utils.SECONDS_PER_HOUR * 250) achievement = "Has alcanzado 250 horas de juego en total";
-            else if(totalSecondsPlayed == Utils.SECONDS_PER_HOUR * 500) achievement = "Has alcanzado 500 horas de juego en total";
-            else if(totalSecondsPlayed == Utils.SECONDS_PER_HOUR * 1000) achievement = "Has alcanzado 1000 horas de juego en total";
-            else if(totalSecondsPlayed == Utils.SECONDS_PER_HOUR * 2000) achievement = "Has alcanzado 2000 horas de juego en total";
-            else if(totalSecondsPlayed == Utils.SECONDS_PER_HOUR * 5000) achievement = "Has alcanzado 5000 horas de juego en total";
-            else if(totalSecondsPlayed == Utils.SECONDS_PER_HOUR * 7500) achievement = "Has alcanzado 7500 horas de juego en total";
-            else if(totalSecondsPlayed == Utils.SECONDS_PER_HOUR * 10000) achievement = "Has alcanzado 10000 horas de juego en total";
+        if (totalSecondsPlayed % 60 == 0) {
+            for (int hours : milestones) {
+                if (totalSecondsPlayed == Utils.SECONDS_PER_HOUR * hours) {
+                    achievement = hours == 1
+                            ? "Has alcanzado tu primera hora de juego en total"
+                            : "Has alcanzado " + hours + " horas de juego en total";
+                    break;
+                }
+            }
 
-            if(!achievement.isEmpty()) {
+            if (!achievement.isEmpty()) {
                 add(game.getName(), game.getId(), achievement, DateUtils.getFormattedDateTime());
             }
         }
